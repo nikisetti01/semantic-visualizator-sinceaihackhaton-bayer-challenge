@@ -1,0 +1,20 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "hse-mining-frontend"
+version = "0.0.1"
+description = ''
+readme = "README.md"
+requires-python = ">=3.13"
+
+dependencies = [
+  "pandas>=2.2.3",
+  "streamlit>=1.40.2",
+  "awswrangler>=3.10.1",
+  "python-dotenv>=1.0.1"
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["hse-mining-frontend"]
