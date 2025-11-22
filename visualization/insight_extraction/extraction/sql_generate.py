@@ -1,7 +1,6 @@
 import json
 from typing import Any, Dict, Optional
-from prompts.extraction_prompt import build_extraction_prompt
-from visualization.model.llm_client import OpenAILLMClient
+from insight_extraction.prompts.extraction_prompt import build_extraction_prompt
 
 
 class SQLQueryGenerator:
@@ -12,7 +11,7 @@ class SQLQueryGenerator:
 
     def __init__(
         self,
-        llm_client: Optional[OpenAILLMClient] = None,
+        llm_client: Any,
         sql_dialect: str = "SQLite",
     ) -> None:
 
