@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import json
 
-from semantic_intent import get_semantic_intent
-from llm_client import OpenAILLMClient
+from visualization.categorizer.semantic_intent.semantic_intent import get_semantic_intent
+from visualization.model.llm_client import OpenAILLMClient
 import os
 from datetime import datetime
 

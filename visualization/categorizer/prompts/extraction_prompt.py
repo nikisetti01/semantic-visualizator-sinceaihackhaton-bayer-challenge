@@ -32,20 +32,18 @@ Think through the problem carefully and design the query structure (filters, gro
 """
 
 
-def build_system_prompt(sql_dialect: str = "PostgreSQL") -> str:
+def build_system_prompt(sql_dialect: str = "SQLite") -> str:
     """
     Build the system prompt that instructs the LLM how to behave
     when generating SQL.
     """
-    return 
+    return EXTRACTION_SYSTEM_PROMPT.format(SQL_DIALECT=sql_dialect) 
 
 
 def build_user_prompt(
     user_question: str,
     json_spec: Dict[str, Any],
     table_schema_text: str,
-    main_table: str,
-    sql_dialect: str = "PostgreSQL",
     data_structure_notes: Optional[str] = None,
 ) -> str:
     """
@@ -61,28 +59,27 @@ def build_user_prompt(
         data_structure_notes = f"""- Each row represents an observation.
 - Dimensions mentioned in the JSON spec (for example LOCATION, OBS_TYPE, STATUS, etc.) are stored in the table columns as described in the schema above.
 - Time-related considerations (for example from/to dates) must use the appropriate timestamp column (for example event_time).
-- If you need to aggregate observations by a dimension, you may use GROUP BY on the relevant dimension value column(s).
+- If you need to aggregate observations by a dimension, you may use GROUP BY on the relevant dimension value column(s) the specific structure of the data is {table_schema_text}.
 - If it makes sense, you may apply thresholds on confidence scores (for example dimension_confidence >= 0.5) when counting or aggregating, but only if that improves alignment with the requested metric."""
 
     json_spec_str = json.dumps(json_spec, indent=2)
 
     return f"""User question (natural language)
--------------------------------
-{user_question}
-
-
-JSON metric spec (parsed from the question)
-------------------------------------------
-This JSON summarizes the metric(s), dimensions, filters, and time considerations that should be used to answer the user question.
-
-```json
-{json_spec_str} """
+            -------------------------------
+            {user_question}
+            
+            
+            JSON metric spec (parsed from the question)
+            ------------------------------------------
+            This JSON summarizes the metric(s), dimensions, filters, and time considerations that should be used to answer the user question.
+            
+            ```json
+            {json_spec_str} """
 
 def build_extraction_prompt(
     user_question: str,
     json_spec: Dict[str, Any],
     table_schema_text: str,
-    main_table: str,
     sql_dialect: str = "SQLite",
     data_structure_notes: Optional[str] = None,
 ) -> str:
@@ -94,14 +91,13 @@ def build_extraction_prompt(
         user_question,
         json_spec,
         table_schema_text,
-        main_table,
-        sql_dialect,
         data_structure_notes,
     )
 
     full_prompt = f"""SYSTEM PROMPT
-{system_prompt}
+                    {system_prompt}
 
-USER PROMPT
-{user_prompt}
-"""
+                    USER PROMPT
+                    {user_prompt}
+                    """
+    return full_prompt

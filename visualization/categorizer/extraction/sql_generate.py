@@ -1,7 +1,7 @@
 import json
 from typing import Any, Dict, Optional
 from prompts.extraction_prompt import build_extraction_prompt
-
+from visualization.model.llm_client import OpenAILLMClient
 
 
 class SQLQueryGenerator:
@@ -31,14 +31,14 @@ class SQLQueryGenerator:
         Costruisce il prompt completo, chiama il modello e restituisce
         il codice SQL (potenzialmente più query).
         """
-        prompt = build_sql_prompt(
+        prompt = build_extraction_prompt(
             user_question=user_question,
             json_spec=json_spec,
             table_schema_text=table_schema_text,
-            main_table=main_table,
+        
             sql_dialect=self.sql_dialect,
             data_structure_notes=data_structure_notes,
         )
-
+        print(prompt)
         sql_code = self.llm_client.invoke(prompt)
         return sql_code

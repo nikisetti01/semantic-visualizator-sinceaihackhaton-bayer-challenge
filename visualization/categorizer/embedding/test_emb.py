@@ -1,7 +1,7 @@
 from __future__ import annotations
 import json
 
-from embedder import (
+from visualization.categorizer.embedding.embedding import (
     load_observations_excel,
     load_embedding_model,
     embed_texts,

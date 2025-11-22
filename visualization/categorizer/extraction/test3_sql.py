@@ -1,5 +1,8 @@
-from sql_generate import SQLQueryGenerator
-from llm_client_openai import OpenAILLMClient
+from visualization.categorizer.extraction.sql_generate import SQLQueryGenerator
+import json
+import pandas as pd
+from visualization.model.llm_client import OpenAILLMClient
+from visualization.categorizer.extraction.table_creator import save_columns_to_json
 
 def main() -> None:
     # Prompt di test (quello della challenge)
@@ -36,4 +39,7 @@ def main() -> None:
         main_table="semantic_observations",
     )
 
-print(sql_code)
+    print(sql_code)
+
+if __name__ == "__main__":
+    main()
