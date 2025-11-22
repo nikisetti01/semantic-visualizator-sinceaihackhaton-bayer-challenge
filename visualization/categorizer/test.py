@@ -17,8 +17,7 @@ def save_intent_to_file(intent: dict, output_path: str) -> None:
 def main() -> None:
     # Prompt di test (quello della challenge)
     user_question = (
-        "What proportion, relative to all events in December 2024, "
-        "occurred in office spaces, production facilities, and outdoor areas?"
+        "Analyze the observations related to electrical safety from the years 2024–2025. Is there an upward or downward trend over time?"
     )
 
     # Schema di esempio (puoi adattarlo a data_en)
@@ -36,7 +35,7 @@ def main() -> None:
 
     # Client OpenAI reale (assume OPENAI_API_KEY nell'ambiente)
     llm_client = OpenAILLMClient(
-        model_name="gpt-4.1-mini",  # o "gpt-4.1", "gpt-4o", ecc.
+        model_name="gpt-4.1",  # o "gpt-4.1", "gpt-4o", ecc.
         temperature=0.0,
         max_output_tokens=512,
     )

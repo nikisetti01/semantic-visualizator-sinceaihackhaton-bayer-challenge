@@ -1,0 +1,66 @@
+{
+  "raw_question": "What has been the average processing time of observations from Assembly Department B, broken down by month, in 2024?",
+  "metric": "avg_processing_time",
+  "time": {
+    "from": "2024-01-01",
+    "to": "2024-12-31",
+    "year": 2024,
+    "month": null
+  },
+  "group_by": [
+    {
+      "dimension_type": "TIME",
+      "values": [
+        "month",
+        "quarter",
+        "year",
+        "week",
+        "day"
+      ]
+    },
+    {
+      "dimension_type": "DEPARTMENT",
+      "values": [
+        "Assembly Department B",
+        "Assembly Department A",
+        "production",
+        "maintenance",
+        "quality_control",
+        "logistics",
+        "engineering",
+        "facility_management",
+        "administration",
+        "safety"
+      ]
+    },
+    {
+      "dimension_type": "OBSERVATION_TYPE",
+      "values": [
+        "safety_observation",
+        "near_miss",
+        "incident",
+        "hazard_report",
+        "maintenance_request",
+        "environmental_observation"
+      ]
+    },
+    {
+      "dimension_type": "STATUS",
+      "values": [
+        "open",
+        "closed",
+        "in_progress",
+        "pending_review",
+        "rejected",
+        "resolved"
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "dimension_type": "DEPARTMENT",
+      "operator": "=",
+      "value": "Assembly Department B"
+    }
+  ]
+}

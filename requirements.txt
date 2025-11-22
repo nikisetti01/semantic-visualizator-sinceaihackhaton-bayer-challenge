@@ -1,1 +1,6 @@
 openai
+sentence-transformers
+scikit-learn
+matplotlib
+pandas
+openpyxl
