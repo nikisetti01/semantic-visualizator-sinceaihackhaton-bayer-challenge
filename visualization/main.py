@@ -115,7 +115,7 @@ def main(timestamp: str) -> None:
     exec_results = execute_sql_on_sqlite(db_path=db_path, sql_response=sql_code)
     save_sql_results_to_csv(exec_results, output_dir=f"output/aggregate_sql_results")
     
-    print(r
+    print(results_to_dataframes(exec_results))
     
 
 if __name__ == "__main__":
