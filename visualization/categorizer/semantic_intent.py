@@ -14,7 +14,7 @@ from __future__ import annotations
 
 import json
 from typing import Any, Dict, List, Optional
-from prompts_intent import build_intent_prompt
+from prompts.intent_prompt import build_intent_prompt
 
 # ---------------------------------------------------------------------
 # Costanti: schema logico e prompt di sistema
