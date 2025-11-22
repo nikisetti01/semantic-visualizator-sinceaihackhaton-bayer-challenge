@@ -11,8 +11,7 @@ from categorizer.io.data_loader import load_observations_excel
 from categorizer.io.save_json import save_assignment_json
 from categorizer.embedding.model_loader import load_embedding_model
 from categorizer.embedding.embedder import embed_texts, embed_categories
-from categorizer.matching.multi_matcher import match_all_dimensions
-
+from categorizer.matching.multi_matching import match_all_dimensions
 
 def build_assignment_json(
     df: pd.DataFrame,
