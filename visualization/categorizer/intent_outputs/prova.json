@@ -1,46 +1,16 @@
 {
-  "raw_question": "Examine the safety observations from March. How many of the observations were caused by haste, and what was the most common safety-related risk among them?",
+  "raw_question": "Analyze all safety observations from 2024. What was the average processing time for the observations? Do any trends emerge regarding which types of observations have a longer-than-usual processing time?",
   "metrics": [
-    "count_events"
+    "avg_processing_time",
+    "trend_over_time"
   ],
   "time": {
-    "from": null,
-    "to": null,
-    "year": null,
-    "month": 3
+    "from": "2024-01-01",
+    "to": "2024-12-31",
+    "year": 2024,
+    "month": null
   },
   "group_by": [
-    {
-      "dimension_type": "CAUSE",
-      "values": [
-        "haste",
-        "inattention",
-        "fatigue",
-        "lack_of_training",
-        "equipment_failure",
-        "procedural_error",
-        "distraction",
-        "time_pressure",
-        "miscommunication",
-        "complacency"
-      ]
-    },
-    {
-      "dimension_type": "RISK_TYPE",
-      "values": [
-        "slip_trip_fall",
-        "electrical_safety",
-        "chemical_exposure",
-        "fire_risk",
-        "machine_guarding",
-        "ergonomic_risk",
-        "confined_space",
-        "manual_handling",
-        "PPE_noncompliance",
-        "vehicle_safety",
-        "working_at_height"
-      ]
-    },
     {
       "dimension_type": "OBSERVATION_TYPE",
       "values": [
@@ -48,7 +18,34 @@
         "near_miss",
         "incident",
         "hazard_report",
-        "environmental_observation"
+        "environmental_observation",
+        "quality_issue",
+        "maintenance_request",
+        "unsafe_condition",
+        "unsafe_act"
+      ]
+    },
+    {
+      "dimension_type": "TIME",
+      "values": [
+        "month",
+        "quarter",
+        "year"
+      ]
+    },
+    {
+      "dimension_type": "DEPARTMENT",
+      "values": [
+        "production",
+        "maintenance",
+        "quality_control",
+        "logistics",
+        "administration",
+        "safety",
+        "engineering",
+        "warehouse",
+        "operations",
+        "facility_management"
       ]
     }
   ],
@@ -57,11 +54,6 @@
       "dimension_type": "OBSERVATION_TYPE",
       "operator": "=",
       "value": "safety_observation"
-    },
-    {
-      "dimension_type": "CAUSE",
-      "operator": "=",
-      "value": "haste"
     }
   ]
 }
