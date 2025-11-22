@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-DEFAULT_PROMPT_PATH = Path("initial_prompt/prompt_1.txt")
+DEFAULT_PROMPT_PATH = Path("initial_prompts/prompt_1.txt")
 
 def load_user_query() -> str:
     """

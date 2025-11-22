@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-DEFAULT_OUTPUT_PATH = Path("chart_recommendation_1.txt")
+DEFAULT_OUTPUT_PATH = Path("../../chart_recommendation/recommendation.txt")
 
 def save_text_file(text: str) -> Path:
     """

@@ -1,0 +1,60 @@
+PART 1: SEMANTIC DECOMPOSITION & MAPPING
+
+1. **Identify Key Terms:**
+   - "proportion"
+   - "relative to all events"
+   - "December 2024"
+   - "office spaces"
+   - "production facilities"
+   - "outdoor areas"
+
+2. **Map to Data Schema:**
+   - User Term "proportion" → Requires calculation of share/percentage of total events.
+   - User Term "December 2024" → Column "Month" (Value: 12) AND Column "Year" (Value: 2024)
+   - User Term "office spaces" → Column "Location_type" (Value matches: likely "Office", but must match actual values in "Location_type")
+   - User Term "production facilities" → Column "Location_type" (Value matches: likely "Production Facility" or similar)
+   - User Term "outdoor areas" → Column "Location_type" (Value matches: likely "Outdoor" or similar)
+   - User Term "all events" → All rows after applying the December 2024 filter
+
+3. **Identify Constraints/Filters:**
+   - Filter: "Year" == 2024
+   - Filter: "Month" == 12
+   - Only consider events where "Location_type" is "office spaces", "production facilities", or "outdoor areas" for the breakdown, but the denominator is all events in December 2024.
+
+4. **Determine Analytical Goal:**
+   - This is a Part-to-Whole comparison: What share of December 2024 events occurred in each specified location type, relative to the total number of events that month.
+
+---
+
+PART 2: CHART RECOMMENDATIONS
+
+**Recommendation 1:**
+
+- **Chart Title:** Proportion of December 2024 Events by Location Type (Office, Production, Outdoor)
+- **Chart Type:** Donut Chart
+- **Visual Mapping (The Blueprint):**
+    - *Segments:* "Location_type" (filtered to "office spaces", "production facilities", "outdoor areas", and optionally "Other / Unknown" for completeness)
+    - *Value:* Count of "Event_ID" per "Location_type"
+    - *Color:* Use traffic light logic—assign red to the highest proportion, green to the lowest, yellow to intermediate, to highlight risk concentration.
+- **Reasoning:** A Donut Chart is ideal for visualizing proportions when there are fewer than five categories. It clearly shows the share of each location type relative to the total events in December 2024, aligning with the user's request for "proportion."
+
+**Recommendation 2 (Optional for completeness):**
+
+- **Chart Title:** 100% Stacked Bar: December 2024 Event Distribution by Location Type
+- **Chart Type:** 100% Stacked Bar Chart
+- **Visual Mapping (The Blueprint):**
+    - *X-Axis:* Single bar for "December 2024"
+    - *Y-Axis:* Percentage of total events (Count of "Event_ID")
+    - *Segments (Color):* "Location_type" (filtered as above)
+- **Reasoning:** A 100% Stacked Bar Chart provides the same part-to-whole comparison in a linear format, which can be easier for some users to interpret, especially if comparing across months in the future.
+
+---
+
+PART 3: DATA TRANSFORMATION NOTES
+
+- Filter data where "Year" == 2024 and "Month" == 12.
+- Group filtered data by "Location_type".
+- Count "Event_ID" for each "Location_type" of interest ("office spaces", "production facilities", "outdoor areas").
+- Calculate the percentage of each group relative to the total number of events in December 2024.
+- (Optional) If "Location_type" contains other values, consider grouping them as "Other / Unknown" for completeness.
+- Apply traffic light coloring to highlight the location type with the highest event proportion.

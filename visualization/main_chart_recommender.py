@@ -4,10 +4,8 @@ import os
 from viz_recommender.services.lida_service import create_lida_manager, load_dataframe, summarize_dataframe
 from viz_recommender.services.prompt_loader import load_user_query, load_text_file
 from viz_recommender.services.file_io import save_text_file
-from viz_recommender.services.chart_recommender import build_user_prompt, generate_chart_recommendation
+from viz_recommender.services.chart_recommender import  generate_chart_recommendation, build_full_prompt
 from models.llm_client import OpenAILLMClient  
-
-
 
 
 
@@ -21,9 +19,11 @@ def main():
     llm_client = OpenAILLMClient(
         model_name="gpt-4.1",   # or "gpt-4.1-mini", "gpt-4.1-preview", etc.
         temperature=0.0,
+        max_output_tokens=1500
     )
 
-    
+    # Load system prompt from txt
+    system_prompt = load_text_file("viz_recommender/prompts/viz_prompt.txt")
 
     # 3. LIDA Manager
     lida_manager = create_lida_manager(api_key=api_key)
@@ -31,7 +31,7 @@ def main():
     # 4. Load Data
     # TODO: Change the path to your actual CSV file
     # for each file in the folder 
-    csv_path = "aggregated_data_1.csv"
+    csv_path = "viz_recommender/aggregated_data_1.csv"
     try:
         df = load_dataframe(csv_path)
     except FileNotFoundError:
@@ -54,6 +54,7 @@ def main():
     full_prompt = build_full_prompt(
         data_profile_str=data_profile_str,
         user_query=user_query,
+        system_prompt=system_prompt
     )
 
     # 8. Call LLM to get chart recommendations

@@ -2,15 +2,12 @@
 
 from pathlib import Path
 from models.llm_client import OpenAILLMClient
-from viz_recommender.services.prompt_loader import  load_text_file
 
-# Load system prompt from txt
-system_prompt = load_text_file("viz_recommender/prompts/system_prompt.txt")
 
 def build_full_prompt(
     data_profile_str: str,
     user_query: str,
-    system_prompt: str = system_prompt,
+    system_prompt: str = str,
 ) -> str:
     """
     Build the full prompt to send to the LLM.
