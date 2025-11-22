@@ -6,12 +6,13 @@ from typing import Dict, Any, List, Optional
 import json
 import pandas as pd
 
-# --- Import dai moduli interni ---
-from categorizer.io.data_loader import load_observations_excel
-from categorizer.io.save_json import save_assignment_json
-from categorizer.embedding.model_loader import load_embedding_model
-from categorizer.embedding.embedder import embed_texts, embed_categories
-from categorizer.matching.multi_matching import match_all_dimensions
+# --- Import from intern modules ---
+from insight_extraction.categorizer.embedding.model_loader import load_embedding_model
+from insight_extraction.categorizer.my_io.save_json import save_assignment_json
+
+from insight_extraction.categorizer.my_io.data_loader import load_observations_excel
+from insight_extraction.categorizer.embedding.embedder import embed_texts, embed_categories
+from insight_extraction.categorizer.matching.multi_matcher import match_all_dimensions
 
 def build_assignment_json(
     df: pd.DataFrame,

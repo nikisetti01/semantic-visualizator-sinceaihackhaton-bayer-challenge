@@ -1,6 +1,6 @@
 from typing import Dict, Tuple
 import numpy as np
-from .matcher import match_categories_for_dimension
+from insight_extraction.categorizer.matching.matcher import match_categories_for_dimension
 
 def match_all_dimensions(
     intent: Dict[str, any],

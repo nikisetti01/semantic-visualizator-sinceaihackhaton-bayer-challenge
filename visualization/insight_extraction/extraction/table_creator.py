@@ -113,21 +113,3 @@ def save_columns_to_json(df: pd.DataFrame, out_path: str | Path) -> None:
     print(f"Saved column list to {out_path}")
     return cols
 
-    
-# MAIN DI TEST
-if __name__ == "__main__":
-    assignments_path = "assignments_test.json"
-    db_path = "analytics.db"
-    csv_path = "analytics_export.csv"
-
-    assignments = load_assignments(assignments_path)
-    df = build_analytics_dataframe(assignments)
-
-    print(df.head())
-
-    save_dataframe_to_sqlite(df, db_path)
-    save_dataframe_to_csv(df, csv_path)
-    column_list=save_columns_to_json(df, "analytics_columns.json")
-    print("Columns in analytics table:", column_list)
-
-    print(f"Saved analytics table to {db_path} and {csv_path}")

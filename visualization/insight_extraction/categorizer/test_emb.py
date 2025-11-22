@@ -5,20 +5,7 @@ from pathlib import Path
 
 from categorizer import run_pipeline
 
-def load_test_intent() -> dict:
-    """
-    Carica un intent di test oppure un intent reale.
-    Questo è solo un esempio, sostituisci con il tuo path.
-    """
-    intent_path = Path("categorizer/semantic_intent/intent_outputs/intent.json")
 
-    if not intent_path.exists():
-        raise FileNotFoundError(
-            f"Intent file not found. Expected at: {intent_path}"
-        )
-
-    with intent_path.open("r", encoding="utf-8") as f:
-        return json.load(f)
 
 
 def main():

@@ -1,7 +1,15 @@
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from typing import Dict, Tuple
-from models.category_stats import CategoryStats
+from dataclasses import dataclass
+
+@dataclass
+class CategoryStats:
+    dimension_type: str
+    category: str
+    support_count: int
+    support_ratio: float
+    mean_score: float
 
 def match_categories_for_dimension(
     dim_type: str,
