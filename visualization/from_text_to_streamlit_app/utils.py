@@ -2,6 +2,30 @@ import streamlit as st
 import pandas as pd
 from pathlib import Path
 
+STREAMLIT_FRIENDLY_JSON_SCHEMA = """
+        {
+          "components": [
+            {
+              "id": "unique string",
+              "type": "Streamlit API element (e.g. markdown, metric, line_chart)",
+              "args": {
+                "data": ["list of positional args"],
+                "config": {"keyword": "value", ...}
+              },
+              "dependencies": {
+                "inputs": ["variables from previous components or datasets"],
+                "outputs": ["variables this component produces"]
+              },
+              "layout": {
+                "area": "main | sidebar | column",
+                "column": "integer (optional)",
+                "expander": "string (optional)"
+              }
+            }
+          ]
+        }
+        """
+
 def extract_best_visualization(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         lines = file.readlines()
@@ -129,3 +153,15 @@ def from_csv_to_dict(datasets_path = "visualization/datasets/extracted"):
         datasets[dataset_name] = pd.read_csv(csv_file)
 
     return datasets
+
+
+def clean_response(response):
+    raw = response.strip()
+    # Hard-clean markdown fences if present
+    if raw.startswith("```"):
+        raw = raw.strip("`")
+        # Remove potential "json" specifier
+        if raw.startswith("json"):
+            raw = raw[len("json"):].strip()
+
+    return raw

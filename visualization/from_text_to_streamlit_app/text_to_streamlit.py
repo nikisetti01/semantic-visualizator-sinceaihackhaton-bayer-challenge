@@ -1,5 +1,5 @@
 import json
-from utils.utils import *
+from from_text_to_streamlit_app.utils import *
 from prompts.text_to_json_prompt import get_text_to_json_prompt
 from models.llm_client import OpenAILLMClient
 
@@ -17,18 +17,9 @@ def text_to_streamlit_app():
 
     response = client.invoke(prompt)
 
-    # clean response
-    raw = response.strip()
-    # Hard-clean markdown fences if present
-    if raw.startswith("```"):
-        raw = raw.strip("`")
-        # Remove potential "json" specifier
-        if raw.startswith("json"):
-            raw = raw[len("json"):].strip()
-
+    cleaned_response = clean_response(response)
     
-    workflow = json.loads(raw)
-    workflow = json.loads(response.output_text)
+    workflow = json.loads(cleaned_response)
     json_to_streamlit(workflow, data_sources=datasets)
     
 

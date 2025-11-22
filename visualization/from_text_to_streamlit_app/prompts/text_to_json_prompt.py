@@ -1,7 +1,6 @@
 import json
 from utils.available_streamlit_components import SAFE_STREAMLIT_COMPONENTS
-from utils.utils import extract_best_visualization
-from utils.streamlit_friendly_json_schema import STREAMLIT_FRIENDLY_JSON_SCHEMA
+from utils.utils import extract_best_visualization, STREAMLIT_FRIENDLY_JSON_SCHEMA
 
 
 def get_text_to_json_prompt(datasets):
