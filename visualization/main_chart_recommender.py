@@ -2,10 +2,11 @@
 
 import os
 from viz_recommender.services.lida_service import create_lida_manager, load_dataframe, summarize_dataframe
-from viz_recommender.services.prompt_loader import load_user_query
+from viz_recommender.services.prompt_loader import load_user_query, load_text_file
 from viz_recommender.services.file_io import save_text_file
 from viz_recommender.services.chart_recommender import build_user_prompt, generate_chart_recommendation
 from models.llm_client import OpenAILLMClient  
+
 
 
 
@@ -21,6 +22,8 @@ def main():
         model_name="gpt-4.1",   # or "gpt-4.1-mini", "gpt-4.1-preview", etc.
         temperature=0.0,
     )
+
+    
 
     # 3. LIDA Manager
     lida_manager = create_lida_manager(api_key=api_key)
