@@ -1,2 +1,4 @@
 .env
 __pycache__
+.xlsx
+_init__.py

@@ -1,23 +1,20 @@
 from __future__ import annotations
-
-import json
-
-from semantic_intent import get_semantic_intent
-from llm_client import OpenAILLMClient
 import os
 from datetime import datetime
+import json
 
-def save_intent_to_file(intent: dict, output_path: str) -> None:
-    """
-    Salva il dizionario JSON in un file .json leggibile.
-    """
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(intent, f, indent=2, ensure_ascii=False)
+from insight_extraction.semantic_intent.semantic_intent import get_semantic_intent
+from models.llm_client import OpenAILLMClient
+from insight_extraction.utils.saving_scripts import save_intent_to_file
+
+
 
 def main() -> None:
     # Prompt di test (quello della challenge)
     user_question = (
-        "Analyze the observations related to electrical safety from the years 2024–2025. Is there an upward or downward trend over time?"
+        
+"Analyze all safety observations from 2024. What was the average processing time for the observations? Do any trends emerge regarding which types of observations have a longer-than-usual processing time?"
+        
     )
 
     # Schema di esempio (puoi adattarlo a data_en)
@@ -54,7 +51,7 @@ def main() -> None:
     print(json.dumps(intent, indent=2))
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_dir = "intent_outputs"
+    output_dir = f"output/intent_outputs_{timestamp}"
     os.makedirs(output_dir, exist_ok=True)
 
     output_path = os.path.join(output_dir, f"intent_{timestamp}.json")
