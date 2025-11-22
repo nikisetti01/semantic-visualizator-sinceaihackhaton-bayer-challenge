@@ -1,20 +1,7 @@
-"""
-semantic_intent.py
-
-Primo blocco della pipeline:
-- Dato un prompt utente (natural language), genera un JSON strutturato
-  che rappresenta l'intent analitico.
-- L'output JSON verrà poi usato dai blocchi successivi (semantic search,
-  aggregazioni, suggerimento visualizzazioni, ecc.).
-
-Questo modulo NON dipende da Streamlit: può essere importato ovunque.
-"""
-
 from __future__ import annotations
-
 import json
 from typing import Any, Dict, List, Optional
-from prompts.intent_prompt import build_intent_prompt
+from ..prompts.intent_prompt import build_intent_prompt
 
 # ---------------------------------------------------------------------
 # Costanti: schema logico e prompt di sistema

@@ -1,8 +1,8 @@
-from visualization.categorizer.extraction.sql_generate import SQLQueryGenerator
+from ..categorizer.extraction.sql_generate import SQLQueryGenerator
 import json
 import pandas as pd
-from visualization.model.llm_client import OpenAILLMClient
-from visualization.categorizer.prompts.extraction_prompt import save_columns_to_json
+from ...model.llm_client import OpenAILLMClient
+from ..categorizer.prompts.extraction_prompt import save_columns_to_json
 
 def main() -> None:
     # Prompt di test (quello della challenge)
