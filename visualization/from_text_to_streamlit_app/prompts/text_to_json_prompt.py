@@ -1,13 +1,13 @@
 import json
-from utils.available_streamlit_components import SAFE_STREAMLIT_COMPONENTS
-from utils.utils import extract_best_visualization, STREAMLIT_FRIENDLY_JSON_SCHEMA
+from from_text_to_streamlit_app.available_streamlit_components import SAFE_STREAMLIT_COMPONENTS
+from from_text_to_streamlit_app.utils import *
 
 
 def get_text_to_json_prompt(datasets):
 
         dataset_dicts = {name: df.to_dict(orient="records") for name, df in datasets.items()}
         
-        best_visual = extract_best_visualization("visualization/chart_recommendation/recommendation.txt")
+        best_visual = extract_best_visualization(RECOMMENDATION_OUTPUT_PATH)
 
         text = f"""
                 You are building a Streamlit workflow that shows summary statistics and visualization elements for the given datasets.

@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from pathlib import Path
 
+
 STREAMLIT_FRIENDLY_JSON_SCHEMA = """
         {
           "components": [
@@ -25,6 +26,21 @@ STREAMLIT_FRIENDLY_JSON_SCHEMA = """
           ]
         }
         """
+
+RECOMMENDATION_OUTPUT_PATH = "visualization/chart_recommendation/recommendation.txt"
+
+EXTRACTED_DATASETS_PATH = "visualization/datasets/extracted.txt"
+
+def from_csv_to_dict(datasets_path = ""):
+    datasets_path = Path(datasets_path)
+    datasets = {}
+
+    for csv_file in datasets_path.glob("*.csv"):
+        dataset_name = csv_file.stem
+        datasets[dataset_name] = pd.read_csv(csv_file)
+
+    return datasets
+
 
 def extract_best_visualization(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -142,17 +158,6 @@ def json_to_streamlit(workflow, data_sources: dict[str, pd.DataFrame] = None):
         render_component(comp, workflow_state, columns_map)
 
     return workflow_state
-
-
-def from_csv_to_dict(datasets_path = "visualization/datasets/extracted"):
-    datasets_path = Path(datasets_path)
-    datasets = {}
-
-    for csv_file in datasets_path.glob("*.csv"):
-        dataset_name = csv_file.stem
-        datasets[dataset_name] = pd.read_csv(csv_file)
-
-    return datasets
 
 
 def clean_response(response):
