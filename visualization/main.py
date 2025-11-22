@@ -10,7 +10,7 @@ from models.llm_client import OpenAILLMClient
 from insight_extraction.utils.saving_scripts import save_intent_to_file, load_test_intent
 from insight_extraction.extraction.sql_generate import SQLQueryGenerator
 from insight_extraction.extraction.table_creator import load_assignments, build_analytics_dataframe, save_dataframe_to_sqlite, save_dataframe_to_csv, save_columns_to_json
-
+from insight_extraction.extraction.sql_execute import execute_sql_on_sqlite, results_to_dataframes
 
 
 def main(timestamp: str) -> None:
@@ -108,11 +108,13 @@ def main(timestamp: str) -> None:
         user_question=user_question,
         json_spec=intent,
         table_schema_text=schema_text,
-        main_table="semantic_observations",
     )
 
     print(sql_code)
 
+    exec_results = execute_sql_on_sqlite(db_path=db_path, sql_response=sql_code)
+    print(results_to_dataframes(exec_results))
+    
 
 if __name__ == "__main__":
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
