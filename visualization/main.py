@@ -7,7 +7,7 @@ from pathlib import Path
 from insight_extraction.categorizer.categorize import run_pipeline
 from insight_extraction.semantic_intent.semantic_intent import get_semantic_intent
 from models.llm_client import OpenAILLMClient
-from insight_extraction.utils.saving_scripts import save_intent_to_file, load_test_intent
+from insight_extraction.utils.saving_scripts import save_intent_to_file, load_test_intent, save_sql_results_to_csv
 from insight_extraction.extraction.sql_generate import SQLQueryGenerator
 from insight_extraction.extraction.table_creator import load_assignments, build_analytics_dataframe, save_dataframe_to_sqlite, save_dataframe_to_csv, save_columns_to_json
 from insight_extraction.extraction.sql_execute import execute_sql_on_sqlite, results_to_dataframes
@@ -75,7 +75,7 @@ def main(timestamp: str) -> None:
         output_path=assignement_path,
         sheet_name="Foglio4",
         model_name="all-MiniLM-L6-v2",
-        similarity_threshold=0.4,
+        similarity_threshold=0.2,
         min_support_ratio=0.01,
         max_examples=None,  # o metti un numero
     )
@@ -97,7 +97,6 @@ def main(timestamp: str) -> None:
 
     # Schema di esempio (puoi adattarlo a data_en)
     schema_text = save_columns_to_json(
-
         df,
         out_path="schema_columns.json"
     )
@@ -107,13 +106,16 @@ def main(timestamp: str) -> None:
     sql_code = generator.generate_sql(
         user_question=user_question,
         json_spec=intent,
+        main_table="observations_enriched",
         table_schema_text=schema_text,
     )
 
     print(sql_code)
 
     exec_results = execute_sql_on_sqlite(db_path=db_path, sql_response=sql_code)
-    print(results_to_dataframes(exec_results))
+    save_sql_results_to_csv(exec_results, output_dir=f"output/aggregate_sql_results")
+    
+    print(r
     
 
 if __name__ == "__main__":

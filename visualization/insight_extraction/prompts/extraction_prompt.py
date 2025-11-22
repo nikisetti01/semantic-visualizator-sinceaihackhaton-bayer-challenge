@@ -43,8 +43,8 @@ def build_system_prompt(sql_dialect: str = "SQLite") -> str:
 def build_user_prompt(
     user_question: str,
     json_spec: Dict[str, Any],
+    main_table: str,
     table_schema_text: str,
-    data_structure_notes: Optional[str] = None,
 ) -> str:
     """
     Build the user message that contains:
@@ -54,10 +54,9 @@ def build_user_prompt(
     - Notes on how data is structured (long/wide, meaning of columns)
     """
 
-    if data_structure_notes is None:
-        # Generic default explanation; you can override this per project.
-        data_structure_notes = f"""- Each row represents an observation.
+    table_desription= f"""- Each row represents an observation.
 - Dimensions mentioned in the JSON spec (for example LOCATION, OBS_TYPE, STATUS, etc.) are stored in the table columns as described in the schema above.
+- ALWAYS consider that the main table to query is "{main_table}" so the from clause should reference this table.
 - Time-related considerations (for example from/to dates) must use the appropriate timestamp column (for example event_time).
 - If you need to aggregate observations by a dimension, you may use GROUP BY on the relevant dimension value column(s) the specific structure of the data is {table_schema_text}.
 - If it makes sense, you may apply thresholds on confidence scores (for example dimension_confidence >= 0.5) when counting or aggregating, but only if that improves alignment with the requested metric."""
@@ -74,24 +73,32 @@ def build_user_prompt(
             This JSON summarizes the metric(s), dimensions, filters, and time considerations that should be used to answer the user question.
             
             ```json
-            {json_spec_str} """
+            {json_spec_str} 
+
+            TABLE SCHEMA (always refer to this when writing SQL)
+            ------------------------------------------ù
+            {table_desription}
+            """
+
+            
 
 def build_extraction_prompt(
     user_question: str,
     json_spec: Dict[str, Any],
     table_schema_text: str,
+    main_table: str,
     sql_dialect: str = "SQLite",
-    data_structure_notes: Optional[str] = None,
 ) -> str:
     """
     Build the full prompt (system + user) for SQL extraction.
     """
     system_prompt = build_system_prompt(sql_dialect)
+    print(main_table)
     user_prompt = build_user_prompt(
         user_question,
         json_spec,
+        main_table,
         table_schema_text,
-        data_structure_notes,
     )
 
     full_prompt = f"""SYSTEM PROMPT
