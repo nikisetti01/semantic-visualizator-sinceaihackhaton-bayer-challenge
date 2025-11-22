@@ -21,9 +21,10 @@
         "environmental_observation",
         "quality_issue",
         "maintenance_request",
+        "injury_report",
+        "property_damage",
         "unsafe_condition",
-        "unsafe_act",
-        "positive_observation"
+        "unsafe_act"
       ]
     },
     {
@@ -39,14 +40,15 @@
       "values": [
         "production",
         "maintenance",
-        "quality",
         "logistics",
+        "quality_control",
         "administration",
         "safety",
         "engineering",
         "warehouse",
-        "operations",
-        "facility_management"
+        "packaging",
+        "facility_management",
+        "research_and_development"
       ]
     }
   ],

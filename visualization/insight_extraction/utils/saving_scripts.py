@@ -57,7 +57,7 @@ def save_sql_results_to_csv(
         df = pd.DataFrame(rows, columns=cols)
 
         # Nome file sicuro (senza spazi o caratteri strani)
-        safe_key = key.replace(" ", "_").replace("/", "_")
+        safe_key = key.replace(" ", "_").replace("/", "_").split(":")[0]
 
         out_path = output_dir / f"{safe_key}.csv"
         df.to_csv(out_path, index=False, encoding="utf-8")
