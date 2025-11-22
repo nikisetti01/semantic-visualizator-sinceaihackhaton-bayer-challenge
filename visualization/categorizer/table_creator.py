@@ -107,11 +107,13 @@ def save_columns_to_json(df: pd.DataFrame, out_path: str | Path) -> None:
     out_path = Path(out_path)
     cols = df.columns.tolist()
 
-    with out_path.open("w", encoding="utf-8") as f:
-        json.dump(cols, f, indent=2)
+    # with out_path.open("w", encoding="utf-8") as f:
+    #     json.dump(cols, f, indent=2)
 
     print(f"Saved column list to {out_path}")
     return cols
+
+    
 # MAIN DI TEST
 if __name__ == "__main__":
     assignments_path = "assignments_test.json"
