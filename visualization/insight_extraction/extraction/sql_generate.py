@@ -24,7 +24,6 @@ class SQLQueryGenerator:
         json_spec: Dict[str, Any],
         table_schema_text: str,
         main_table: str,
-        data_structure_notes: Optional[str] = None,
     ) -> str:
         """
         Costruisce il prompt completo, chiama il modello e restituisce
@@ -34,9 +33,8 @@ class SQLQueryGenerator:
             user_question=user_question,
             json_spec=json_spec,
             table_schema_text=table_schema_text,
-        
+            main_table=main_table,
             sql_dialect=self.sql_dialect,
-            data_structure_notes=data_structure_notes,
         )
         print(prompt)
         sql_code = self.llm_client.invoke(prompt)

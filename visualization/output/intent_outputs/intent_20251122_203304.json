@@ -22,8 +22,7 @@
         "quality_issue",
         "maintenance_request",
         "unsafe_condition",
-        "unsafe_act",
-        "first_aid_case"
+        "unsafe_act"
       ]
     },
     {
@@ -45,7 +44,7 @@
         "safety",
         "engineering",
         "warehouse",
-        "packaging",
+        "operations",
         "facility_management"
       ]
     }
