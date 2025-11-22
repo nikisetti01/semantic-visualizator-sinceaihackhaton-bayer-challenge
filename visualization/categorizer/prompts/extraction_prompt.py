@@ -1,10 +1,6 @@
 import os
 import json
 from typing import Dict, Any, Optional
-from openai import OpenAI
-
-# Initialize OpenAI client (reads OPENAI_API_KEY from env by default)
-client = OpenAI()
 
 
 

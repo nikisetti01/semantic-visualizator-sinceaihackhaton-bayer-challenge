@@ -1,7 +1,6 @@
-import json
 from typing import Any, Dict, Optional
-from prompts.extraction_prompt import build_extraction_prompt
-from visualization.model.llm_client import OpenAILLMClient
+from ..prompts.extraction_prompt import build_extraction_prompt
+from ...model.llm_client import OpenAILLMClient
 
 
 class SQLQueryGenerator:

@@ -1,8 +1,8 @@
-from visualization.categorizer.extraction.sql_generate import SQLQueryGenerator
+from sql_generate import SQLQueryGenerator
 import json
 import pandas as pd
-from visualization.model.llm_client import OpenAILLMClient
-from visualization.categorizer.prompts.extraction_prompt import save_columns_to_json
+from ..model.llm_client import OpenAILLMClient
+from ..prompts.extraction_prompt import save_columns_to_json
 
 def main() -> None:
     # Prompt di test (quello della challenge)
@@ -38,6 +38,17 @@ def main() -> None:
         table_schema_text=schema_text,
         main_table="semantic_observations",
     )
+
+    db_path = "./analytics.db"
+
+    exec_results = execute_sql_on_sqlite(db_path=db_path, sql_response=sql_code)
+
+    for key, payload in exec_results.items():
+        print(f"=== {key} ===")
+        print("SQL:")
+        print(payload["sql"])
+        print("Columns:", payload["columns"])
+        print("Rows (first 5):", payload["rows"][:5])
 
     print(sql_code)
 
