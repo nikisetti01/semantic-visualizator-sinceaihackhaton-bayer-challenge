@@ -1,0 +1,67 @@
+{
+  "raw_question": "Examine the safety observations from March. How many of the observations were caused by haste, and what was the most common safety-related risk among them?",
+  "metrics": [
+    "count_events"
+  ],
+  "time": {
+    "from": null,
+    "to": null,
+    "year": null,
+    "month": 3
+  },
+  "group_by": [
+    {
+      "dimension_type": "CAUSE",
+      "values": [
+        "haste",
+        "inattention",
+        "fatigue",
+        "lack_of_training",
+        "equipment_failure",
+        "procedural_error",
+        "distraction",
+        "time_pressure",
+        "miscommunication",
+        "complacency"
+      ]
+    },
+    {
+      "dimension_type": "RISK_TYPE",
+      "values": [
+        "slip_trip_fall",
+        "electrical_safety",
+        "chemical_exposure",
+        "fire_risk",
+        "machine_guarding",
+        "ergonomic_risk",
+        "confined_space",
+        "manual_handling",
+        "PPE_noncompliance",
+        "vehicle_safety",
+        "working_at_height"
+      ]
+    },
+    {
+      "dimension_type": "OBSERVATION_TYPE",
+      "values": [
+        "safety_observation",
+        "near_miss",
+        "incident",
+        "hazard_report",
+        "environmental_observation"
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "dimension_type": "OBSERVATION_TYPE",
+      "operator": "=",
+      "value": "safety_observation"
+    },
+    {
+      "dimension_type": "CAUSE",
+      "operator": "=",
+      "value": "haste"
+    }
+  ]
+}

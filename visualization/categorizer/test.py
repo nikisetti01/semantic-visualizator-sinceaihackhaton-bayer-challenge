@@ -17,7 +17,9 @@ def save_intent_to_file(intent: dict, output_path: str) -> None:
 def main() -> None:
     # Prompt di test (quello della challenge)
     user_question = (
-        "Analyze the observations related to electrical safety from the years 2024–2025. Is there an upward or downward trend over time?"
+        
+"Analyze all safety observations from 2024. What was the average processing time for the observations? Do any trends emerge regarding which types of observations have a longer-than-usual processing time?"
+        
     )
 
     # Schema di esempio (puoi adattarlo a data_en)

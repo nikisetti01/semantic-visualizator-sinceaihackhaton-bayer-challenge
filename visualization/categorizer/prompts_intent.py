@@ -1,27 +1,31 @@
 from __future__ import annotations
 from typing import List, Optional
 
+
+# ============================================================
+# SYSTEM PROMPT — GENERICO, FLESSIBILE, MULTI-METRIC
+# ============================================================
+
 INTENT_SYSTEM_PROMPT = """
 You are an analytics intent parser for an HSE (Health, Safety and Environment)
 data exploration system.
 
-Your job is to read a user question in natural language and return ONLY a JSON
-object describing what analytical structure is required.
+Your task is to read a user question in natural language and return ONLY a JSON
+object that describes the analytical intent. The JSON will later be used for
+semantic matching, category selection, and metric computation.
 
-You MUST follow ALL of these rules:
+You MUST follow these rules:
 
 1. OUTPUT FORMAT
-   - Return ONLY a single JSON object.
-   - NO prose, NO explanations, NO markdown, NO backticks.
-   - The JSON MUST be valid and parseable by json.loads in Python.
-   - Every string must use double quotes (").
+   - Return ONLY a JSON object.
+   - NO explanations, NO Markdown, NO backticks.
+   - JSON must be valid and parseable by json.loads.
+   - All strings must use double quotes.
 
 2. JSON SCHEMA
-   Your output MUST have exactly this structure:
-
    {
      "raw_question": string,
-     "metric": string,
+     "metrics": [string, ...],
      "time": {
        "from": string | null,
        "to": string | null,
@@ -40,108 +44,66 @@ You MUST follow ALL of these rules:
          "operator": string,
          "value": string
        }
-     ],
-
+     ]
    }
 
-3. ALLOWED VALUES AND CONVENTIONS
-
-   3.1 metric
-       Use one of:
+3. METRICS
+   - Identify one or more analytical metrics requested by the question.
+   - Prefer canonical metric names:
        - "count_events"
        - "proportion_events"
        - "avg_processing_time"
        - "trend_over_time"
        - "misclassification_count"
-       - you may invent other metrics as needed, but keep them short and descriptive.
+   - If multiple aspects are requested → include MULTIPLE metrics.
+   - You may create new metrics only if necessary.
 
-   3.2 time
-       - Use this to encode what the question asks about time.
-       - If the question mentions specific dates (e.g. "December 2024"):
-         * "year": 2024
-         * "month": 12
-       - If it mentions a range (e.g. "from 2024 to 2025"):
-         * "from": "2024-01-01"
-         * "to": "2025-12-31"
-       - If there is no explicit time information, set all fields to null.
+4. TIME
+   - Extract explicit temporal information only.
+   - Month/year → fill year+month.
+   - A range → fill "from" and "to".
+   - If no time is mentioned → all null.
 
-   3.3 dimension_type
-       Use one of the following generic dimension types whenever possible:
-       - "TIME"
-       - "LOCATION"
-       - "DEPARTMENT"
-       - "OBSERVATION_TYPE"
-       - "CAUSE"
-       - "RISK_TYPE"
-       - "STATUS"
-       - "SEVERITY"
-       - "OTHER"
+5. DIMENSIONS (FLEXIBLE)
+   - Include the dimension(s) explicitly required by the question.
+   - You MAY include additional plausible HSE-related dimensions if they are
+     logically relevant to the question.
+   - Allowed dimension types:
+       "TIME", "LOCATION", "DEPARTMENT", "OBSERVATION_TYPE",
+       "CAUSE", "RISK_TYPE", "STATUS", "SEVERITY", "OTHER"
 
-       If the question suggests more specific logical dimensions
-       (e.g. "equipment type", "machine", "task"), you may still map them
-       giving the dimension_type and describe them in "values" as done with generic dimensions.
+6. VALUES (SEMI-GENEROUS)
+   For each dimension:
+   - Include categories explicitly mentioned in the question.
+   - ALSO include several plausible, semantically related values (5–12 total)
+     that could plausibly appear in HSE datasets.
+   - These will be filtered later with semantic embeddings.
 
-   3.4 group_by
-       - Describe how the user wants the results to be broken down,
-         AND also include other plausible breakdowns that could be useful
-         for analyzing this question. For each dimension_type, provide we will use a semantic embedding space to match against the dataset rows. 
-       - Each item is:
-         {
-           "dimension_type": "...",
-           "values": ["...", "...", ...]
-         }
-       - For each relevant dimension_type (e.g. LOCATION, RISK_TYPE,
-         CAUSE, DEPARTMENT, STATUS, SEVERITY), you MAY add a group_by
-         entry even if it is not explicitly requested, as long as it is
-         plausibly useful for this question.
-       - "values" should be candidate categories relevant to that dimension.
-       - BE GENEROUS:
-         * For each dimension_type you include, return 5–15 plausible values.
-         * Values may include:
-             - concepts explicitly mentioned in the question, and
-             - related, more generic or more specific concepts
-               that could appear in HSE data.
-       - Example for locations:
-         ["office", "office_space", "production", "production_facility",
-          "warehouse", "outdoor", "parking_lot", "corridor", "staircase"].
+7. FILTERS
+   - Add filters ONLY if explicitly requested.
+   - Example:
+       "in Assembly Department B"
+         → DEPARTMENT filter "=" "Assembly Department B"
 
-   3.5 filters
-       - Represent explicit constraints or conditions from the question.
-       - "operator" is usually one of: "=", ">", "<", ">=", "<=", "IN", "LIKE".
-       - Example of a filter:
-         {
-           "dimension_type": "DEPARTMENT",
-           "operator": "=",
-           "value": "Assembly Department B"
-         }
-       - If the question does not specify a filter for a dimension, do not invent it.
+8. DATA-SCHEMA AWARE (OPTIONAL)
+   - If a schema_hint is provided, align dimension_type where appropriate,
+     but DO NOT limit or reduce your category generation.
 
-
-
-4. BE DATA-SCHEMA AWARE (if a schema_hint is provided)
-   - The system may optionally provide you with a "schema_hint" listing
-     available columns and example values.
-   - If present, try to align dimension_type and values to what appears
-     in that schema (e.g. if "Division" appears, it likely maps to "DEPARTMENT").
-   - However, still be GENEROUS with focus_topics and group_by values,
-     even if they go beyond the exact column names.
-
-5. IMPORTANT:
-   - The few-shot EXAMPLES you see are ILLUSTRATIVE ONLY.
-     They DO NOT limit the set of categories, dimension_types or values
-     you can generate.
-   - You are encouraged to generalize and propose additional plausible
-     categories that are not explicitly shown in the examples.
+9. IMPORTANT
    - Do NOT answer the question.
-   - Do NOT mention charts or visualizations.
-   - Your ONLY job is to describe the analytical intent as JSON,
-     with many candidate categories and focus_topics.
-    - - focus_topics MUST NOT appear in output
+   - Do NOT generate charts or interpretations.
+   - Your ONLY output is the JSON intent with:
+       * multiple metrics if needed,
+       * several candidate dimensions,
+       * rich category lists,
+       * explicit filters.
 """
 
 
-# Esempi few-shot per guidare l'LLM (user + expected JSON).
-# Verranno inseriti nel prompt come istruzioni aggiuntive.
+# ============================================================
+# FEW-SHOT EXAMPLES
+# ============================================================
+
 INTENT_FEW_SHOT_EXAMPLES = """
 Example 1
 USER QUESTION:
@@ -150,7 +112,7 @@ USER QUESTION:
 EXPECTED JSON (illustrative):
 {
   "raw_question": "What proportion, relative to all events in December 2024, occurred in office spaces, production facilities, and outdoor areas?",
-  "metric": "proportion_events",
+  "metrics": ["proportion_events"],
   "time": {
     "from": null,
     "to": null,
@@ -169,40 +131,15 @@ EXPECTED JSON (illustrative):
         "corridor",
         "staircase",
         "loading_dock",
-        "laboratory",
+        "lab",
         "meeting_room",
-        "break_room",
-        "restroom"
-      ]
-    },
-    {
-      "dimension_type": "DEPARTMENT",
-      "values": [
-        "production",
-        "maintenance",
-        "administration",
-        "logistics",
-        "quality_control",
-        "safety",
-        "engineering",
-        "warehouse",
-        "facility_management"
-      ]
-    },
-    {
-      "dimension_type": "OBSERVATION_TYPE",
-      "values": [
-        "safety_observation",
-        "near_miss",
-        "incident",
-        "hazard_report",
-        "maintenance_request",
-        "environmental_observation"
+        "storage_room"
       ]
     }
   ],
   "filters": []
 }
+
 
 Example 2
 USER QUESTION:
@@ -211,7 +148,7 @@ USER QUESTION:
 EXPECTED JSON (illustrative):
 {
   "raw_question": "Compare the safety observations made in 2024. How many regular maintenance requests were incorrectly reported as safety observations?",
-  "metric": "misclassification_count",
+  "metrics": ["misclassification_count"],
   "time": {
     "from": "2024-01-01",
     "to": "2024-12-31",
@@ -225,9 +162,10 @@ EXPECTED JSON (illustrative):
         "safety_observation",
         "maintenance_request",
         "near_miss",
-        "incident",
         "hazard_report",
-        "environmental_observation"
+        "incident",
+        "environmental_observation",
+        "quality_issue"
       ]
     },
     {
@@ -235,23 +173,9 @@ EXPECTED JSON (illustrative):
       "values": [
         "human_error",
         "incorrect_label",
-        "miscommunication",
-        "poor_documentation",
         "process_deviation",
-        "misunderstanding"
-      ]
-    },
-    {
-      "dimension_type": "DEPARTMENT",
-      "values": [
-        "maintenance",
-        "production",
-        "administration",
-        "quality_control",
-        "logistics",
-        "engineering",
-        "safety",
-        "facility_management"
+        "misunderstanding",
+        "incomplete_information"
       ]
     }
   ],
@@ -264,6 +188,7 @@ EXPECTED JSON (illustrative):
   ]
 }
 
+
 Example 3
 USER QUESTION:
 "Analyze the observations related to electrical safety from the years 2024–2025. Is there an upward or downward trend over time?"
@@ -271,7 +196,7 @@ USER QUESTION:
 EXPECTED JSON (illustrative):
 {
   "raw_question": "Analyze the observations related to electrical safety from the years 2024–2025. Is there an upward or downward trend over time?",
-  "metric": "trend_over_time",
+  "metrics": ["trend_over_time"],
   "time": {
     "from": "2024-01-01",
     "to": "2025-12-31",
@@ -285,11 +210,9 @@ EXPECTED JSON (illustrative):
         "electrical_safety",
         "arc_flash",
         "fire_risk",
-        "equipment_failure",
-        "overheating",
         "short_circuit",
         "wiring_fault",
-        "power_supply_hazard"
+        "equipment_failure"
       ]
     },
     {
@@ -298,17 +221,6 @@ EXPECTED JSON (illustrative):
         "month",
         "quarter",
         "year"
-      ]
-    },
-    {
-      "dimension_type": "DEPARTMENT",
-      "values": [
-        "production",
-        "maintenance",
-        "engineering",
-        "facility_management",
-        "quality_control",
-        "safety"
       ]
     }
   ],
@@ -320,14 +232,57 @@ EXPECTED JSON (illustrative):
     }
   ]
 }
+
+
+Example 4
+USER QUESTION:
+"Analyze all safety observations from 2024. What was the average processing time for the observations? Do any trends emerge regarding which types of observations have a longer-than-usual processing time?"
+
+EXPECTED JSON (illustrative):
+{
+  "raw_question": "Analyze all safety observations from 2024. What was the average processing time for the observations? Do any trends emerge regarding which types of observations have a longer-than-usual processing time?",
+  "metrics": ["avg_processing_time", "trend_over_time"],
+  "time": {
+    "from": "2024-01-01",
+    "to": "2024-12-31",
+    "year": 2024,
+    "month": null
+  },
+  "group_by": [
+    {
+      "dimension_type": "OBSERVATION_TYPE",
+      "values": [
+        "safety_observation",
+        "near_miss",
+        "incident",
+        "hazard_report"
+      ]
+    },
+    {
+      "dimension_type": "TIME",
+      "values": [
+        "month",
+        "quarter",
+        "year"
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "dimension_type": "OBSERVATION_TYPE",
+      "operator": "=",
+      "value": "safety_observation"
+    }
+  ]
+}
 """
 
 
+# ============================================================
+# SCHEMA HINT BUILDER
+# ============================================================
+
 def build_schema_hint(schema_columns: Optional[List[str]] = None) -> str:
-    """
-    Costruisce una stringa testuale con l'elenco di colonne disponibili,
-    da passare all'LLM come 'schema_hint'.
-    """
     if not schema_columns:
         return "No explicit schema provided. Columns are unknown."
 
@@ -335,16 +290,16 @@ def build_schema_hint(schema_columns: Optional[List[str]] = None) -> str:
     return f"Available dataset columns (schema hint): {cols_str}"
 
 
+# ============================================================
+# PROMPT BUILDER
+# ============================================================
+
 def build_intent_prompt(user_question: str, schema_columns: Optional[List[str]] = None) -> str:
-    """
-    Costruisce il prompt completo da mandare all'LLM
-    per ottenere l'Intent JSON.
-    """
     schema_hint = build_schema_hint(schema_columns)
 
     prompt = f"""{INTENT_SYSTEM_PROMPT}
 
-Below are some examples of how you should respond:
+Below are examples of how you should respond:
 
 {INTENT_FEW_SHOT_EXAMPLES}
 
@@ -358,7 +313,9 @@ USER QUESTION:
 
 Remember:
 - Return ONLY a JSON object.
-- Do NOT include any markdown or backticks.
-- Be generous in 'focus_topics' and 'group_by.values', as they will be filtered later.
+- No markdown.
+- Include one or more metrics if the question contains multiple analytical aspects.
+- Include several plausible group_by dimensions.
+- Provide rich but relevant category lists for each dimension.
 """
     return prompt
