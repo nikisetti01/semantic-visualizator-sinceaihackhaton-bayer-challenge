@@ -1,40 +1,4 @@
-import os
-import pandas as pd
-from lida import Manager, llm
-from openai import OpenAI
 
-# 1. Setup API Key and Client
-api_key = os.getenv("OPENAI_API_KEY")
-if api_key is None:
-    raise ValueError("OPENAI_API_KEY environment variable not found.")
-
-client = OpenAI(api_key=api_key)
-
-# LIDA Configuration
-lida_text_gen = llm("openai", api_key=api_key)
-lida = Manager(text_gen=lida_text_gen)
-
-# 2. Load Data
-try:
-    df = pd.read_csv("data_2.csv")
-except FileNotFoundError:
-    print("⚠️ File not found.\n")
-    
-
-user_query = "Compare the safety observations made in 2024. How many regular maintenance requests were incorrectly reported as safety observations?"
-
-# ---------------------------------------------------------
-# STEP A: LIDA DATA PROFILING
-# ---------------------------------------------------------
-print("📊 Generating data profile with LIDA...")
-# We use 'detailed' to give the LLM better context on value samples
-summary = lida.summarize(df, summary_method="detailed")
-summary_str = str(summary)
-
-# ---------------------------------------------------------
-# STEP B: ENHANCED SYSTEM PROMPT (With Semantic Decomposition)
-# ---------------------------------------------------------
-system_prompt = """
 You are a Senior Data Visualization Expert specialized in Health, Safety, and Environment (HSE) analytics.
 
 Your goal is to analyze a User Query and a Data Profile to design the BEST possible charts for decision-making.
@@ -81,35 +45,4 @@ Briefly list the data operations required before plotting (e.g., "Filter by Date
 ### STRICT CONSTRAINTS
 - **NO CODE / NO JSON.**
 - **Use Exact Column Names:** You must use the exact column names found in the Data Profile.
-"""
 
-# ---------------------------------------------------------
-# STEP C: API CALL
-# ---------------------------------------------------------
-print("🧠 Analyzing user query with GPT-4o-mini...")
-
-user_message_content = f"""
-### DATA PROFILE (Use these exact columns):
-{summary_str}
-
-### USER QUERY:
-"{user_query}"
-"""
-
-response = client.chat.completions.create(
-    model="gpt-4o-mini", 
-    messages=[
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_message_content}
-    ],
-    temperature=0, # Kept very low to ensure strict adherence to the Mapping phase
-)
-
-text = response.choices[0].message.content
-
-# Save text to file
-output_path = "2chart_recommendation_enhanced.txt"
-with open(output_path, "w", encoding="utf-8") as f:
-    f.write(text)
-
-print(f"\n✅ Analysis Complete. Saved to: {output_path}")
