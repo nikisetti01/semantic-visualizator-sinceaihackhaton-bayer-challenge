@@ -100,7 +100,6 @@ def run_pipeline(
     excel_path: str | Path,
     intent_path: str | Path,
     output_path: str | Path = "assignments.json",
-    sheet_name: str = "Sheet1",
     title_col: str = "Title",
     obs_col: str = "Observation",
     obs_date_col: str = "Observation_date",
@@ -109,6 +108,7 @@ def run_pipeline(
     expansions_path: Optional[str | Path] = None,
     similarity_threshold: float = 0.4,
     min_support_ratio: float = 0.01,
+    sheet_name: Optional[str] = None,
     max_examples: Optional[int] = None,
 ) -> None:
     """
@@ -158,7 +158,6 @@ def run_pipeline(
         obs_col=obs_col,
         obs_date_col=obs_date_col,
         proc_date_col=proc_date_col,
-        sheet_name=sheet_name,
     )
 
     # 2. Carica intent JSON

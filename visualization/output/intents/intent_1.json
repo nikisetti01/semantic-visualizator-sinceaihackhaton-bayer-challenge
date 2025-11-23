@@ -1,0 +1,59 @@
+{
+  "raw_question": "What proportion, relative to all events in December 2024, occurred in office spaces, production facilities, and outdoor areas?",
+  "metrics": [
+    "proportion_events"
+  ],
+  "time": {
+    "from": null,
+    "to": null,
+    "year": 2024,
+    "month": 12
+  },
+  "group_by": [
+    {
+      "dimension_type": "LOCATION",
+      "values": [
+        "office_space",
+        "production_facility",
+        "outdoor_area",
+        "warehouse",
+        "parking_lot",
+        "corridor",
+        "staircase",
+        "loading_dock",
+        "lab",
+        "meeting_room",
+        "storage_room",
+        "cafeteria"
+      ]
+    },
+    {
+      "dimension_type": "DEPARTMENT",
+      "values": [
+        "administration",
+        "production",
+        "maintenance",
+        "logistics",
+        "quality_control",
+        "engineering",
+        "safety",
+        "environmental",
+        "warehouse",
+        "facility_management"
+      ]
+    },
+    {
+      "dimension_type": "OBSERVATION_TYPE",
+      "values": [
+        "incident",
+        "near_miss",
+        "hazard_report",
+        "safety_observation",
+        "environmental_observation",
+        "maintenance_request",
+        "quality_issue"
+      ]
+    }
+  ],
+  "filters": []
+}

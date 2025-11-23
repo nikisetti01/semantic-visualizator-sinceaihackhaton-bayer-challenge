@@ -99,17 +99,4 @@ def save_dataframe_to_csv(
     df.to_csv(csv_path, index=False, encoding="utf-8")
     print(f"Saved CSV to {csv_path}")
 
-def save_columns_to_json(df: pd.DataFrame, out_path: str | Path) -> None:
-    """
-    Salva la lista delle colonne del dataframe in un JSON.
-    Utile per il sistema SQL builder.
-    """
-    out_path = Path(out_path)
-    cols = df.columns.tolist()
-
-    # with out_path.open("w", encoding="utf-8") as f:
-    #     json.dump(cols, f, indent=2)
-
-    print(f"Saved column list to {out_path}")
-    return cols
 
