@@ -1,6 +1,7 @@
 # main_chart_recommender.py
 
 import os
+from pathlib import Path
 from viz_recommender.services.lida_service import create_lida_manager, load_dataframe, summarize_dataframe
 from viz_recommender.services.prompt_loader import load_user_query, load_text_file
 from viz_recommender.services.file_io import save_text_file
@@ -31,7 +32,7 @@ def main():
     # 4. Load Data
     # TODO: Change the path to your actual CSV file
     # for each file in the folder 
-    csv_path = "viz_recommender/aggregated_data_1.csv"
+    csv_path = Path("datasets/extracted/extra_insight_query_2.csv")
     try:
         df = load_dataframe(csv_path)
     except FileNotFoundError:

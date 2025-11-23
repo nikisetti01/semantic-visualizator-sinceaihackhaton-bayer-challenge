@@ -27,9 +27,9 @@ STREAMLIT_FRIENDLY_JSON_SCHEMA = """
         }
         """
 
-RECOMMENDATION_OUTPUT_PATH = "visualization/chart_recommendation/recommendation.txt"
+RECOMMENDATION_OUTPUT_PATH = "chart_recommendation/recommendation.txt"
 
-EXTRACTED_DATASETS_PATH = "visualization/datasets/extracted.txt"
+EXTRACTED_DATASETS_PATH = "datasets/extracted"
 
 def from_csv_to_dict(datasets_path = ""):
     datasets_path = Path(datasets_path)
@@ -50,7 +50,7 @@ def extract_best_visualization(file_path):
     result_lines = []
     
     for line in lines:
-        if "#### PART 2:" in line:
+        if "PART 2:" in line:
             part2_started = True
         if part2_started:
             result_lines.append(line)

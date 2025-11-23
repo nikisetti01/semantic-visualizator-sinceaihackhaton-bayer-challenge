@@ -99,7 +99,7 @@ def main(user_prompt: str, df_path: str, run_id: str) -> None:
         csv_path=csv_path,
     )
 
-    INSIGHTS_DIR = os.path.join(OUT_DIR, "extracted")
+    INSIGHTS_DIR = os.path.join(DATA_DIR, "extracted")
     os.makedirs(INSIGHTS_DIR, exist_ok=True)
 
     insights_dfs = extract_insights(

@@ -34,22 +34,6 @@
         "quarter",
         "year"
       ]
-    },
-    {
-      "dimension_type": "DEPARTMENT",
-      "values": [
-        "production",
-        "maintenance",
-        "logistics",
-        "quality_control",
-        "administration",
-        "safety",
-        "engineering",
-        "warehouse",
-        "packaging",
-        "facility_management",
-        "research_and_development"
-      ]
     }
   ],
   "filters": [

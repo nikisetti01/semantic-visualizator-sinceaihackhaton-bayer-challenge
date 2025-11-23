@@ -1,6 +1,6 @@
 import json
 from from_text_to_streamlit_app.utils import *
-from prompts.text_to_json_prompt import get_text_to_json_prompt
+from from_text_to_streamlit_app.prompts.text_to_json_prompt import get_text_to_json_prompt
 from models.llm_client import OpenAILLMClient
 
 def text_to_streamlit_app():
@@ -16,6 +16,8 @@ def text_to_streamlit_app():
     prompt = get_text_to_json_prompt(datasets)
 
     response = client.invoke(prompt)
+
+    print(response)
 
     cleaned_response = clean_response(response)
     
