@@ -21,8 +21,6 @@
         "environmental_observation",
         "quality_issue",
         "maintenance_request",
-        "injury_report",
-        "property_damage",
         "unsafe_condition",
         "unsafe_act"
       ]

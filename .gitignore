@@ -1,7 +1,5 @@
 .env
 __pycache__
 .xlsx
-.json
-.csv
-.db
 _init__.py
+output/
