@@ -10,12 +10,7 @@ def get_chart_recommendations(user_query: str, df: pd.DataFrame) -> str:
     TODO: replace this with your real model call.
     """
     cols = ", ".join(df.columns)
-    return (
-        f"User request: {user_query}\n\n"
-        f"Dataset has {df.shape[0]} rows and {df.shape[1]} columns.\n"
-        f"Columns: {cols}\n\n"
-        "➡️ Here you will show the chart recommendations from your model."
-    )
+    return ()
 
 
 # ==============
