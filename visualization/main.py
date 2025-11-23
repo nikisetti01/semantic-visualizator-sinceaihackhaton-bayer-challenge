@@ -34,20 +34,6 @@ def profile(f):
 @profile
 def main(user_prompt: str, df_path: str, run_id: str) -> None:
     
-    # dataframe structure extraction
-    schema_columns = [
-        "Created",
-        "Status",
-        "Division",
-        "ObservationCause",
-        "Location",
-        "ProcessingTimeDays",
-        "ObservationType",
-        "Department",
-        "RiskType",
-    ]
-
-    
     # Client OpenAI reale (assume OPENAI_API_KEY nell'ambiente)
     llm_client = OpenAILLMClient(
         model_name="gpt-4.1",  # o "gpt-4.1", "gpt-4o", ecc.
@@ -62,7 +48,6 @@ def main(user_prompt: str, df_path: str, run_id: str) -> None:
     intent = get_semantic_intent(
         user_question=user_prompt,
         llm_client=llm_client,
-        schema_columns=schema_columns,
     )
 
     print(">>> Parsed intent JSON:")
@@ -89,7 +74,6 @@ def main(user_prompt: str, df_path: str, run_id: str) -> None:
         model_name="all-MiniLM-L6-v2",
         similarity_threshold=0.2,
         min_support_ratio=0.01,
-        max_examples=None,
     )
 
     print(f">>> Saved file with categories allocations to: {allocation_path}\n")
@@ -152,7 +136,7 @@ def main(user_prompt: str, df_path: str, run_id: str) -> None:
             #     usr_prompt_path = os.path.join(USR_PROMPT_DIR, f"prompt_{run_id}.txt")
             #     user_prompt = load_user_query(Path(usr_prompt_path))
             # except Exception as e:
-            #     print(f"❌ Error loading user query: {e}")
+            #     print(f"❌❌❌ Error loading user query: {e}❌❌❌\n")
             #     return
 
             full_prompt = build_full_prompt(
@@ -161,13 +145,13 @@ def main(user_prompt: str, df_path: str, run_id: str) -> None:
                 system_prompt=system_prompt
             )
 
-            print("🧠 Analyzing user query with LLM...")
+            print(f">>> Analyzing {insights_name[df_n]} with LLM...\n")
             recommend_survey = generate_chart_recommendation(llm_client, full_prompt)
 
             recommendation_path = Path(os.path.join(RECOMMENDATION_DIR, f"{insights_name[df_n]}.txt"))
             save_text_file(recommend_survey, recommendation_path)
         else:
-            print(f"⚠️ Skipping non-CSV file: {file}")
+            print(f"⚠️⚠️⚠️ Skipping non-CSV file: {file} ⚠️⚠️⚠️\n")
             continue
 
 
