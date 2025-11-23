@@ -34,6 +34,5 @@ def define_queries(llm_client: Any,
 
 def extract_insights(db_path: str, sql_code: str, output_dir: str) -> None:
     exec_results = execute_sql_on_sqlite(db_path=db_path, sql_response=sql_code)
-    save_sql_results_to_csv(exec_results, output_dir=output_dir)
     
-    return results_to_dataframes(exec_results)
+    return save_sql_results_to_csv(exec_results, output_dir=output_dir)

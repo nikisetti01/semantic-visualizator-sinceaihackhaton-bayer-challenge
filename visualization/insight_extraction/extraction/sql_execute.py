@@ -108,6 +108,9 @@ def execute_sql_on_sqlite(
                 "columns": col_names,
                 "rows": rows,
             }
+            print(f"------- {key.replace(" ", "_").replace("/", "_").split(":")[0]} -------\n")
+            print(f">>> Executes \n\t{sql}\n script, {len(rows)} rows retrieved.\n")
+            print(f"--------------------------------------------\n")
 
     finally:
         conn.close()

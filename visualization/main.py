@@ -7,9 +7,8 @@ from insight_extraction.categorizer.categorize import run_pipeline
 from insight_extraction.semantic_intent.semantic_intent import get_semantic_intent
 from insight_extraction.semantic_intent.expander import expand_dimension_categories
 from models.llm_client import OpenAILLMClient
-from insight_extraction.utils.saving_scripts import (
-    save_intent_to_file,
-)
+from insight_extraction.utils.saving_scripts import save_intent_to_file
+from insight_extraction.extraction.sql_generate import SQLQueryGenerator
 from insight_extraction.extraction.extract import define_queries, extract_insights
 
 # Cartelle base
@@ -173,8 +172,8 @@ def main(user_prompt: str, df_path: str | Path, run_id: str | int) -> None:
         output_dir=str(insights_dir),
     )
 
-    for df in insights_dfs:
-        print(f"{df}\n")
+    print(f">>> Generated tables\n")
+    
 
 
 if __name__ == "__main__":
