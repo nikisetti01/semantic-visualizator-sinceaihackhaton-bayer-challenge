@@ -31,7 +31,7 @@ RECOMMENDATION_OUTPUT_PATH = "chart_recommendation/recommendation.txt"
 
 EXTRACTED_DATASETS_PATH = "datasets/extracted"
 
-def from_csv_to_dict(datasets_path = ""):
+def from_csv_to_dict(datasets_path = EXTRACTED_DATASETS_PATH):
     datasets_path = Path(datasets_path)
     datasets = {}
 

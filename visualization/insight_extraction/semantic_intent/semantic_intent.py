@@ -44,7 +44,6 @@ def parse_intent_response(raw_response: str) -> Dict[str, Any]:
 def get_semantic_intent(
     user_question: str,
     llm_client: Any,
-    schema_columns: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     """
     Funzione principale del primo blocco.
@@ -79,6 +78,18 @@ def get_semantic_intent(
           - "filters"
           - "focus_topics"
     """
+    # dataframe structure extraction
+    schema_columns = [
+        "Created",
+        "Status",
+        "Division",
+        "ObservationCause",
+        "Location",
+        "ProcessingTimeDays",
+        "ObservationType",
+        "Department",
+        "RiskType",
+    ]
     prompt = build_intent_prompt(user_question, schema_columns)
 
     # Adatta questa parte alla tua implementazione LLM.
