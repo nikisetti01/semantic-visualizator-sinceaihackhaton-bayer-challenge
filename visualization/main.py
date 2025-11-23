@@ -3,19 +3,35 @@ import os
 from datetime import datetime
 import json
 from pathlib import Path
+import time
 
 from insight_extraction.categorizer.categorize import run_pipeline
 from insight_extraction.semantic_intent.semantic_intent import get_semantic_intent
 from models.llm_client import OpenAILLMClient
 from insight_extraction.utils.saving_scripts import save_intent_to_file
-from insight_extraction.extraction.sql_generate import SQLQueryGenerator
 from insight_extraction.extraction.extract import define_queries, extract_insights
+from viz_recommender.services.chart_recommender import build_full_prompt, generate_chart_recommendation
+from viz_recommender.services.file_io import save_text_file
+from viz_recommender.services.lida_service import create_lida_manager, load_dataframe, summarize_dataframe
+from viz_recommender.services.prompt_loader import load_text_file, load_user_query
 
 DATA_DIR = Path("datasets")
 OUT_DIR = Path("output")
 USR_PROMPT_DIR = Path("initial_prompts")
+RECOMMENDATION_DIR = Path("chart_recommendation")
 
 
+def profile(f):
+    def f_timer(*args, **kwargs):
+        start = time.time()
+        result = f(*args, **kwargs)
+        end = time.time()
+        ms = (end - start) * 1000
+        print(f"{f.__name__} ({ms:.3f} ms)")
+        return result
+    return f_timer
+
+@profile
 def main(user_prompt: str, df_path: str, run_id: str) -> None:
     
     # dataframe structure extraction
@@ -108,11 +124,52 @@ def main(user_prompt: str, df_path: str, run_id: str) -> None:
         output_dir=INSIGHTS_DIR,
     )
 
-    print(f">>> Generated tables\n")
-    
+    print(f">>> {len(insights_dfs)} tables generated\n\n")
+    insights_name = list(insights_dfs.keys())
 
+    print(">>>>>>>>>>>> -------- Recommending chart ------- <<<<<<<<<\n")
     
-    
+    system_prompt = load_text_file("viz_recommender/prompts/viz_prompt.txt")
+
+    api_key = os.getenv("OPENAI_API_KEY")
+    if api_key is None:
+        raise ValueError("OPENAI_API_KEY environment variable not found.")
+
+    lida_manager = create_lida_manager(api_key=api_key)
+
+    os.makedirs(RECOMMENDATION_DIR, exist_ok=True)
+    for df_n, file in enumerate(os.listdir(INSIGHTS_DIR)):
+        if file.endswith(".csv"):
+
+            csv_path = os.path.join(INSIGHTS_DIR, file)
+
+            print(f">>> Generating data profile with LIDA for {file.split('.')[0]} ...")
+            df = load_dataframe(csv_path)
+            data_profile_str = summarize_dataframe(df, lida_manager, summary_method="detailed")
+
+            # if not run in main user_prompt must be retrieved from run
+            # try:
+            #     usr_prompt_path = os.path.join(USR_PROMPT_DIR, f"prompt_{run_id}.txt")
+            #     user_prompt = load_user_query(Path(usr_prompt_path))
+            # except Exception as e:
+            #     print(f"❌ Error loading user query: {e}")
+            #     return
+
+            full_prompt = build_full_prompt(
+                data_profile_str=data_profile_str,
+                user_query=user_prompt,
+                system_prompt=system_prompt
+            )
+
+            print("🧠 Analyzing user query with LLM...")
+            recommend_survey = generate_chart_recommendation(llm_client, full_prompt)
+
+            recommendation_path = Path(os.path.join(RECOMMENDATION_DIR, f"{insights_name[df_n]}.txt"))
+            save_text_file(recommend_survey, recommendation_path)
+        else:
+            print(f"⚠️ Skipping non-CSV file: {file}")
+            continue
+
 
 if __name__ == "__main__":
 

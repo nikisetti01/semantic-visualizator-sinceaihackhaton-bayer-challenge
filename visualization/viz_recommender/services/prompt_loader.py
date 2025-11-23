@@ -2,19 +2,18 @@
 
 from pathlib import Path
 
-DEFAULT_PROMPT_PATH = Path("initial_prompts/prompt_4.txt")
 
-def load_user_query() -> str:
+def load_user_query(path: Path) -> str:
     """
     Load the user query from the default file
     """
-    if not DEFAULT_PROMPT_PATH.exists():
-        raise FileNotFoundError(f"User prompt file not found: {DEFAULT_PROMPT_PATH}")
+    if not path.exists():
+        raise FileNotFoundError(f"User prompt file not found: {path}")
 
-    content = DEFAULT_PROMPT_PATH.read_text(encoding="utf-8").strip()
+    content = path.read_text(encoding="utf-8").strip()
 
     if not content:
-        raise ValueError(f"User prompt file is empty: {DEFAULT_PROMPT_PATH}")
+        raise ValueError(f"User prompt file is empty: {path}")
 
     return content
 

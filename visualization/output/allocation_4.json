@@ -84,7 +84,7 @@
     "observation_date": "2024-03-15T00:00:00",
     "processed_date": "2024-03-16T00:00:00",
     "assignments": {
-      "OBSERVATION_TYPE": "property_damage",
+      "OBSERVATION_TYPE": "incident",
       "DEPARTMENT": "safety"
     }
   },
@@ -108,7 +108,7 @@
     "observation_date": "2024-04-05T00:00:00",
     "processed_date": "2024-04-06T00:00:00",
     "assignments": {
-      "OBSERVATION_TYPE": "property_damage",
+      "OBSERVATION_TYPE": "maintenance_request",
       "DEPARTMENT": "maintenance"
     }
   },
@@ -183,7 +183,7 @@
     "observation_date": "2024-06-07T00:00:00",
     "processed_date": "2024-06-10T00:00:00",
     "assignments": {
-      "OBSERVATION_TYPE": "property_damage"
+      "OBSERVATION_TYPE": "incident"
     }
   },
   {
@@ -298,7 +298,7 @@
     "observation_date": "2024-09-13T00:00:00",
     "processed_date": "2024-09-16T00:00:00",
     "assignments": {
-      "OBSERVATION_TYPE": "injury_report",
+      "OBSERVATION_TYPE": "incident",
       "DEPARTMENT": "maintenance"
     }
   },
@@ -363,7 +363,7 @@
     "observation_date": "2024-11-08T00:00:00",
     "processed_date": "2024-11-11T00:00:00",
     "assignments": {
-      "OBSERVATION_TYPE": "property_damage"
+      "OBSERVATION_TYPE": "incident"
     }
   },
   {
