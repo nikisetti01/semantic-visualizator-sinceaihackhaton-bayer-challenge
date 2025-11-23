@@ -29,7 +29,7 @@ def build_extraction_prompt(
    
     main_table: str,
     sql_dialect: str = "SQLite",
-    expansions: Optional[Dict[str, Dict[str, Any]]] = None,
+    schema_text: Optional[Any] = None,
 ) -> str:
     """
     Prompt per la generazione SQL, coerente con il parser esistente
@@ -101,6 +101,8 @@ Guidelines for labelling:
 
 CATEGORIES (from intent.group_by):
 {categories_summary}
+SCHEMA COLUMNS THAT YOU MUST FOLLOW FOR GENERATING QUERIES:
+{', '.join(schema_text) if schema_text else 'No schema information provided.'}
 
 
 

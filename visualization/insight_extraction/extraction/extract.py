@@ -27,7 +27,8 @@ def define_queries(llm_client: Any,
         user_question=user_prompt,
         json_spec=intent,
         main_table="observations_enriched",  # TODO: adapt with dynamic name
-        table_schema_text=schema_text,
+        schema_text=schema_text,
+
     )
 
     return sql_code
