@@ -13,7 +13,12 @@ from insight_extraction.categorizer.my_io.save_json import save_assignment_json
 from insight_extraction.categorizer.my_io.data_loader import load_observations_excel
 from insight_extraction.categorizer.embedding.embedder import embed_texts, embed_categories
 from insight_extraction.categorizer.matching.multi_matcher import match_all_dimensions
-
+from insight_extraction.categorizer.analysis import (
+    print_category_stats,
+    plot_dimension_summary,
+    plot_support_vs_mean_score,
+    plot_category_support_bar,
+    print_cluster_examples)
 def build_assignment_json(
     df: pd.DataFrame,
     all_best_idx: Dict[str, Any],
@@ -101,6 +106,7 @@ def run_pipeline(
     obs_date_col: str = "Observation_date",
     proc_date_col: str = "Processed_date",
     model_name: str = "all-MiniLM-L6-v2",
+    expansions_path: Optional[str | Path] = None,
     similarity_threshold: float = 0.4,
     min_support_ratio: float = 0.01,
     max_examples: Optional[int] = None,
@@ -142,6 +148,7 @@ def run_pipeline(
     excel_path = Path(excel_path)
     intent_path = Path(intent_path)
     output_path = Path(output_path)
+    
 
     # 1. Carica osservazioni
     print(f"[1/7] Carico Excel da: {excel_path}")
@@ -158,7 +165,14 @@ def run_pipeline(
     print(f"[2/7] Carico intent JSON da: {intent_path}")
     with intent_path.open("r", encoding="utf-8") as f:
         intent = json.load(f)
-
+    
+    # 2b. Carico expansions se fornite
+    expansions = None
+    if expansions_path is not None:
+        expansions_path = Path(expansions_path)
+        print(f"[2b/7] Carico expansions da: {expansions_path}")
+        with expansions_path.open("r", encoding="utf-8") as f:
+            expansions = json.load(f)
     # 3. Carica modello
     print(f"[3/7] Carico modello di embedding: {model_name}")
     model = load_embedding_model(model_name=model_name)
@@ -170,7 +184,12 @@ def run_pipeline(
 
     # 5. Embedding categorie
     print("[5/7] Calcolo embedding delle categorie...")
-    dim2cat_embs = embed_categories(model, intent)
+    if expansions is None:
+        raise ValueError(
+            "Hai chiamato embed_categories senza expansions. "
+            "Devi passare expansions_path a run_pipeline()."
+        )
+    dim2cat_embs = embed_categories(model, intent, expansions)
 
     # 6. Matching per tutte le dimensioni
     print("[6/7] Eseguo il matching categorie...")
@@ -180,6 +199,32 @@ def run_pipeline(
         dim2cat_embs=dim2cat_embs,
         similarity_threshold=similarity_threshold,
         min_support_ratio=min_support_ratio,
+    )
+    print_category_stats(all_stats)
+
+    # Plot di sintesi per dimensione
+    plot_dimension_summary(all_stats)
+
+    # Plot support vs mean_score
+    plot_support_vs_mean_score(all_stats)  # tutte le dimensioni insieme
+    # oppure per una dimensione specifica
+    # plot_support_vs_mean_score(all_stats, dimension_type="OBSERVATION_TYPE")
+
+    # Bar chart delle categorie top per una dimensione
+    plot_category_support_bar(
+        all_stats,
+        dimension_type="OBSERVATION_TYPE",
+        top_n=10,
+        normalize=False,
+    )
+
+    # Cluster di testo (solo console)
+    print_cluster_examples(
+        df=df,
+        all_best_idx=all_best_idx,
+        dim2cat_embs=dim2cat_embs,
+        text_col="text_for_embedding",
+        max_examples_per_category=5,
     )
 
     # (Opzionale) puoi loggare un piccolo riepilogo delle stats
