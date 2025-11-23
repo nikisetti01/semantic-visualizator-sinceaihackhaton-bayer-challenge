@@ -59,6 +59,10 @@ def extract_best_visualization(file_path):
 
 
 def resolve_data(json_component, workflow_state):
+    '''
+    Resolves data references in the component's args against the current workflow state.
+    Returns a list of resolved data objects, or None if any reference is invalid.
+    '''
     args = json_component.get("args", {})
     
     if isinstance(args, dict):
@@ -82,6 +86,10 @@ def resolve_data(json_component, workflow_state):
 
 
 def render_advanced_chart(json_component, workflow_state):
+    '''
+    Renders advanced chart types that require specific Streamlit methods.
+    Supported types: plotly_chart, altair_chart, vega_lite_chart, graphviz_chart, pydeck_chart
+    '''
     comp_type = json_component.get("type")
     cfg = json_component.get("args", {}).get("config", {})
 
@@ -181,7 +189,7 @@ def render_component(json_component, workflow_state, columns_map=None):
 def json_to_streamlit(workflow, data_sources: dict[str, pd.DataFrame] = None):
     '''
     Dynamically executes the LLM-generated JSON workflow in the Streamlit app,
-    without providig readable Python code
+    without providing readable Python code
     '''
     if data_sources is None:
         data_sources = {}
@@ -205,6 +213,9 @@ def json_to_streamlit(workflow, data_sources: dict[str, pd.DataFrame] = None):
 
 
 def clean_response(response):
+    '''
+    Cleans the LLM response to extract valid JSON content.
+    '''
     raw = response.strip()
     # Hard-clean markdown fences if present
     if raw.startswith("```"):
@@ -212,5 +223,4 @@ def clean_response(response):
         # Remove potential "json" specifier
         if raw.startswith("json"):
             raw = raw[len("json"):].strip()
-
     return raw
