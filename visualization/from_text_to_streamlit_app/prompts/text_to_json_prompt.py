@@ -17,6 +17,8 @@ def get_text_to_json_prompt(datasets, rec_dir):
                 txt_dict[file.split(".")[0]] = best_visual
         
 
+        print("Building the prompt for the given recommendation ...")
+
         text = f"""
                 You are building a Streamlit workflow that shows summary statistics and visualization elements for the given datasets.
                 Use ONLY the datasets provided below. You must NOT invent any new dataset names or variables. Reference datasets exactly as given.
