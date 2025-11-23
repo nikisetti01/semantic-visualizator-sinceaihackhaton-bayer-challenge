@@ -1,0 +1,53 @@
+PART 1: SEMANTIC DECOMPOSITION & MAPPING
+
+1. **Identify Key Terms:**
+   - "all safety observations from 2024"
+   - "average processing time"
+   - "trends"
+   - "types of observations"
+   - "longer-than-usual processing time"
+
+2. **Map to Data Schema:**
+   - User Term "all safety observations from 2024" -> No explicit column for year or date; only "event_month" (Values: 1–9). There is no "year" column, so we must assume all data is from 2024.
+   - User Term "average processing time" -> Column "avg_processing_time_days" (Values: 1.0, 3.0)
+   - User Term "types of observations" -> **No matching column in the data profile.** There is no column indicating observation type.
+   - User Term "trends" -> Implies analysis over time, which maps to "event_month".
+   - User Term "longer-than-usual processing time" -> Implies comparison of "avg_processing_time_days" across categories, but only "event_month" is available for segmentation.
+
+3. **Identify Constraints/Filters:**
+   - Filter: Only data from 2024 (assumed, as there is no year column).
+   - Cannot analyze by "types of observations" due to missing data.
+
+4. **Determine Analytical Goal:**
+   - Primary: Trend analysis of average processing time over months.
+   - Secondary: Distribution of processing times (if possible).
+   - Unable to perform part-to-whole or categorical comparison by observation type.
+
+---
+
+PART 2: CHART RECOMMENDATIONS
+
+**1. Chart Title:** Average Processing Time for Safety Observations by Month (2024)
+- **Chart Type:** Line Chart
+- **Visual Mapping (The Blueprint):**
+    - X-Axis: event_month
+    - Y-Axis: avg_processing_time_days (Average)
+    - Color/Segment: event_month (to visually distinguish months)
+- **Reasoning:** A line chart is ideal for showing trends over time. This will allow the user to see if average processing times are increasing, decreasing, or stable across the months of 2024.
+
+**2. Chart Title:** Distribution of Processing Times for Safety Observations (2024)
+- **Chart Type:** Histogram or Box Plot
+- **Visual Mapping (The Blueprint):**
+    - X-Axis: avg_processing_time_days
+    - Y-Axis: Count of Observations
+    - Color/Segment: event_month (if sample size allows; otherwise, single color)
+- **Reasoning:** This chart will show the spread and frequency of processing times, helping to identify if there are outliers or a skew towards longer processing times.
+
+---
+
+PART 3: DATA TRANSFORMATION NOTES
+
+- Assume all data is from 2024 (no filtering by year possible).
+- Group data by "event_month" to calculate the average "avg_processing_time_days" for each month.
+- For the distribution chart, use all available "avg_processing_time_days" values.
+- **Cannot** segment or compare by "types of observations" as this data is not present in the profile. Explicitly state this limitation in any reporting or dashboard notes.

@@ -1,15 +1,13 @@
 # app.py
 import streamlit as st
 import pandas as pd
+import main
 
 # ============================
 # Placeholder: your LLM logic
 # ============================
 def get_chart_recommendations(user_query: str, df: pd.DataFrame) -> str:
-    """
-    TODO: replace this with your real model call.
-    """
-    cols = ", ".join(df.columns)
+    main.main(user_prompt=user_query, df=df, run_id=0)  # You can modify this to pass the DataFrame directly
     return ()
 
 
@@ -46,9 +44,9 @@ Use this tool to test your LLM-based visualization recommendation pipeline.
 
 # --- Upload CSV ---
 uploaded_file = st.file_uploader(
-    "Upload your dataset (.csv)",
-    type=["csv"],
-    help="Select the CSV file returned by your RAG / HSE system",
+    "Upload your dataset (.csv or .xlsx)",
+    type=["csv", "xlsx"],
+    help="Select the CSV or Excel file returned by your RAG / HSE system",
 )
 
 # --- User request ---
@@ -61,6 +59,7 @@ user_query = st.text_area(
 run_button = st.button("Run recommendation")
 
 if run_button:
+    df = None
     if uploaded_file is None:
         st.error("Please upload a CSV file first.")
     elif not user_query.strip():
@@ -68,7 +67,10 @@ if run_button:
     else:
         # Read CSV as DataFrame
         try:
-            df = pd.read_csv(uploaded_file)
+            if uploaded_file.name.endswith(".csv"):
+                df = pd.read_csv(uploaded_file)
+            elif uploaded_file.name.endswith(".xlsx"):
+                df = pd.read_excel(uploaded_file, engine="openpyxl")
         except Exception as e:
             st.error(f"Error reading CSV file: {e}")
             st.stop()

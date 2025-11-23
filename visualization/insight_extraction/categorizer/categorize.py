@@ -10,7 +10,7 @@ import pandas as pd
 from insight_extraction.categorizer.embedding.model_loader import load_embedding_model
 from insight_extraction.categorizer.my_io.save_json import save_assignment_json
 
-from insight_extraction.categorizer.my_io.data_loader import load_observations_excel
+from insight_extraction.categorizer.my_io.data_loader import load_observations_df
 from insight_extraction.categorizer.embedding.embedder import embed_texts, embed_categories
 from insight_extraction.categorizer.matching.multi_matcher import match_all_dimensions
 
@@ -92,7 +92,7 @@ def build_assignment_json(
 
 
 def run_pipeline(
-    excel_path: str | Path,
+    df: pd.DataFrame,
     intent_path: str | Path,
     output_path: str | Path = "assignments.json",
     title_col: str = "Title",
@@ -118,8 +118,8 @@ def run_pipeline(
 
     Parameters
     ----------
-    excel_path : str | Path
-        Path al file Excel di input.
+    df : pd.DataFrame
+        DataFrame con le osservazioni.
     intent_path : str | Path
         Path al file JSON con la definizione delle categorie
         (es. struttura con "group_by").
@@ -139,14 +139,13 @@ def run_pipeline(
         Limite opzionale al numero di righe da processare.
     """
 
-    excel_path = Path(excel_path)
     intent_path = Path(intent_path)
     output_path = Path(output_path)
 
     # 1. Carica osservazioni
-    print(f"[1/7] Carico Excel da: {excel_path}")
-    df = load_observations_excel(
-        path=str(excel_path),
+    print(f"[1/7] Carico Excel")
+    df = load_observations_df(
+        df=df,
         title_col=title_col,
         obs_col=obs_col,
         obs_date_col=obs_date_col,

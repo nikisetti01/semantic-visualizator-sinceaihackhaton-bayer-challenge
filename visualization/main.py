@@ -4,16 +4,19 @@ from datetime import datetime
 import json
 from pathlib import Path
 import time
+import pandas as pd
 
 from insight_extraction.categorizer.categorize import run_pipeline
 from insight_extraction.semantic_intent.semantic_intent import get_semantic_intent
 from models.llm_client import OpenAILLMClient
 from insight_extraction.utils.saving_scripts import save_intent_to_file
 from insight_extraction.extraction.extract import define_queries, extract_insights
+from from_text_to_streamlit_app.prompts.text_to_json_prompt import get_text_to_json_prompt
+from from_text_to_streamlit_app.utils import clean_response, from_csv_to_dict, json_to_streamlit
 from viz_recommender.services.chart_recommender import build_full_prompt, generate_chart_recommendation
 from viz_recommender.services.file_io import save_text_file
 from viz_recommender.services.lida_service import create_lida_manager, load_dataframe, summarize_dataframe
-from viz_recommender.services.prompt_loader import load_text_file, load_user_query
+from viz_recommender.services.prompt_loader import load_text_file
 
 DATA_DIR = Path("datasets")
 OUT_DIR = Path("output")
@@ -31,14 +34,14 @@ def profile(f):
         return result
     return f_timer
 
-@profile
-def main(user_prompt: str, df_path: str, run_id: str) -> None:
+# @profile
+def main(user_prompt: str, df: pd.DataFrame, run_id: str) -> None:
     
     # Client OpenAI reale (assume OPENAI_API_KEY nell'ambiente)
     llm_client = OpenAILLMClient(
         model_name="gpt-4.1",  # o "gpt-4.1", "gpt-4o", ecc.
         temperature=0.0,
-        max_output_tokens=1024,
+        max_output_tokens=2400,
     )
     print(">>> User question:\t")
     print(user_prompt)
@@ -68,7 +71,7 @@ def main(user_prompt: str, df_path: str, run_id: str) -> None:
     allocation_path = os.path.join(OUT_DIR, f"allocation_{run_id}.json")
 
     run_pipeline(
-        excel_path=df_path,
+        df=df,
         intent_path=intent_path,
         output_path=allocation_path,
         model_name="all-MiniLM-L6-v2",
@@ -153,6 +156,17 @@ def main(user_prompt: str, df_path: str, run_id: str) -> None:
         else:
             print(f"⚠️⚠️⚠️ Skipping non-CSV file: {file} ⚠️⚠️⚠️\n")
             continue
+        
+    print("\n>>>>>>>>> -------- Generating Streamlit app ------- <<<<<<<<<\n")
+    datasets = from_csv_to_dict()
+    prompt = get_text_to_json_prompt(datasets, RECOMMENDATION_DIR)
+    response = llm_client.invoke(prompt)
+    print(response)
+
+    cleaned_response = clean_response(response)
+    
+    workflow = json.loads(cleaned_response)
+    json_to_streamlit(workflow, data_sources=datasets)
 
 
 if __name__ == "__main__":
@@ -164,6 +178,8 @@ if __name__ == "__main__":
     
     with open(prompt_path, "r") as f:
         user_prompt = f.read()
+
+    df = pd.read_excel(df_path, engine="openpyxl")
     
     
-    main(user_prompt = user_prompt, df_path = df_path, run_id = obs_id)
+    main(user_prompt = user_prompt, df=df, run_id = obs_id)

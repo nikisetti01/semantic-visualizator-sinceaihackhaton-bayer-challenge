@@ -21,6 +21,8 @@
         "environmental_observation",
         "quality_issue",
         "maintenance_request",
+        "injury_report",
+        "property_damage",
         "unsafe_condition",
         "unsafe_act"
       ]
@@ -31,21 +33,6 @@
         "month",
         "quarter",
         "year"
-      ]
-    },
-    {
-      "dimension_type": "DEPARTMENT",
-      "values": [
-        "production",
-        "maintenance",
-        "quality_assurance",
-        "logistics",
-        "administration",
-        "safety",
-        "engineering",
-        "warehouse",
-        "operations",
-        "facility_management"
       ]
     }
   ],
