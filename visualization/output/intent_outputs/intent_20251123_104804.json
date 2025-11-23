@@ -1,0 +1,69 @@
+{
+  "raw_question": "Analyze the observations related to electrical safety from the years 2024–2025. Is there an upward or downward trend over time?",
+  "metrics": [
+    "trend_over_time"
+  ],
+  "time": {
+    "from": "2024-01-01",
+    "to": "2025-12-31",
+    "year": null,
+    "month": null
+  },
+  "group_by": [
+    {
+      "dimension_type": "RISK_TYPE",
+      "values": [
+        "electrical_safety",
+        "arc_flash",
+        "fire_risk",
+        "short_circuit",
+        "wiring_fault",
+        "equipment_failure",
+        "overload",
+        "ground_fault",
+        "exposed_wiring",
+        "power_outage",
+        "shock_hazard"
+      ]
+    },
+    {
+      "dimension_type": "TIME",
+      "values": [
+        "month",
+        "quarter",
+        "year"
+      ]
+    },
+    {
+      "dimension_type": "OBSERVATION_TYPE",
+      "values": [
+        "safety_observation",
+        "incident",
+        "near_miss",
+        "hazard_report",
+        "environmental_observation",
+        "quality_issue"
+      ]
+    },
+    {
+      "dimension_type": "DEPARTMENT",
+      "values": [
+        "maintenance",
+        "production",
+        "engineering",
+        "facilities",
+        "operations",
+        "safety",
+        "quality_control",
+        "logistics"
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "dimension_type": "RISK_TYPE",
+      "operator": "=",
+      "value": "electrical_safety"
+    }
+  ]
+}

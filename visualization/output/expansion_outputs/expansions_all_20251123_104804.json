@@ -1,0 +1,655 @@
+{
+  "RISK_TYPE": {
+    "electrical_safety": {
+      "name": "electrical_safety",
+      "description": "Electrical safety refers to the identification, prevention, and control of hazards related to the use of electrical systems and equipment in the workplace. It encompasses safe work practices, proper equipment maintenance, and hazard recognition to prevent electrical injuries, shocks, burns, or fires. Observations in this category often involve unsafe wiring, improper use of electrical tools, or lack of protective measures.",
+      "synonyms": [
+        "safe electrical practices",
+        "electrical hazard prevention",
+        "electrical risk management",
+        "electrical safety compliance",
+        "electrical safety protocols",
+        "electrical safety measures",
+        "electrical safety checks",
+        "electrical safety standards",
+        "electrical safety procedures",
+        "electrical safety awareness"
+      ],
+      "examples": [
+        "Observed missing covers on electrical panels in the maintenance room.",
+        "Extension cords found running across walkways without protection.",
+        "Worker using damaged power tool with exposed wires.",
+        "No lockout/tagout applied during electrical maintenance.",
+        "Unlabeled circuit breakers in the main distribution board."
+      ]
+    },
+    "arc_flash": {
+      "name": "arc_flash",
+      "description": "Arc flash refers to a dangerous electrical explosion caused by a rapid release of energy due to an electrical arc, often resulting in severe burns, injuries, or equipment damage. In HSE, this category covers incidents, near misses, or hazards where workers are exposed to arc flash risks, typically during maintenance or operation of high-voltage equipment. Observations may include inadequate PPE, improper procedures, or lack of arc flash labeling.",
+      "synonyms": [
+        "arc blast",
+        "electrical arc incident",
+        "arc flash hazard",
+        "arc flash event",
+        "arc flash exposure",
+        "arc flash risk",
+        "arc flash accident",
+        "arc flash safety",
+        "arc flash protection",
+        "arc flash incident"
+      ],
+      "examples": [
+        "Worker entered switchgear room without arc flash PPE.",
+        "Arc flash warning label missing on main panel.",
+        "Observed burn marks near circuit breaker after arc event.",
+        "Maintenance performed on live equipment without arc flash analysis.",
+        "Near miss: arc flash occurred during breaker racking."
+      ]
+    },
+    "fire_risk": {
+      "name": "fire_risk",
+      "description": "Fire risk involves the potential for ignition, spread, and consequences of fire in the workplace, often due to electrical faults, flammable materials, or equipment malfunction. In HSE, this category includes observations of conditions or behaviors that could lead to fire incidents, such as overloaded circuits, blocked fire exits, or improper storage of combustibles. It is critical for preventing property damage, injuries, and fatalities.",
+      "synonyms": [
+        "fire hazard",
+        "fire danger",
+        "fire safety risk",
+        "fire threat",
+        "fire exposure",
+        "fire potential",
+        "fire incident risk",
+        "fire vulnerability",
+        "fire prevention concern",
+        "fire ignition risk"
+      ],
+      "examples": [
+        "Overloaded power strip found under desk with multiple devices.",
+        "Flammable liquids stored near electrical panels.",
+        "Fire extinguisher blocked by storage boxes.",
+        "Accumulation of dust on electrical equipment increasing fire risk.",
+        "Observed sparks from faulty outlet in production area."
+      ]
+    },
+    "short_circuit": {
+      "name": "short_circuit",
+      "description": "Short circuit refers to an abnormal connection between two points in an electrical circuit, causing excessive current flow and potential overheating, equipment damage, or fire. In HSE, this category covers incidents, hazards, or near misses involving short circuits, often due to faulty wiring, damaged insulation, or improper repairs. Observations may include tripped breakers, burnt smells, or visible arcing.",
+      "synonyms": [
+        "electrical short",
+        "circuit fault",
+        "shorted circuit",
+        "shorting event",
+        "circuit malfunction",
+        "short circuit incident",
+        "short circuit hazard",
+        "short circuit failure",
+        "short circuit risk",
+        "short circuit occurrence"
+      ],
+      "examples": [
+        "Breaker tripped due to short circuit in lighting circuit.",
+        "Burnt smell detected near control panel after shorting event.",
+        "Observed sparks from exposed wires causing a short.",
+        "Short circuit caused emergency shutdown of conveyor system.",
+        "Technician reported melted insulation from shorted cable."
+      ]
+    },
+    "wiring_fault": {
+      "name": "wiring_fault",
+      "description": "Wiring fault refers to defects or failures in electrical wiring, such as loose connections, damaged insulation, or incorrect installations, which can lead to electrical hazards. In HSE, this category includes observations of unsafe or non-compliant wiring that could cause shocks, fires, or equipment malfunctions. Typical events involve exposed conductors, improper terminations, or signs of overheating.",
+      "synonyms": [
+        "faulty wiring",
+        "wiring defect",
+        "wiring issue",
+        "wiring problem",
+        "wiring error",
+        "wiring malfunction",
+        "wiring anomaly",
+        "wiring irregularity",
+        "wiring damage",
+        "wiring failure"
+      ],
+      "examples": [
+        "Loose wire connections found in junction box.",
+        "Damaged insulation on power cable in workshop.",
+        "Improperly terminated wires in control cabinet.",
+        "Observed overheating at wire connection point.",
+        "Exposed conductor found during routine inspection."
+      ]
+    },
+    "equipment_failure": {
+      "name": "equipment_failure",
+      "description": "Equipment failure refers to the malfunction or breakdown of electrical or mechanical devices, which can create safety hazards, disrupt operations, or lead to incidents. In HSE, this category includes observations where equipment does not operate as intended, potentially exposing workers to risks such as shock, fire, or mechanical injury. Examples include failed circuit breakers, non-functioning alarms, or defective tools.",
+      "synonyms": [
+        "equipment breakdown",
+        "equipment malfunction",
+        "equipment fault",
+        "equipment outage",
+        "equipment defect",
+        "equipment problem",
+        "equipment issue",
+        "equipment crash",
+        "equipment stoppage",
+        "equipment shutdown"
+      ],
+      "examples": [
+        "Main circuit breaker failed to trip during overload.",
+        "Emergency stop button not functioning on conveyor.",
+        "Observed smoke from failed motor in pump room.",
+        "Alarm system did not activate during test.",
+        "Power tool stopped working due to internal fault."
+      ]
+    },
+    "overload": {
+      "name": "overload",
+      "description": "Overload refers to a condition where electrical circuits or equipment are subjected to currents or loads exceeding their rated capacity, increasing the risk of overheating, fire, or equipment damage. In HSE, this category covers observations of overloaded outlets, panels, or machinery, often due to improper use or lack of load management. It is a common cause of electrical incidents and fire hazards.",
+      "synonyms": [
+        "overloading",
+        "excess load",
+        "overcapacity",
+        "overcurrent",
+        "overburdened circuit",
+        "overloaded equipment",
+        "load exceedance",
+        "load imbalance",
+        "overdrawn circuit",
+        "overstressed equipment"
+      ],
+      "examples": [
+        "Multiple high-power devices plugged into single outlet.",
+        "Observed tripped breaker due to circuit overload.",
+        "Extension cord used beyond rated capacity.",
+        "Panel board showing signs of overheating from overload.",
+        "Machinery shut down after exceeding load limit."
+      ]
+    },
+    "ground_fault": {
+      "name": "ground_fault",
+      "description": "Ground fault refers to an unintentional electrical path between a power source and the ground, which can result in electric shock, equipment damage, or fire. In HSE, this category includes incidents or hazards where current leaks to ground due to insulation failure, damaged wiring, or faulty equipment. Observations may involve tripped ground fault interrupters, tingling sensations, or visible arcing.",
+      "synonyms": [
+        "earth fault",
+        "grounding fault",
+        "ground leakage",
+        "ground fault incident",
+        "ground fault hazard",
+        "ground fault event",
+        "ground fault condition",
+        "ground fault risk",
+        "ground fault occurrence",
+        "ground fault detection"
+      ],
+      "examples": [
+        "GFCI outlet tripped during equipment operation.",
+        "Worker reported tingling sensation when touching metal enclosure.",
+        "Detected ground fault in lighting circuit during inspection.",
+        "Observed arcing at grounding connection.",
+        "Ground fault alarm activated in control room."
+      ]
+    },
+    "exposed_wiring": {
+      "name": "exposed_wiring",
+      "description": "Exposed wiring refers to electrical conductors that are not properly insulated or covered, posing a risk of electric shock, burns, or fire. In HSE, this category includes observations of wires left uncovered, damaged insulation, or temporary wiring setups that do not meet safety standards. Such conditions are often found during maintenance, renovations, or after equipment damage.",
+      "synonyms": [
+        "uncovered wiring",
+        "bare wires",
+        "uninsulated wiring",
+        "exposed conductors",
+        "open wiring",
+        "visible wiring",
+        "dangling wires",
+        "loose wiring",
+        "unsafe wiring exposure",
+        "unprotected wiring"
+      ],
+      "examples": [
+        "Exposed wires found hanging from ceiling in storage area.",
+        "Damaged insulation on extension cord near workbench.",
+        "Temporary wiring left uncovered after repair work.",
+        "Observed bare conductors in electrical panel.",
+        "Loose wires present near water source."
+      ]
+    },
+    "power_outage": {
+      "name": "power_outage",
+      "description": "Power outage refers to the loss of electrical power supply to a facility, area, or equipment, which can disrupt operations and create safety hazards. In HSE, this category includes incidents or observations where power loss affects critical systems, emergency lighting, or safe evacuation. Causes may include equipment failure, grid issues, or planned maintenance.",
+      "synonyms": [
+        "power failure",
+        "blackout",
+        "loss of power",
+        "electrical outage",
+        "power interruption",
+        "power cut",
+        "power loss",
+        "service interruption",
+        "power shutdown",
+        "electricity outage"
+      ],
+      "examples": [
+        "Unexpected power outage halted production line.",
+        "Emergency lighting failed to activate during blackout.",
+        "Power loss affected ventilation system in confined space.",
+        "Planned power shutdown for maintenance announced.",
+        "Critical alarms did not function during power interruption."
+      ]
+    },
+    "shock_hazard": {
+      "name": "shock_hazard",
+      "description": "Shock hazard refers to the risk of electric shock to personnel due to contact with live electrical parts, faulty equipment, or improper grounding. In HSE, this category includes observations of unsafe conditions where workers could be exposed to electrical currents, such as exposed wiring, wet environments, or lack of protective devices. Preventing shock hazards is essential for worker safety.",
+      "synonyms": [
+        "electric shock risk",
+        "shock risk",
+        "electrical shock hazard",
+        "shock exposure",
+        "shock danger",
+        "shock incident risk",
+        "shock potential",
+        "shock threat",
+        "shock safety concern",
+        "shock injury risk"
+      ],
+      "examples": [
+        "Worker received mild shock from metal tool near live panel.",
+        "Wet floor observed around electrical outlet.",
+        "No insulating mat provided at switchboard.",
+        "Exposed live wires found in maintenance area.",
+        "Improperly grounded equipment posing shock risk."
+      ]
+    }
+  },
+  "TIME": {
+    "month": {
+      "name": "month",
+      "description": "In HSE analytics, 'month' refers to a calendar period of approximately 30 days used for tracking, reporting, and analyzing safety and environmental data. Monthly intervals are commonly used to identify trends, monitor compliance, and assess the frequency of incidents, near misses, or hazards over time. Observations and reports are often grouped by month to facilitate regular reviews and targeted interventions.",
+      "synonyms": [
+        "monthly period",
+        "per month",
+        "this month",
+        "last month",
+        "monthly reporting",
+        "monthly cycle",
+        "calendar month",
+        "month-to-date",
+        "monthly summary",
+        "monthly review"
+      ],
+      "examples": [
+        "Three near misses were reported in the month of April.",
+        "Monthly safety inspections were completed for all work areas.",
+        "There was a spike in environmental observations last month.",
+        "Monthly incident review identified recurring slip hazards.",
+        "No lost time injuries occurred during the month."
+      ]
+    },
+    "quarter": {
+      "name": "quarter",
+      "description": "In the HSE context, 'quarter' denotes a three-month period used for summarizing and analyzing safety and environmental performance. Quarterly intervals help organizations track progress, compare trends, and evaluate the effectiveness of safety initiatives over a longer timeframe than monthly reviews. Reports and observations are often aggregated by quarter for management review and regulatory compliance.",
+      "synonyms": [
+        "quarterly period",
+        "per quarter",
+        "this quarter",
+        "last quarter",
+        "quarterly reporting",
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4",
+        "quarterly review",
+        "quarterly summary"
+      ],
+      "examples": [
+        "Quarterly incident rates decreased compared to the previous quarter.",
+        "Quarterly safety training was completed by all staff.",
+        "There were five environmental spills reported in Q2.",
+        "Quarterly review highlighted an increase in near misses.",
+        "No recordable injuries occurred during the last quarter."
+      ]
+    },
+    "year": {
+      "name": "year",
+      "description": "In HSE analytics, 'year' refers to a twelve-month period used for comprehensive tracking and evaluation of safety and environmental performance. Annual intervals are essential for identifying long-term trends, setting targets, and fulfilling regulatory reporting requirements. Yearly summaries aggregate incidents, hazards, and observations to inform strategic planning and continuous improvement.",
+      "synonyms": [
+        "annual period",
+        "per year",
+        "this year",
+        "last year",
+        "yearly reporting",
+        "calendar year",
+        "fiscal year",
+        "year-to-date",
+        "annual review",
+        "yearly summary"
+      ],
+      "examples": [
+        "The total number of recordable injuries decreased this year.",
+        "Annual safety audit was completed in December.",
+        "Yearly environmental compliance report was submitted.",
+        "There were no fatalities reported last year.",
+        "Year-to-date near miss count is lower than previous years."
+      ]
+    }
+  },
+  "OBSERVATION_TYPE": {
+    "safety_observation": {
+      "name": "safety_observation",
+      "description": "A safety observation refers to the act of noticing and recording behaviors, conditions, or practices that impact workplace safety, whether positive or negative. In HSE, these observations are used to identify trends, reinforce safe practices, and address unsafe actions before they lead to incidents. They often include both compliance with and deviations from safety protocols.",
+      "synonyms": [
+        "safety check",
+        "safe behavior observation",
+        "workplace safety note",
+        "safety walkthrough finding",
+        "safety compliance observation",
+        "safety practice review",
+        "field safety observation",
+        "safety monitoring report",
+        "safety audit note",
+        "safety behavior record"
+      ],
+      "examples": [
+        "Observed worker wearing full PPE while operating machinery.",
+        "Noted that emergency exits were kept clear during shift.",
+        "Identified a team member bypassing lockout-tagout procedure.",
+        "Observed proper use of handrails on stairs.",
+        "Noticed a forklift operator using seatbelt as required."
+      ]
+    },
+    "incident": {
+      "name": "incident",
+      "description": "An incident in HSE is any unplanned event that results in or could have resulted in injury, illness, property damage, or environmental harm. Incidents are formally reported and investigated to determine root causes and prevent recurrence. They include accidents, injuries, spills, fires, and other significant safety or environmental events.",
+      "synonyms": [
+        "accident",
+        "event",
+        "injury report",
+        "safety incident",
+        "workplace accident",
+        "HSE event",
+        "recordable incident",
+        "reportable event",
+        "loss event",
+        "harmful occurrence"
+      ],
+      "examples": [
+        "Worker suffered a laceration while using a box cutter.",
+        "Forklift struck a storage rack causing minor damage.",
+        "Chemical spill occurred in the maintenance area.",
+        "Employee slipped on wet floor and sprained ankle.",
+        "Fire alarm triggered due to electrical short circuit."
+      ]
+    },
+    "near_miss": {
+      "name": "near_miss",
+      "description": "A near miss is an unplanned event that did not result in injury, illness, or damage but had the potential to do so. In HSE, near misses are critical for proactive risk management, as they highlight hazards and unsafe conditions before they cause harm. Reporting near misses helps organizations address underlying issues and prevent future incidents.",
+      "synonyms": [
+        "close call",
+        "narrow escape",
+        "almost accident",
+        "potential incident",
+        "safety near miss",
+        "missed incident",
+        "near hit",
+        "incident avoided",
+        "hazardous occurrence",
+        "dangerous situation avoided"
+      ],
+      "examples": [
+        "Falling object landed next to worker but caused no injury.",
+        "Forklift narrowly missed colliding with pedestrian.",
+        "Employee tripped over hose but regained balance.",
+        "Chemical container was found leaking but no exposure occurred.",
+        "Overhead crane load swung close to scaffolding without contact."
+      ]
+    },
+    "hazard_report": {
+      "name": "hazard_report",
+      "description": "A hazard report documents the identification of a condition, process, or behavior that poses a risk to health, safety, or the environment. In HSE, these reports are used to flag potential dangers so corrective actions can be taken before an incident occurs. Hazards can include unsafe equipment, environmental risks, or unsafe work practices.",
+      "synonyms": [
+        "hazard identification",
+        "unsafe condition report",
+        "risk report",
+        "danger report",
+        "hazard notification",
+        "safety hazard report",
+        "hazard spotting",
+        "hazardous condition report",
+        "potential hazard report",
+        "risk observation"
+      ],
+      "examples": [
+        "Reported frayed electrical cord in break room.",
+        "Identified unguarded moving parts on conveyor.",
+        "Noted oil spill near loading dock creating slip hazard.",
+        "Flagged missing guardrail on elevated platform.",
+        "Reported blocked fire extinguisher access."
+      ]
+    },
+    "environmental_observation": {
+      "name": "environmental_observation",
+      "description": "An environmental observation involves noting and recording conditions or events that may impact the environment, such as pollution, waste, emissions, or wildlife disturbances. In HSE, these observations help ensure compliance with environmental regulations and support sustainability initiatives. They can include both positive practices and potential environmental risks.",
+      "synonyms": [
+        "environmental check",
+        "environmental monitoring",
+        "environmental condition report",
+        "environmental compliance observation",
+        "eco observation",
+        "environmental finding",
+        "environmental inspection note",
+        "environmental hazard observation",
+        "environmental issue report",
+        "environmental assessment"
+      ],
+      "examples": [
+        "Observed oil sheen on surface water near facility.",
+        "Noted proper segregation of recycling and waste bins.",
+        "Detected unusual odor near chemical storage area.",
+        "Reported excessive dust emissions from construction site.",
+        "Observed wildlife entering restricted waste area."
+      ]
+    },
+    "quality_issue": {
+      "name": "quality_issue",
+      "description": "A quality issue refers to any deviation from established standards, specifications, or procedures that could affect the safety, reliability, or compliance of products or processes. In HSE, quality issues are reported to prevent defects, rework, or unsafe outcomes that may compromise health, safety, or the environment. These can include material defects, process errors, or non-conformances.",
+      "synonyms": [
+        "quality nonconformance",
+        "defect report",
+        "quality deviation",
+        "product issue",
+        "process nonconformity",
+        "quality concern",
+        "non-compliance report",
+        "quality failure",
+        "workmanship issue",
+        "quality control issue"
+      ],
+      "examples": [
+        "Found welds not meeting inspection criteria.",
+        "Reported batch of materials with incorrect labeling.",
+        "Identified faulty safety valve during routine check.",
+        "Noted incomplete documentation for equipment maintenance.",
+        "Detected paint defects on finished product."
+      ]
+    }
+  },
+  "DEPARTMENT": {
+    "maintenance": {
+      "name": "maintenance",
+      "description": "In HSE, the maintenance department is responsible for the upkeep, repair, and servicing of equipment, machinery, and infrastructure to ensure safe and reliable operations. Observations in this category often involve issues related to equipment failures, preventive maintenance, unsafe repair practices, or hazards identified during routine checks.",
+      "synonyms": [
+        "repair team",
+        "equipment servicing",
+        "mechanical maintenance",
+        "maintenance crew",
+        "plant maintenance",
+        "maintenance staff",
+        "maintenance operations",
+        "maintenance technicians",
+        "service department",
+        "asset maintenance"
+      ],
+      "examples": [
+        "Oil spill found near maintenance workshop during equipment repair.",
+        "Preventive maintenance not completed on conveyor belt as scheduled.",
+        "Technician observed working without lockout/tagout during pump repair.",
+        "Loose handrail reported during routine maintenance inspection.",
+        "Unsecured tools left in maintenance area after shift change."
+      ]
+    },
+    "production": {
+      "name": "production",
+      "description": "The production department oversees the manufacturing or processing of goods, focusing on output, efficiency, and process safety. HSE observations here typically relate to unsafe work practices, process upsets, equipment misuse, or hazards arising during normal production activities.",
+      "synonyms": [
+        "manufacturing",
+        "production line",
+        "operations floor",
+        "process area",
+        "assembly line",
+        "production team",
+        "manufacturing department",
+        "production staff",
+        "shop floor",
+        "production operations"
+      ],
+      "examples": [
+        "Operator bypassed safety guard on production line.",
+        "Spill of raw material reported in production area.",
+        "Near miss: worker almost caught hand in moving conveyor.",
+        "Noise levels exceeded safe limits during shift in production hall.",
+        "Unlabeled chemical container found on production floor."
+      ]
+    },
+    "engineering": {
+      "name": "engineering",
+      "description": "The engineering department is responsible for designing, modifying, and improving plant systems, equipment, and processes, with a focus on technical integrity and safety. HSE observations may include design-related hazards, unsafe modifications, or risks identified during project work or technical assessments.",
+      "synonyms": [
+        "technical department",
+        "engineering team",
+        "project engineering",
+        "plant engineering",
+        "engineering staff",
+        "design team",
+        "engineering services",
+        "engineering support",
+        "engineering group",
+        "technical services"
+      ],
+      "examples": [
+        "Temporary modification installed without proper engineering review.",
+        "Engineering team identified potential pinch point in new equipment design.",
+        "Unapproved materials used in piping replacement project.",
+        "Missing safety signage noted during engineering site walk.",
+        "Design drawing did not include emergency shutoff location."
+      ]
+    },
+    "facilities": {
+      "name": "facilities",
+      "description": "The facilities department manages the physical infrastructure of the site, including buildings, utilities, and common areas, ensuring they are safe and compliant. HSE observations often involve building hazards, unsafe access routes, fire safety issues, or environmental concerns related to facility upkeep.",
+      "synonyms": [
+        "facility management",
+        "building services",
+        "site services",
+        "facilities team",
+        "infrastructure management",
+        "facilities staff",
+        "property management",
+        "facilities operations",
+        "site facilities",
+        "facilities maintenance"
+      ],
+      "examples": [
+        "Blocked emergency exit found in facility corridor.",
+        "Water leak reported in main office building.",
+        "Damaged ceiling tile observed in cafeteria area.",
+        "Trip hazard: loose floor tile in facility entrance.",
+        "Fire extinguisher missing from facilities storage room."
+      ]
+    },
+    "operations": {
+      "name": "operations",
+      "description": "The operations department is responsible for the day-to-day running of plant processes, equipment, and systems, ensuring safe and efficient output. HSE observations here may include process deviations, unsafe operating conditions, procedural violations, or incidents during routine operations.",
+      "synonyms": [
+        "operations team",
+        "plant operations",
+        "operations staff",
+        "process operations",
+        "operations department",
+        "control room",
+        "operations crew",
+        "operations management",
+        "operations floor",
+        "operations personnel"
+      ],
+      "examples": [
+        "Operator failed to follow lockout procedure during equipment startup.",
+        "Process alarm ignored by operations staff.",
+        "Unauthorized entry into restricted operations area.",
+        "Overpressure event reported in operations control room.",
+        "Spill occurred during routine operations transfer."
+      ]
+    },
+    "safety": {
+      "name": "safety",
+      "description": "The safety department is dedicated to promoting and enforcing health and safety standards, conducting risk assessments, and ensuring compliance with regulations. HSE observations in this category include safety audits, incident investigations, unsafe behaviors, and implementation of corrective actions.",
+      "synonyms": [
+        "HSE department",
+        "safety team",
+        "safety office",
+        "safety management",
+        "safety staff",
+        "health and safety",
+        "safety services",
+        "safety officers",
+        "EHS department",
+        "safety group"
+      ],
+      "examples": [
+        "Safety officer conducted PPE compliance inspection.",
+        "Near miss reported to safety department for follow-up.",
+        "Safety audit identified missing machine guards.",
+        "Unsafe lifting practice observed and reported to safety team.",
+        "Incident investigation initiated by safety staff."
+      ]
+    },
+    "quality_control": {
+      "name": "quality_control",
+      "description": "The quality control department ensures that products and processes meet established standards, focusing on inspections, testing, and compliance. HSE observations may involve non-conforming materials, contamination risks, or unsafe sampling and testing practices.",
+      "synonyms": [
+        "QC department",
+        "quality assurance",
+        "QA/QC",
+        "quality team",
+        "quality inspectors",
+        "quality management",
+        "product quality",
+        "quality staff",
+        "quality testing",
+        "quality group"
+      ],
+      "examples": [
+        "Sample taken without proper PPE in quality control lab.",
+        "Non-conforming product quarantined by QC team.",
+        "Glassware breakage reported in quality testing area.",
+        "Cross-contamination risk identified during quality inspection.",
+        "QC staff observed unsafe handling of chemical reagents."
+      ]
+    },
+    "logistics": {
+      "name": "logistics",
+      "description": "The logistics department manages the movement, storage, and handling of materials, products, and waste, ensuring safe transport and inventory practices. HSE observations often relate to vehicle safety, loading/unloading hazards, improper storage, or environmental risks during material handling.",
+      "synonyms": [
+        "supply chain",
+        "logistics team",
+        "materials handling",
+        "warehouse operations",
+        "logistics staff",
+        "transportation",
+        "shipping and receiving",
+        "logistics management",
+        "distribution",
+        "logistics operations"
+      ],
+      "examples": [
+        "Forklift operated at unsafe speed in warehouse.",
+        "Pallets stacked unsafely in logistics area.",
+        "Spill occurred during unloading of chemical drums.",
+        "Truck driver did not use wheel chocks during delivery.",
+        "Improper labeling of hazardous materials in storage."
+      ]
+    }
+  }
+}

@@ -108,7 +108,7 @@ def run_pipeline(
     expansions_path: Optional[str | Path] = None,
     similarity_threshold: float = 0.4,
     min_support_ratio: float = 0.01,
-    sheet_name: Optional[str] = None,
+ 
     max_examples: Optional[int] = None,
 ) -> None:
     """

@@ -1,0 +1,255 @@
+{
+  "electrical_safety": {
+    "name": "electrical_safety",
+    "description": "Electrical safety refers to the identification, prevention, and control of hazards related to the use and maintenance of electrical systems and equipment in the workplace. It encompasses safe work practices, hazard recognition, and compliance with regulations to prevent electrical injuries, fires, and equipment damage. Observations in this category often involve unsafe wiring, improper use of electrical tools, or lack of protective measures.",
+    "synonyms": [
+      "safe electrical practices",
+      "electrical hazard prevention",
+      "electrical risk management",
+      "electrical safety compliance",
+      "electrical safety protocols",
+      "electrical safety measures",
+      "electrical safety checks",
+      "electrical safety procedures",
+      "electrical safety standards",
+      "electrical safety awareness"
+    ],
+    "examples": [
+      "Observed missing lockout tag on electrical panel.",
+      "Extension cords running across walkways without protection.",
+      "Employee using damaged power tool with exposed wires.",
+      "No warning signage near high voltage area.",
+      "Routine electrical safety inspection completed."
+    ]
+  },
+  "arc_flash": {
+    "name": "arc_flash",
+    "description": "Arc flash refers to a dangerous release of energy caused by an electrical arc, resulting in intense heat, light, and pressure that can cause severe injuries or fatalities. In HSE, this category covers incidents, near misses, or hazards where workers are exposed to arc flash risks, often during maintenance or operation of electrical equipment. Observations may include inadequate PPE, improper procedures, or lack of arc flash labeling.",
+    "synonyms": [
+      "arc blast",
+      "electrical arc incident",
+      "arc flash hazard",
+      "arc flash event",
+      "arc flash exposure",
+      "arc flash risk",
+      "arc flash accident",
+      "arc flash safety",
+      "arc flash protection",
+      "arc flash incident"
+    ],
+    "examples": [
+      "Worker entered switchgear room without arc flash PPE.",
+      "Arc flash label missing on main distribution panel.",
+      "Near miss: arc flash occurred during breaker maintenance.",
+      "Observed burn marks from previous arc flash event.",
+      "No arc flash boundary marked on electrical cabinet."
+    ]
+  },
+  "fire_risk": {
+    "name": "fire_risk",
+    "description": "Fire risk involves the potential for ignition, spread, and harm from fire due to electrical faults, flammable materials, or unsafe practices. In HSE, this category includes observations of conditions or behaviors that could lead to fire, such as overloaded circuits, accumulation of combustible dust, or blocked fire exits. It is critical for preventing property damage, injuries, and environmental harm.",
+    "synonyms": [
+      "fire hazard",
+      "fire danger",
+      "risk of fire",
+      "fire safety concern",
+      "fire ignition risk",
+      "fire threat",
+      "fire prevention issue",
+      "fire exposure",
+      "fire vulnerability",
+      "fire safety risk"
+    ],
+    "examples": [
+      "Overloaded power strip found behind server rack.",
+      "Flammable materials stored near electrical panel.",
+      "Fire extinguisher blocked by equipment.",
+      "Accumulation of dust in electrical room.",
+      "Unattended soldering iron left plugged in."
+    ]
+  },
+  "short_circuit": {
+    "name": "short_circuit",
+    "description": "Short circuit refers to an unintended connection between two points in an electrical circuit, causing excessive current flow and potential equipment damage, fire, or injury. In HSE, this category covers incidents, hazards, or near misses involving short circuits, often due to faulty wiring, damaged insulation, or improper repairs. Observations may include tripped breakers, burnt smells, or visible sparks.",
+    "synonyms": [
+      "electrical short",
+      "circuit fault",
+      "shorted circuit",
+      "shorting event",
+      "circuit failure",
+      "short circuit incident",
+      "short circuit hazard",
+      "short circuit risk",
+      "short circuit occurrence",
+      "short circuit problem"
+    ],
+    "examples": [
+      "Breaker tripped due to short circuit in lighting panel.",
+      "Burnt smell detected near motor control center.",
+      "Observed sparks from junction box during operation.",
+      "Short circuit caused power outage in production area.",
+      "Damaged cable insulation led to short circuit."
+    ]
+  },
+  "wiring_fault": {
+    "name": "wiring_fault",
+    "description": "Wiring fault refers to defects or errors in electrical wiring, such as loose connections, incorrect wiring, or damaged cables, which can lead to equipment failure, fire, or electric shock. In HSE, this category includes observations of improper installations, exposed conductors, or signs of wear and tear in wiring systems. Timely identification is crucial for preventing incidents.",
+    "synonyms": [
+      "faulty wiring",
+      "wiring defect",
+      "wiring issue",
+      "wiring problem",
+      "wiring error",
+      "wiring malfunction",
+      "wiring irregularity",
+      "wiring damage",
+      "wiring anomaly",
+      "wiring concern"
+    ],
+    "examples": [
+      "Loose wire connection found in control panel.",
+      "Incorrectly wired outlet discovered during inspection.",
+      "Damaged insulation on power cable near machine.",
+      "Exposed conductor observed in ceiling wiring.",
+      "Wiring fault caused intermittent equipment shutdown."
+    ]
+  },
+  "equipment_failure": {
+    "name": "equipment_failure",
+    "description": "Equipment failure refers to the malfunction or breakdown of electrical or mechanical devices, which can create safety hazards, disrupt operations, or lead to secondary incidents. In HSE, this category includes reports of failed machinery, tripped systems, or non-functional safety devices, often requiring immediate maintenance or shutdown.",
+    "synonyms": [
+      "equipment breakdown",
+      "equipment malfunction",
+      "equipment fault",
+      "equipment outage",
+      "equipment defect",
+      "equipment problem",
+      "equipment issue",
+      "equipment shutdown",
+      "equipment stoppage",
+      "equipment crash"
+    ],
+    "examples": [
+      "Main generator failed during routine operation.",
+      "Emergency stop button not functioning on conveyor.",
+      "Pump motor overheated and shut down unexpectedly.",
+      "Fire alarm panel displayed equipment fault code.",
+      "Lighting system failure in warehouse area."
+    ]
+  },
+  "overload": {
+    "name": "overload",
+    "description": "Overload refers to a condition where electrical circuits or equipment are subjected to currents or loads beyond their rated capacity, increasing the risk of overheating, fire, or equipment damage. In HSE, this category includes observations of overloaded outlets, excessive use of extension cords, or machinery running above safe limits.",
+    "synonyms": [
+      "overloading",
+      "overcapacity",
+      "excess load",
+      "overburdened circuit",
+      "overdrawn circuit",
+      "overloaded equipment",
+      "load exceedance",
+      "overcurrent",
+      "overstressed circuit",
+      "overuse"
+    ],
+    "examples": [
+      "Multiple heaters plugged into single outlet caused overload.",
+      "Observed tripped breaker due to circuit overload.",
+      "Extension cord used to power several high-wattage devices.",
+      "Motor running above rated load for extended period.",
+      "Overload warning displayed on control panel."
+    ]
+  },
+  "ground_fault": {
+    "name": "ground_fault",
+    "description": "Ground fault refers to an unintentional electrical path between a power source and the ground, which can result in electric shock, equipment damage, or fire. In HSE, this category includes incidents or hazards where faulty insulation, damaged equipment, or moisture leads to current leakage to ground.",
+    "synonyms": [
+      "earth fault",
+      "grounding fault",
+      "ground leakage",
+      "ground fault incident",
+      "ground fault hazard",
+      "ground fault risk",
+      "ground fault event",
+      "ground fault problem",
+      "ground fault occurrence",
+      "ground fault detection"
+    ],
+    "examples": [
+      "Ground fault detected on portable generator.",
+      "Moisture in panel caused ground fault trip.",
+      "Worker received mild shock due to ground fault in tool.",
+      "Ground fault circuit interrupter (GFCI) activated in restroom.",
+      "Insulation failure led to ground fault in lighting system."
+    ]
+  },
+  "exposed_wiring": {
+    "name": "exposed_wiring",
+    "description": "Exposed wiring refers to electrical conductors that are not properly insulated or covered, posing risks of electric shock, short circuit, or fire. In HSE, this category includes observations of bare wires, damaged cable sheaths, or temporary wiring left unprotected in work areas.",
+    "synonyms": [
+      "bare wiring",
+      "uncovered wiring",
+      "uninsulated wiring",
+      "exposed conductors",
+      "open wiring",
+      "visible wiring",
+      "dangling wires",
+      "unprotected wiring",
+      "loose wiring",
+      "unsafe wiring"
+    ],
+    "examples": [
+      "Exposed wires found near loading dock.",
+      "Temporary wiring left uncovered in hallway.",
+      "Damaged cable sheath exposing conductors.",
+      "Bare wires hanging from ceiling light fixture.",
+      "Observed uninsulated wiring in maintenance area."
+    ]
+  },
+  "power_outage": {
+    "name": "power_outage",
+    "description": "Power outage refers to the loss of electrical supply to a facility or area, which can disrupt operations, compromise safety systems, and create hazards for workers. In HSE, this category includes both planned and unplanned outages, as well as their impacts on critical equipment and emergency procedures.",
+    "synonyms": [
+      "power failure",
+      "loss of power",
+      "blackout",
+      "electrical outage",
+      "power interruption",
+      "power loss",
+      "power cut",
+      "service interruption",
+      "power shutdown",
+      "electricity outage"
+    ],
+    "examples": [
+      "Unplanned power outage halted production line.",
+      "Backup generator activated during power failure.",
+      "Emergency lighting failed to operate during blackout.",
+      "Power outage affected fire alarm system.",
+      "Planned power shutdown for maintenance announced."
+    ]
+  },
+  "shock_hazard": {
+    "name": "shock_hazard",
+    "description": "Shock hazard refers to the risk of electric shock due to contact with live electrical parts, faulty equipment, or improper grounding. In HSE, this category includes observations of unsafe conditions where workers could be exposed to electrical current, such as missing covers, wet environments, or damaged tools.",
+    "synonyms": [
+      "electric shock risk",
+      "shock risk",
+      "electrical shock hazard",
+      "shock danger",
+      "shock exposure",
+      "shock threat",
+      "shock incident risk",
+      "shock potential",
+      "shock safety concern",
+      "shock vulnerability"
+    ],
+    "examples": [
+      "Missing cover on live electrical panel presents shock hazard.",
+      "Wet floor near power outlet increases shock risk.",
+      "Damaged extension cord exposes workers to electric shock.",
+      "Observed worker using tool with frayed power cord.",
+      "Improperly grounded equipment identified as shock hazard."
+    ]
+  }
+}

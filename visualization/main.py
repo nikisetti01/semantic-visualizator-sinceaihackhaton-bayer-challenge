@@ -1,28 +1,42 @@
 from __future__ import annotations
 
+import os
 import json
+from datetime import datetime
 from pathlib import Path
 
 from insight_extraction.categorizer.categorize import run_pipeline
 from insight_extraction.semantic_intent.semantic_intent import get_semantic_intent
 from insight_extraction.semantic_intent.expander import expand_dimension_categories
 from models.llm_client import OpenAILLMClient
-from insight_extraction.utils.saving_scripts import save_intent_to_file
+from insight_extraction.utils.saving_scripts import (
+    save_intent_to_file,
+    save_sql_results_to_csv,
+)
 from insight_extraction.extraction.sql_generate import SQLQueryGenerator
-from insight_extraction.extraction.extract import define_queries, extract_insights
+from insight_extraction.extraction.table_creator import (
+    load_assignments,
+    build_analytics_dataframe,
+    save_dataframe_to_sqlite,
+    save_dataframe_to_csv,
+    save_columns_to_json,
+)
+from insight_extraction.extraction.sql_execute import (
+    execute_sql_on_sqlite,
+    results_to_dataframes,
+)
 
-# Cartelle base
-DATA_DIR = Path("datasets")
-OUT_DIR = Path("output")
-USR_PROMPT_DIR = Path("initial_prompts")
 
-
-def main(user_prompt: str, df_path: str | Path, run_id: str | int) -> None:
-    run_id_str = str(run_id)
-
+def main(timestamp: str) -> None:
     # ------------------------------------------------------------------
-    # 1. Schema colonne del dataframe
+    # 1. User question (Bayer challenge)
     # ------------------------------------------------------------------
+    user_question = (
+        "Analyze the observations related to electrical safety from the years 2024–2025. Is there an upward or downward trend over time?"
+
+    )
+
+    # Schema hint per l’intent
     schema_columns = [
         "Created",
         "Status",
@@ -36,54 +50,61 @@ def main(user_prompt: str, df_path: str | Path, run_id: str | int) -> None:
     ]
 
     # ------------------------------------------------------------------
-    # 2. LLM client unico (intent + expansions + SQL/queries)
+    # 2. LLM clients (intent + expansions + SQL)
     # ------------------------------------------------------------------
-    llm_client = OpenAILLMClient(
+    intent_llm = OpenAILLMClient(
         model_name="gpt-4.1",
         temperature=0.0,
-        max_output_tokens=4096,  # un po' più alto così regge anche le espansioni
+        max_output_tokens=2500,
     )
 
-    print(">>> User question:\t")
-    print(user_prompt)
+    # per le espansioni serve più spazio di output
+    expansion_llm = OpenAILLMClient(
+        model_name="gpt-4.1",
+        temperature=0.0,
+        max_output_tokens=4096,
+    )
+
+    # per SQL puoi riusare intent_llm oppure crearne un altro
+    sql_llm = intent_llm
+
+    print(">>> User question:")
+    print(user_question)
     print("\n>>> Calling LLM for semantic intent...\n")
 
     # ------------------------------------------------------------------
-    # 3. Intent extraction
+    # 3. Semantic intent
     # ------------------------------------------------------------------
-    print(">>>>>>>>> -------- Intent extraction ------- <<<<<<<<<\n")
     intent = get_semantic_intent(
-        user_question=user_prompt,
-        llm_client=llm_client,
+        user_question=user_question,
+        llm_client=intent_llm,
         schema_columns=schema_columns,
     )
 
     print(">>> Parsed intent JSON:")
     print(json.dumps(intent, indent=2, ensure_ascii=False))
 
-    intent_dir = OUT_DIR / "intents"
+    intent_dir = Path("output/intent_outputs")
     intent_dir.mkdir(parents=True, exist_ok=True)
 
-    intent_path = intent_dir / f"intent_{run_id_str}.json"
+    intent_path = intent_dir / f"intent_{timestamp}.json"
     save_intent_to_file(intent, str(intent_path))
 
-    print(f"\n>>> JSON salvato in: {intent_path}")
+    print(f"\n>>> Intent JSON salvato in: {intent_path}")
 
     # ------------------------------------------------------------------
-    # 4. Espansione categorie (expander) + salvataggio
+    # 4. Espansione categorie (expander)
     # ------------------------------------------------------------------
-    print("\n>>>>>>>>> -------- Categorization ------- <<<<<<<<<\n")
-    print("Run categorization pipeline...\n")
+    print("\n>>> Expanding semantic categories for each dimension_type...\n")
 
-    expansions_dir = OUT_DIR / "expansion_outputs"
+    expansions_dir = Path("output/expansion_outputs")
     expansions_dir.mkdir(parents=True, exist_ok=True)
 
-    all_expansions: dict[str, dict[str, dict[str, object]]] = {}
+    all_expansions: dict[str, dict[str, dict[str, any]]] = {}
 
-    # loop sulle dimensioni del group_by dell'intent
     for group in intent.get("group_by", []):
         dim_type = group.get("dimension_type")
-        values = list(dict.fromkeys(group.get("values", [])))  # valori unici
+        values = list(dict.fromkeys(group.get("values", [])))  # uniq
 
         if not dim_type or not values:
             continue
@@ -93,96 +114,112 @@ def main(user_prompt: str, df_path: str | Path, run_id: str | int) -> None:
         expanded = expand_dimension_categories(
             dimension_type=dim_type,
             values=values,
-            llm_client=llm_client,
+            llm_client=expansion_llm,
             extra_context=(
                 "HSE domain (worker safety observations, incidents, near misses, "
                 "hazards, maintenance, environmental observations)."
             ),
         )
 
-        # salvataggio espansione singola dimensione
-        exp_path = expansions_dir / f"expansion_{dim_type}_{run_id_str}.json"
+        all_expansions[dim_type] = expanded
+
+        exp_path = expansions_dir / f"expansion_{dim_type}_{timestamp}.json"
         with exp_path.open("w", encoding="utf-8") as f:
             json.dump(expanded, f, indent=2, ensure_ascii=False)
 
         print(f"Saved expansion for {dim_type} to: {exp_path}\n")
 
-        all_expansions[dim_type] = expanded
+    # File unico con tutte le espansioni
+    all_exp_path = expansions_dir / f"expansions_all_{timestamp}.json"
+    with all_exp_path.open("w", encoding="utf-8") as f:
+        json.dump(all_expansions, f, indent=2, ensure_ascii=False)
 
-    # file cumulativo di tutte le espansioni
-    if all_expansions:
-        all_exp_path = expansions_dir / f"expansions_all_{run_id_str}.json"
-        with all_exp_path.open("w", encoding="utf-8") as f:
-            json.dump(all_expansions, f, indent=2, ensure_ascii=False)
-
-        print(f">>> All expansions saved to: {all_exp_path}\n")
-        expansions_path = all_exp_path
-    else:
-        print(">>> Nessuna dimensione da espandere trovata nell'intent.")
-        expansions_path = None  # la pipeline può gestire il caso senza espansioni
+    print(f">>> All expansions saved to: {all_exp_path}\n")
 
     # ------------------------------------------------------------------
-    # 5. Categorizzazione (assegnazione categorie alle raw)
+    # 5. Avvio pipeline di categorizzazione (con expansions_path)
     # ------------------------------------------------------------------
-    allocation_path = OUT_DIR / f"allocation_{run_id_str}.json"
+    print("🔍 Avvio test completo della pipeline di categorizzazione…")
+
+    excel_path = Path("datasets/data_en.xlsx")  # <-- assicurati che il path sia corretto
+    assignments_path = Path(f"output/assignments_{timestamp}.json")
 
     run_pipeline(
-        excel_path=str(df_path),
-        intent_path=str(intent_path),
-        output_path=str(allocation_path),
+        excel_path=excel_path,
+        intent_path=intent_path,
+        output_path=assignments_path,
+   
         model_name="all-MiniLM-L6-v2",
-        expansions_path=str(expansions_path) if expansions_path is not None else None,
+        expansions_path=all_exp_path,
         similarity_threshold=0.2,
         min_support_ratio=0.01,
-        max_examples=None,
+        max_examples=None,  # o metti un numero se vuoi limitare
     )
 
-    print(f">>> Saved file with categories allocations to: {allocation_path}\n")
+    print(f"🎉 Test completato. Assignments salvati in: {assignments_path}")
 
     # ------------------------------------------------------------------
-    # 6. Insights extraction (DB, CSV, query SQL + risultati)
+    # 6. Costruzione tabella analytics + SQLite + CSV
     # ------------------------------------------------------------------
-    print("\n>>>>>>>>> -------- Insights extraction ------- <<<<<<<<<\n")
+    print("\nGenerating SQL query from semantic intent...\n")
 
-    db_dir = OUT_DIR / "db"
+    db_dir = Path("output/db")
     db_dir.mkdir(parents=True, exist_ok=True)
+    db_path = db_dir / f"analytics_{timestamp}.db"
 
-    csv_dir = OUT_DIR / "csv"
+    csv_dir = Path("output/csv")
     csv_dir.mkdir(parents=True, exist_ok=True)
+    csv_path = csv_dir / f"analytics_raw_{timestamp}.csv"
 
-    db_path = db_dir / f"raw_insights_{run_id_str}.db"
-    csv_path = csv_dir / f"raw_insights_{run_id_str}.csv"
+    # Carica assignments e costruisci df analytics
+    assignments = load_assignments(assignments_path)
+    df = build_analytics_dataframe(assignments)
 
-    print(">>> Define and run queries to extract insights...\n")
-    sql_code = define_queries(
-        llm_client=llm_client,
-        allocation_path=str(allocation_path),
-        user_prompt=user_prompt,
-        intent=intent,
-        db_path=str(db_path),
-        csv_path=str(csv_path),
+    # Salva df in SQLite e CSV
+    save_dataframe_to_sqlite(df, db_path)
+    save_dataframe_to_csv(df, csv_path)
+
+    # Salva schema colonne per aiutare il generatore SQL
+    schema_text = save_columns_to_json(
+        df,
+        out_path="schema_columns.json",
     )
 
-    insights_dir = DATA_DIR / "extracted"
-    insights_dir.mkdir(parents=True, exist_ok=True)
+    # ------------------------------------------------------------------
+    # 7. Generazione query SQL dall'intent
+    # ------------------------------------------------------------------
+    generator = SQLQueryGenerator(llm_client=sql_llm, sql_dialect="SQLite")
 
-    insights_dfs = extract_insights(
-        db_path=str(db_path),
-        sql_code=sql_code,
-        output_dir=str(insights_dir),
+    sql_code = generator.generate_sql(
+        user_question=user_question,
+        json_spec=intent,
+        main_table="observations_enriched",
+        table_schema_text=schema_text,
     )
 
-    print(f">>> Generated tables\n")
-    
+    print(">>> Generated SQL code:\n")
+    print(sql_code)
+    print("\n>>> Executing SQL on SQLite DB...\n")
+
+    # ------------------------------------------------------------------
+    # 8. Esecuzione SQL + salvataggio risultati aggregati
+    # ------------------------------------------------------------------
+    exec_results = execute_sql_on_sqlite(db_path=str(db_path), sql_response=sql_code)
+
+    agg_dir = Path("output/aggregate_sql_results")
+    agg_dir.mkdir(parents=True, exist_ok=True)
+
+    save_sql_results_to_csv(exec_results, output_dir=str(agg_dir))
+
+    dfs = results_to_dataframes(exec_results)
+    print(">>> SQL results as DataFrames:")
+    for name, df_res in dfs.items():
+        print(f"\n--- {name} ---")
+        print(df_res.head())
+
+    print("\n✅ Pipeline COMPLETA eseguita con successo.\n")
 
 
 if __name__ == "__main__":
-    obs_id = 4
-
-    prompt_path = USR_PROMPT_DIR / f"prompt_{obs_id}.txt"
-    df_path = DATA_DIR / f"data_{obs_id}.xlsx"
-
-    with prompt_path.open("r", encoding="utf-8") as f:
-        user_prompt = f.read()
-
-    main(user_prompt=user_prompt, df_path=df_path, run_id=obs_id)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    main(timestamp)

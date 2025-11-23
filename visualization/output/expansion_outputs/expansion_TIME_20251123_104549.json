@@ -1,0 +1,95 @@
+{
+  "month": {
+    "name": "month",
+    "description": "In HSE analytics, 'month' refers to a calendar period of approximately 30 days used for tracking, reporting, and analyzing safety and environmental data. Monthly intervals are commonly used to identify trends, monitor compliance, and assess the effectiveness of safety initiatives over time. Observations, incidents, and corrective actions are often aggregated and reviewed on a monthly basis.",
+    "synonyms": [
+      "monthly period",
+      "per month",
+      "each month",
+      "calendar month",
+      "monthly reporting",
+      "month-by-month",
+      "monthly cycle",
+      "monthly review",
+      "monthly summary",
+      "monthly interval"
+    ],
+    "examples": [
+      "Three near misses were reported this month.",
+      "Monthly safety inspection completed for March.",
+      "Monthly environmental audit identified two minor spills.",
+      "No lost time injuries recorded in the last month.",
+      "Monthly review of hazard observations shows a decrease."
+    ]
+  },
+  "quarter": {
+    "name": "quarter",
+    "description": "In the HSE context, 'quarter' denotes a three-month period used for summarizing and evaluating safety and environmental performance. Quarterly intervals help organizations assess progress on safety goals, review incident rates, and plan corrective actions. Many regulatory and internal reports are structured around quarterly data.",
+    "synonyms": [
+      "quarterly period",
+      "per quarter",
+      "each quarter",
+      "three-month period",
+      "quarterly review",
+      "quarterly reporting",
+      "Q1/Q2/Q3/Q4",
+      "quarterly cycle",
+      "quarterly summary",
+      "quarterly analysis"
+    ],
+    "examples": [
+      "Quarterly safety meeting held to discuss incident trends.",
+      "Quarterly report shows a reduction in environmental violations.",
+      "No recordable injuries occurred this quarter.",
+      "Quarterly review identified recurring housekeeping hazards.",
+      "Quarterly audit completed for all work areas."
+    ]
+  },
+  "year": {
+    "name": "year",
+    "description": "In HSE analytics, 'year' refers to a twelve-month period used for comprehensive evaluation of safety and environmental performance. Annual reviews are essential for identifying long-term trends, setting strategic goals, and fulfilling regulatory reporting requirements. Yearly data often includes summaries of incidents, near misses, and compliance activities.",
+    "synonyms": [
+      "annual",
+      "per year",
+      "yearly",
+      "calendar year",
+      "fiscal year",
+      "year-end",
+      "yearly review",
+      "yearly summary",
+      "yearly reporting",
+      "annual cycle",
+      "annual analysis"
+    ],
+    "examples": [
+      "Annual safety report submitted to management.",
+      "No fatalities recorded this year.",
+      "Yearly review shows improvement in hazard reporting.",
+      "Annual environmental compliance audit completed.",
+      "Year-end summary highlights reduction in lost time injuries."
+    ]
+  },
+  "week": {
+    "name": "week",
+    "description": "In the HSE domain, 'week' represents a seven-day period used for short-term monitoring and reporting of safety and environmental activities. Weekly intervals are useful for tracking immediate issues, scheduling inspections, and ensuring timely follow-up on hazards or incidents. Many frontline safety observations and toolbox talks are organized on a weekly basis.",
+    "synonyms": [
+      "weekly",
+      "per week",
+      "each week",
+      "seven-day period",
+      "weekly review",
+      "weekly reporting",
+      "weekly cycle",
+      "weekly summary",
+      "week-by-week",
+      "weekly inspection"
+    ],
+    "examples": [
+      "Weekly safety walk completed on Friday.",
+      "Two near misses reported this week.",
+      "Weekly housekeeping inspection found blocked exits.",
+      "No environmental incidents recorded this week.",
+      "Weekly toolbox talk focused on PPE compliance."
+    ]
+  }
+}
