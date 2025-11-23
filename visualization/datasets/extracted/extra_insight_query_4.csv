@@ -1,0 +1,10 @@
+cause,avg_processing_time_days,total_observations
+unsafe_condition,5.336322869955157,223
+environmental_factor,5.260869565217392,115
+procedural_gap,4.892086330935252,139
+equipment_failure,4.774358974358974,195
+human_error,4.772222222222222,180
+,4.714285714285714,7
+material_defect,4.7,10
+design_flaw,4.5625,16
+unsafe_act,4.3652173913043475,115

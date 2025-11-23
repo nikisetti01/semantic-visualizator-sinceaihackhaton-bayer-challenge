@@ -1,0 +1,5 @@
+event_year,event_month,observation_type,total_observations
+2025,11,environmental_observation,102
+2025,11,near_miss,139
+2025,11,quality_issue,138
+2025,11,unsafe_condition,258

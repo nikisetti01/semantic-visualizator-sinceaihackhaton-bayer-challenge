@@ -1,0 +1,9 @@
+observation_type,avg_processing_time_days,total_observations
+hazard_report,5.2375,160
+environmental_observation,5.166666666666667,102
+unsafe_condition,5.135658914728682,258
+near_miss,4.848920863309353,139
+safety_observation,4.798913043478261,184
+quality_issue,4.340579710144928,138
+,4.0,5
+property_damage,3.857142857142857,14

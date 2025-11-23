@@ -1,0 +1,69 @@
+PART 1: SEMANTIC DECOMPOSITION & MAPPING
+
+1. **Identify Key Terms:**
+   - "all HSE observations recorded in the last 12 months"
+   - "Break down processing time by month"
+   - "divisions, locations, observation types, causes, and severity levels"
+   - "longer delays"
+   - "categories (such as near misses, unsafe conditions, quality issues, or environmental observations)"
+   - "seasonal peaks"
+   - "High or Critical severity events"
+   - "location produces significantly more incidents or processing delays"
+   - "all available structured information"
+
+2. **Map to Data Schema:**
+   - User Term "divisions" -> Column "division" (Values: ['manufacturing', 'logistics', 'quality_control', ...])
+   - User Term "processing time" -> Column "avg_processing_time_days" (Values: [2.0, 6.3, ...])
+   - User Term "incidents/observations" -> Column "total_observations" (Values: [4, 369, ...])
+   - User Term "locations", "observation types", "causes", "severity levels", "categories (near misses, unsafe conditions, quality issues, environmental observations)" -> **No matching columns in the data profile.**
+   - User Term "month", "seasonal peaks" -> **No date or time column in the data profile.**
+   - User Term "High or Critical severity events" -> **No severity column in the data profile.**
+
+3. **Identify Constraints/Filters:**
+   - Filter: "last 12 months" (requires a date column, which is not present).
+   - Filter: "by month" (requires a date column, which is not present).
+   - Filter: "by location, observation type, cause, severity" (no such columns available).
+
+4. **Determine Analytical Goal:**
+   - Distribution and comparison of processing time and observation counts across divisions.
+   - Unable to analyze by month, location, observation type, cause, severity, or category due to missing columns.
+   - Focus must be on what is available: division, avg_processing_time_days, total_observations.
+
+
+PART 2: CHART RECOMMENDATIONS
+
+**1. Chart Title:** Average Processing Time by Division  
+   - **Chart Type:** Bar Chart  
+   - **Visual Mapping:**  
+     - X-Axis: division  
+     - Y-Axis: avg_processing_time_days (Average)  
+     - Color/Segment: division  
+   - **Reasoning:**  
+     This chart directly addresses the comparison of processing delays across divisions, highlighting which divisions experience longer average processing times. Bar charts are ideal for comparing values across discrete categories (divisions).
+
+**2. Chart Title:** Total HSE Observations by Division  
+   - **Chart Type:** Bar Chart  
+   - **Visual Mapping:**  
+     - X-Axis: division  
+     - Y-Axis: total_observations (Sum or Count)  
+     - Color/Segment: division  
+   - **Reasoning:**  
+     This chart allows for a clear comparison of incident/observation volume across divisions, helping to identify divisions with systematically higher numbers of observations.
+
+**3. Chart Title:** Proportion of HSE Observations by Division  
+   - **Chart Type:** Donut Chart  
+   - **Visual Mapping:**  
+     - X-Axis: N/A (Donut)  
+     - Y-Axis: total_observations (Sum)  
+     - Color/Segment: division  
+   - **Reasoning:**  
+     A donut chart visually communicates the share of total observations attributed to each division, supporting a part-to-whole analysis. This is appropriate since there are fewer than 5-7 divisions.
+
+
+PART 3: DATA TRANSFORMATION NOTES
+
+- Group data by "division".
+- For average processing time: calculate the mean of "avg_processing_time_days" per division.
+- For total observations: sum "total_observations" per division.
+- For proportion: calculate each division's share of the total "total_observations".
+- **Note:** Unable to filter by month, analyze by location, observation type, cause, severity, or category, as these columns are not present in the dataset. No time-based or severity-based analysis is possible with the current data.

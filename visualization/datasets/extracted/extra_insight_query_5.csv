@@ -1,0 +1,5 @@
+severity,avg_processing_time_days,total_observations
+medium,5.09375,288
+low,4.939597315436242,149
+high,4.930555555555555,360
+critical,4.640394088669951,203

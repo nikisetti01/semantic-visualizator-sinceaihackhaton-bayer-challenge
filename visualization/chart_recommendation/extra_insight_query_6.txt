@@ -1,0 +1,79 @@
+PART 1: SEMANTIC DECOMPOSITION & MAPPING
+
+1. **Identify Key Terms:**
+   - "last 12 months"
+   - "processing time by month"
+   - "divisions"
+   - "locations"
+   - "observation types"
+   - "causes"
+   - "severity levels"
+   - "longer delays"
+   - "seasonal peaks"
+   - "near misses, unsafe conditions, quality issues, environmental observations"
+   - "High or Critical severity events"
+   - "incidents"
+   - "processing delays"
+
+2. **Map to Data Schema:**
+   - User Term "last 12 months" -> Column "event_year" (Value: 2025; only one year present)
+   - User Term "processing time by month" -> **No matching column in data profile** (Cannot be visualized)
+   - User Term "divisions" -> **No matching column in data profile** (Cannot be visualized)
+   - User Term "locations" -> **No matching column in data profile** (Cannot be visualized)
+   - User Term "observation types" -> Column "observation_type" (Values: ['near_miss', plus 3 others])
+   - User Term "causes" -> **No matching column in data profile** (Cannot be visualized)
+   - User Term "severity levels" -> **No matching column in data profile** (Cannot be visualized)
+   - User Term "longer delays" -> **No matching column in data profile** (Cannot be visualized)
+   - User Term "seasonal peaks" -> Column "season" (Value: 'Autumn'; only one value present)
+   - User Term "near misses, unsafe conditions, quality issues, environmental observations" -> Column "observation_type" (Assumed to include these as possible values)
+   - User Term "High or Critical severity events" -> **No matching column in data profile** (Cannot be visualized)
+   - User Term "incidents" -> Column "observation_type" (Assumed to include incident types)
+   - User Term "processing delays" -> **No matching column in data profile** (Cannot be visualized)
+
+3. **Identify Constraints/Filters:**
+   - Filter: Only data from event_year = 2025 (the only year present)
+   - Filter: Only season = 'Autumn' (the only season present)
+   - No data available for months, divisions, locations, causes, severity levels, or processing time/delays.
+
+4. **Determine Analytical Goal:**
+   - The only feasible analysis is a Distribution or Part-to-Whole comparison of "observation_type" for the available year and season.
+   - No trend, time series, or location/division-based comparison is possible with the current data.
+
+---
+
+PART 2: CHART RECOMMENDATIONS
+
+**Recommendation 1**
+- **Chart Title:** Distribution of HSE Observation Types in Autumn 2025
+- **Chart Type:** Donut Chart
+- **Visual Mapping (The Blueprint):**
+    - X-Axis: Not applicable (Donut)
+    - Y-Axis: total_observations (Sum per observation_type)
+    - Color/Segment: observation_type
+- **Reasoning:** 
+    - The analytical goal is to show the breakdown (proportion) of different HSE observation types. Since there are only four unique observation types, a Donut Chart is ideal for visualizing the part-to-whole relationship, making it easy to identify which types are most prevalent.
+
+**Recommendation 2**
+- **Chart Title:** HSE Observation Counts by Type (Autumn 2025)
+- **Chart Type:** Bar Chart
+- **Visual Mapping (The Blueprint):**
+    - X-Axis: observation_type
+    - Y-Axis: total_observations (Sum)
+    - Color/Segment: observation_type
+- **Reasoning:** 
+    - A Bar Chart allows for direct comparison of the frequency of each observation type, highlighting which categories are most common. This supports decision-making by focusing attention on the most frequent types of HSE observations.
+
+---
+
+PART 3: DATA TRANSFORMATION NOTES
+
+- Filter data to event_year = 2025 (all data).
+- Filter data to season = 'Autumn' (all data).
+- Group by observation_type.
+- Aggregate total_observations by sum for each observation_type.
+- Calculate percentage of total for Donut Chart (if used).
+
+---
+
+**Note:**  
+Most of the user’s requested analyses (processing time, monthly/seasonal trends, division/location/causes/severity breakdowns, and delay analysis) cannot be visualized because the required columns are not present in the dataset. Only the distribution of observation types can be meaningfully visualized with the available data.

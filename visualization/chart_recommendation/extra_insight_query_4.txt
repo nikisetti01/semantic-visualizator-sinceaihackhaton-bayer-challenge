@@ -1,0 +1,63 @@
+PART 1: SEMANTIC DECOMPOSITION & MAPPING
+
+1. **Identify Key Terms:**
+   - "HSE observations recorded in the last 12 months"
+   - "processing time by month"
+   - "divisions, locations, observation types, causes, and severity levels"
+   - "longer delays"
+   - "categories (near misses, unsafe conditions, quality issues, environmental observations)"
+   - "seasonal peaks"
+   - "divisions systematically have more High or Critical severity events"
+   - "location produces significantly more incidents or processing delays"
+
+2. **Map to Data Schema:**
+   - User Term "divisions" -> Column "division" (Values: ['administration', 'engineering', 'production', ...])
+   - User Term "severity levels" -> Column "severity" (Values: ['critical', 'high'])
+   - User Term "incidents/events" -> Column "total_events" (Numeric)
+   - User Term "locations", "observation types", "causes", "processing time", "categories (near misses, unsafe conditions, quality issues, environmental observations)" -> **No matching columns in the data profile.**
+   - User Term "month", "seasonal peaks", "processing delays" -> **No matching columns in the data profile.**
+
+3. **Identify Constraints/Filters:**
+   - Filter: Only columns available are "division", "severity", and "total_events".
+   - Cannot analyze by "month", "location", "observation type", "cause", "processing time", or "category" as these columns are not present.
+   - Cannot analyze "seasonal peaks" or "processing delays" due to missing time and delay data.
+
+4. **Determine Analytical Goal:**
+   - The only feasible analytical goal with the available data is a Distribution/Comparison of event counts by "division" and "severity".
+   - Specifically, a comparison of "High" and "Critical" severity events across divisions.
+
+---
+
+PART 2: CHART RECOMMENDATIONS
+
+**1. Chart Title:** Distribution of High and Critical Severity HSE Events by Division (Last 12 Months)
+
+- **Chart Type:** Grouped Bar Chart
+- **Visual Mapping (The Blueprint):**
+    - X-Axis: division
+    - Y-Axis: total_events (Sum)
+    - Color/Segment: severity
+- **Reasoning:** 
+    - This chart directly addresses the user's request to "check if certain divisions systematically have more High or Critical severity events."
+    - The grouped bar format allows for easy comparison of event counts by severity within each division, highlighting divisions with higher risk profiles.
+    - Using color to represent severity leverages the "traffic light" logic (e.g., red for "critical", orange for "high") to emphasize risk.
+
+**2. Chart Title:** Proportion of Critical vs. High Severity Events Across All Divisions
+
+- **Chart Type:** Donut Chart
+- **Visual Mapping (The Blueprint):**
+    - Segments: severity
+    - Value: total_events (Sum across all divisions)
+    - Color/Segment: severity
+- **Reasoning:**
+    - This chart provides a part-to-whole view of the overall risk profile, showing the share of "critical" versus "high" events.
+    - As there are only two severity categories, a donut chart is ideal for visualizing proportions and quickly communicating the balance of risk.
+
+---
+
+PART 3: DATA TRANSFORMATION NOTES
+
+- Group data by "division" and "severity", then sum "total_events" for each group.
+- For the donut chart, aggregate (sum) "total_events" by "severity" across all divisions.
+- No filtering by date, month, or other categories is possible due to missing columns.
+- Clearly state in any reporting that analysis is limited to "division" and "severity" due to data constraints; other requested breakdowns (by month, location, observation type, cause, processing time, or category) cannot be visualized with the current dataset.

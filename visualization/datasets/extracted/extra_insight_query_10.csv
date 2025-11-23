@@ -1,0 +1,5 @@
+event_year,season,observation_type,total_observations
+2025,Autumn,environmental_observation,102
+2025,Autumn,near_miss,139
+2025,Autumn,quality_issue,138
+2025,Autumn,unsafe_condition,258

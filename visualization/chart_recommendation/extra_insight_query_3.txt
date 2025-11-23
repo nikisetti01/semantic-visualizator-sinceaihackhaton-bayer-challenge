@@ -1,0 +1,81 @@
+PART 1: SEMANTIC DECOMPOSITION & MAPPING
+
+1. **Identify Key Terms:**
+   - "last 12 months"
+   - "processing time by month"
+   - "divisions, locations, observation types, causes, and severity levels"
+   - "longer delays"
+   - "categories (near misses, unsafe conditions, quality issues, environmental observations)"
+   - "seasonal peaks"
+   - "High or Critical severity events"
+   - "incidents"
+   - "processing delays"
+   - "all available structured information"
+
+2. **Map to Data Schema:**
+   - User Term "processing time" -> Column "avg_processing_time_days" (Values: [date type, but likely should be numeric])
+   - User Term "location" -> Column "location" (Values: [unknown, but present])
+   - User Term "incidents" -> Column "total_incidents" (Values: [date type, but likely should be numeric])
+   - User Term "month" -> No direct column; would require a date column, which is missing.
+   - User Term "divisions", "observation types", "causes", "severity levels", "categories (near misses, unsafe conditions, etc.)" -> **No matching columns in the data profile.**
+   - User Term "High or Critical severity" -> **No matching column.**
+   - User Term "seasonal peaks" -> Would require a date column for time series, which is missing.
+
+3. **Identify Constraints/Filters:**
+   - Filter: "last 12 months" (requires a date column, which is not present in the data profile).
+   - Filter: "by month" (requires a date column, which is not present).
+   - Filter: "by division, observation type, cause, severity" (no such columns in the data profile).
+
+4. **Determine Analytical Goal:**
+   - The user wants: 
+     - Distribution and comparison of processing times and incident counts by location.
+     - Identification of locations with higher delays or incident counts.
+     - Part-to-whole and trend analysis by categories (which are not present).
+   - **Given the data profile, only location-based comparisons of total incidents and average processing time are possible.**
+   - **Trend, seasonal, and categorical breakdowns (division, type, cause, severity) CANNOT be visualized.**
+
+---
+
+PART 2: CHART RECOMMENDATIONS
+
+**Recommendation 1**
+- **Chart Title:** Average Processing Time by Location
+- **Chart Type:** Bar Chart
+- **Visual Mapping:**
+    - X-Axis: location
+    - Y-Axis: avg_processing_time_days (Average)
+    - Color/Segment: location (distinct color per location)
+- **Reasoning:** This chart allows direct comparison of average processing delays across all available locations, highlighting which locations experience longer delays. This addresses the user's request to identify locations with longer processing times, using the only available structured information.
+
+**Recommendation 2**
+- **Chart Title:** Total Incidents by Location
+- **Chart Type:** Bar Chart
+- **Visual Mapping:**
+    - X-Axis: location
+    - Y-Axis: total_incidents (Sum or Count)
+    - Color/Segment: location (distinct color per location)
+- **Reasoning:** This chart enables comparison of incident frequency across locations, helping to identify if any location produces significantly more incidents than others, as requested by the user.
+
+**Recommendation 3**
+- **Chart Title:** Relationship Between Total Incidents and Average Processing Time by Location
+- **Chart Type:** Scatter Plot
+- **Visual Mapping:**
+    - X-Axis: total_incidents
+    - Y-Axis: avg_processing_time_days
+    - Color/Segment: location (distinct color per location)
+- **Reasoning:** This chart visualizes whether locations with more incidents also tend to have longer processing times, providing insight into operational bottlenecks or resource constraints.
+
+**Note:** All other requested breakdowns (by division, observation type, cause, severity, category, or by month/season) CANNOT be visualized due to missing columns in the data profile.
+
+---
+
+PART 3: DATA TRANSFORMATION NOTES
+
+- Group data by "location".
+- For Bar Charts:
+    - Calculate the average of "avg_processing_time_days" per location.
+    - Calculate the sum or count of "total_incidents" per location.
+- For Scatter Plot:
+    - For each location, plot "total_incidents" vs. "avg_processing_time_days".
+- **Cannot filter by date, month, or category, nor segment by division, observation type, cause, or severity, as these columns are not present in the dataset.**
+- If "avg_processing_time_days" and "total_incidents" are incorrectly typed as dates, convert them to numeric values before aggregation.

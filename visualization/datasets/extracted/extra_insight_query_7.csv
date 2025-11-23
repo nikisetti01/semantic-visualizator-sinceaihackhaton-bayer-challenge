@@ -1,0 +1,16 @@
+division,severity,total_events
+,high,1
+administration,high,41
+administration,critical,20
+engineering,high,17
+engineering,critical,30
+logistics,high,19
+logistics,critical,9
+maintenance,high,142
+maintenance,critical,106
+manufacturing,high,5
+manufacturing,critical,1
+production,high,68
+production,critical,15
+quality_control,high,67
+quality_control,critical,22
