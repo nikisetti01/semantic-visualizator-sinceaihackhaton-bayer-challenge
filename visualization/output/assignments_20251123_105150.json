@@ -4,9 +4,8 @@
     "observation_date": "2024-01-10T00:00:00",
     "processed_date": "2024-01-11T00:00:00",
     "assignments": {
-      "LOCATION": "corridor",
-      "DEPARTMENT": "facility_management",
-      "OBSERVATION_TYPE": "hazard_report"
+      "OBSERVATION_TYPE": "hazard_report",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -14,9 +13,8 @@
     "observation_date": "2024-01-18T00:00:00",
     "processed_date": "2024-01-19T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
-      "DEPARTMENT": "safety",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "near_miss",
+      "DEPARTMENT": "engineering"
     }
   },
   {
@@ -24,9 +22,8 @@
     "observation_date": "2024-01-25T00:00:00",
     "processed_date": "2024-01-26T00:00:00",
     "assignments": {
-      "LOCATION": "production_facility",
-      "DEPARTMENT": "safety",
-      "OBSERVATION_TYPE": "safety_observation"
+      "OBSERVATION_TYPE": "unsafe_act",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -34,9 +31,8 @@
     "observation_date": "2024-02-02T00:00:00",
     "processed_date": "2024-02-03T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
-      "DEPARTMENT": "warehouse",
-      "OBSERVATION_TYPE": "hazard_report"
+      "OBSERVATION_TYPE": "hazard_report",
+      "DEPARTMENT": "warehouse"
     }
   },
   {
@@ -44,9 +40,8 @@
     "observation_date": "2024-02-09T00:00:00",
     "processed_date": "2024-02-10T00:00:00",
     "assignments": {
-      "LOCATION": "lab",
-      "DEPARTMENT": "environmental",
-      "OBSERVATION_TYPE": "safety_observation"
+      "OBSERVATION_TYPE": "hazard_report",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -54,8 +49,8 @@
     "observation_date": "2024-02-16T00:00:00",
     "processed_date": "2024-02-17T00:00:00",
     "assignments": {
-      "DEPARTMENT": "safety",
-      "OBSERVATION_TYPE": "safety_observation"
+      "OBSERVATION_TYPE": "near_miss",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -63,7 +58,7 @@
     "observation_date": "2024-02-23T00:00:00",
     "processed_date": "2024-02-24T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
+      "OBSERVATION_TYPE": "unsafe_act",
       "DEPARTMENT": "maintenance"
     }
   },
@@ -72,8 +67,8 @@
     "observation_date": "2024-03-01T00:00:00",
     "processed_date": "2024-03-02T00:00:00",
     "assignments": {
-      "LOCATION": "warehouse",
-      "DEPARTMENT": "warehouse"
+      "OBSERVATION_TYPE": "unsafe_act",
+      "DEPARTMENT": "logistics"
     }
   },
   {
@@ -81,9 +76,8 @@
     "observation_date": "2024-03-08T00:00:00",
     "processed_date": "2024-03-09T00:00:00",
     "assignments": {
-      "LOCATION": "corridor",
-      "DEPARTMENT": "safety",
-      "OBSERVATION_TYPE": "hazard_report"
+      "OBSERVATION_TYPE": "near_miss",
+      "DEPARTMENT": "administration"
     }
   },
   {
@@ -91,8 +85,8 @@
     "observation_date": "2024-03-15T00:00:00",
     "processed_date": "2024-03-16T00:00:00",
     "assignments": {
-      "DEPARTMENT": "safety",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "incident",
+      "DEPARTMENT": "engineering"
     }
   },
   {
@@ -100,7 +94,8 @@
     "observation_date": "2024-03-22T00:00:00",
     "processed_date": "2024-03-23T00:00:00",
     "assignments": {
-      "LOCATION": "staircase"
+      "OBSERVATION_TYPE": "unsafe_condition",
+      "DEPARTMENT": "facility_management"
     }
   },
   {
@@ -108,8 +103,8 @@
     "observation_date": "2024-03-29T00:00:00",
     "processed_date": "2024-03-30T00:00:00",
     "assignments": {
-      "DEPARTMENT": "engineering",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "quality_issue",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -117,9 +112,8 @@
     "observation_date": "2024-04-05T00:00:00",
     "processed_date": "2024-04-06T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
-      "DEPARTMENT": "maintenance",
-      "OBSERVATION_TYPE": "maintenance_request"
+      "OBSERVATION_TYPE": "maintenance_request",
+      "DEPARTMENT": "maintenance"
     }
   },
   {
@@ -127,8 +121,8 @@
     "observation_date": "2024-04-12T00:00:00",
     "processed_date": "2024-04-13T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "incident",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -136,8 +130,8 @@
     "observation_date": "2024-04-19T00:00:00",
     "processed_date": "2024-04-20T00:00:00",
     "assignments": {
-      "DEPARTMENT": "administration",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "incident",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -145,9 +139,8 @@
     "observation_date": "2024-04-26T00:00:00",
     "processed_date": "2024-04-27T00:00:00",
     "assignments": {
-      "LOCATION": "lab",
-      "DEPARTMENT": "facility_management",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "quality_issue",
+      "DEPARTMENT": "quality"
     }
   },
   {
@@ -155,9 +148,8 @@
     "observation_date": "2024-05-03T00:00:00",
     "processed_date": "2024-05-04T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
-      "DEPARTMENT": "administration",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "safety_observation",
+      "DEPARTMENT": "administration"
     }
   },
   {
@@ -165,9 +157,7 @@
     "observation_date": "2024-05-10T00:00:00",
     "processed_date": "2024-05-11T00:00:00",
     "assignments": {
-      "LOCATION": "lab",
-      "DEPARTMENT": "safety",
-      "OBSERVATION_TYPE": "safety_observation"
+      "DEPARTMENT": "warehouse"
     }
   },
   {
@@ -175,7 +165,6 @@
     "observation_date": "2024-05-17T00:00:00",
     "processed_date": "2024-05-18T00:00:00",
     "assignments": {
-      "LOCATION": "storage_room",
       "DEPARTMENT": "warehouse"
     }
   },
@@ -184,7 +173,8 @@
     "observation_date": "2024-05-24T00:00:00",
     "processed_date": "2024-05-25T00:00:00",
     "assignments": {
-      "DEPARTMENT": "maintenance"
+      "OBSERVATION_TYPE": "incident",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -192,7 +182,7 @@
     "observation_date": "2024-05-31T00:00:00",
     "processed_date": "2024-06-01T00:00:00",
     "assignments": {
-      "LOCATION": "staircase"
+      "OBSERVATION_TYPE": "near_miss"
     }
   },
   {
@@ -200,7 +190,8 @@
     "observation_date": "2024-06-07T00:00:00",
     "processed_date": "2024-06-10T00:00:00",
     "assignments": {
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "incident",
+      "DEPARTMENT": "administration"
     }
   },
   {
@@ -214,9 +205,8 @@
     "observation_date": "2024-06-21T00:00:00",
     "processed_date": "2024-06-24T00:00:00",
     "assignments": {
-      "LOCATION": "warehouse",
-      "DEPARTMENT": "warehouse",
-      "OBSERVATION_TYPE": "safety_observation"
+      "OBSERVATION_TYPE": "safety_observation",
+      "DEPARTMENT": "warehouse"
     }
   },
   {
@@ -224,9 +214,8 @@
     "observation_date": "2024-06-28T00:00:00",
     "processed_date": "2024-07-01T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
-      "DEPARTMENT": "logistics",
-      "OBSERVATION_TYPE": "safety_observation"
+      "OBSERVATION_TYPE": "unsafe_act",
+      "DEPARTMENT": "logistics"
     }
   },
   {
@@ -234,18 +223,16 @@
     "observation_date": "2024-07-05T00:00:00",
     "processed_date": "2024-07-08T00:00:00",
     "assignments": {
-      "LOCATION": "production_facility",
-      "DEPARTMENT": "safety",
-      "OBSERVATION_TYPE": "hazard_report"
+      "OBSERVATION_TYPE": "hazard_report",
+      "TIME": "month",
+      "DEPARTMENT": "production"
     }
   },
   {
     "row_index": 26,
     "observation_date": "2024-07-12T00:00:00",
     "processed_date": "2024-07-15T00:00:00",
-    "assignments": {
-      "LOCATION": "staircase"
-    }
+    "assignments": {}
   },
   {
     "row_index": 27,
@@ -257,16 +244,17 @@
     "row_index": 28,
     "observation_date": "2024-07-26T00:00:00",
     "processed_date": "2024-07-29T00:00:00",
-    "assignments": {}
+    "assignments": {
+      "DEPARTMENT": "quality"
+    }
   },
   {
     "row_index": 29,
     "observation_date": "2024-08-02T00:00:00",
     "processed_date": "2024-08-05T00:00:00",
     "assignments": {
-      "LOCATION": "warehouse",
-      "DEPARTMENT": "warehouse",
-      "OBSERVATION_TYPE": "quality_issue"
+      "OBSERVATION_TYPE": "quality_issue",
+      "DEPARTMENT": "warehouse"
     }
   },
   {
@@ -274,9 +262,8 @@
     "observation_date": "2024-08-09T00:00:00",
     "processed_date": "2024-08-12T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
-      "DEPARTMENT": "warehouse",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "incident",
+      "DEPARTMENT": "warehouse"
     }
   },
   {
@@ -284,9 +271,8 @@
     "observation_date": "2024-08-16T00:00:00",
     "processed_date": "2024-08-19T00:00:00",
     "assignments": {
-      "LOCATION": "warehouse",
-      "DEPARTMENT": "warehouse",
-      "OBSERVATION_TYPE": "safety_observation"
+      "OBSERVATION_TYPE": "near_miss",
+      "DEPARTMENT": "warehouse"
     }
   },
   {
@@ -294,9 +280,8 @@
     "observation_date": "2024-08-23T00:00:00",
     "processed_date": "2024-08-26T00:00:00",
     "assignments": {
-      "LOCATION": "production_facility",
-      "DEPARTMENT": "production",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "near_miss",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -304,9 +289,8 @@
     "observation_date": "2024-08-30T00:00:00",
     "processed_date": "2024-09-02T00:00:00",
     "assignments": {
-      "LOCATION": "storage_room",
-      "DEPARTMENT": "maintenance",
-      "OBSERVATION_TYPE": "safety_observation"
+      "OBSERVATION_TYPE": "hazard_report",
+      "DEPARTMENT": "maintenance"
     }
   },
   {
@@ -314,9 +298,8 @@
     "observation_date": "2024-09-06T00:00:00",
     "processed_date": "2024-09-09T00:00:00",
     "assignments": {
-      "LOCATION": "corridor",
-      "DEPARTMENT": "safety",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "incident",
+      "DEPARTMENT": "administration"
     }
   },
   {
@@ -324,8 +307,8 @@
     "observation_date": "2024-09-13T00:00:00",
     "processed_date": "2024-09-16T00:00:00",
     "assignments": {
-      "DEPARTMENT": "maintenance",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "incident",
+      "DEPARTMENT": "maintenance"
     }
   },
   {
@@ -333,9 +316,8 @@
     "observation_date": "2024-09-20T00:00:00",
     "processed_date": "2024-09-23T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
-      "DEPARTMENT": "engineering",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "near_miss",
+      "DEPARTMENT": "engineering"
     }
   },
   {
@@ -343,8 +325,9 @@
     "observation_date": "2024-09-27T00:00:00",
     "processed_date": "2024-09-30T00:00:00",
     "assignments": {
-      "DEPARTMENT": "safety",
-      "OBSERVATION_TYPE": "safety_observation"
+      "OBSERVATION_TYPE": "safety_observation",
+      "TIME": "year",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -352,8 +335,8 @@
     "observation_date": "2024-10-04T00:00:00",
     "processed_date": "2024-10-07T00:00:00",
     "assignments": {
-      "LOCATION": "lab",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "incident",
+      "DEPARTMENT": "quality"
     }
   },
   {
@@ -366,18 +349,15 @@
     "row_index": 40,
     "observation_date": "2024-10-18T00:00:00",
     "processed_date": "2024-10-21T00:00:00",
-    "assignments": {
-      "LOCATION": "staircase"
-    }
+    "assignments": {}
   },
   {
     "row_index": 41,
     "observation_date": "2024-10-25T00:00:00",
     "processed_date": "2024-10-28T00:00:00",
     "assignments": {
-      "LOCATION": "corridor",
-      "DEPARTMENT": "safety",
-      "OBSERVATION_TYPE": "hazard_report"
+      "OBSERVATION_TYPE": "unsafe_condition",
+      "DEPARTMENT": "operations"
     }
   },
   {
@@ -385,9 +365,8 @@
     "observation_date": "2024-11-01T00:00:00",
     "processed_date": "2024-11-04T00:00:00",
     "assignments": {
-      "LOCATION": "warehouse",
-      "DEPARTMENT": "warehouse",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "near_miss",
+      "DEPARTMENT": "warehouse"
     }
   },
   {
@@ -395,8 +374,8 @@
     "observation_date": "2024-11-08T00:00:00",
     "processed_date": "2024-11-11T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "incident",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -404,8 +383,8 @@
     "observation_date": "2024-11-15T00:00:00",
     "processed_date": "2024-11-18T00:00:00",
     "assignments": {
-      "LOCATION": "warehouse",
-      "DEPARTMENT": "logistics"
+      "OBSERVATION_TYPE": "unsafe_act",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -413,7 +392,8 @@
     "observation_date": "2024-11-22T00:00:00",
     "processed_date": "2024-11-25T00:00:00",
     "assignments": {
-      "OBSERVATION_TYPE": "hazard_report"
+      "OBSERVATION_TYPE": "hazard_report",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -421,9 +401,8 @@
     "observation_date": "2024-11-29T00:00:00",
     "processed_date": "2024-12-02T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
-      "DEPARTMENT": "engineering",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "quality_issue",
+      "DEPARTMENT": "production"
     }
   },
   {
@@ -431,7 +410,6 @@
     "observation_date": "2024-12-06T00:00:00",
     "processed_date": "2024-12-09T00:00:00",
     "assignments": {
-      "LOCATION": "lab",
       "DEPARTMENT": "production"
     }
   },
@@ -440,9 +418,7 @@
     "observation_date": "2024-12-13T00:00:00",
     "processed_date": "2024-12-16T00:00:00",
     "assignments": {
-      "LOCATION": "staircase",
-      "DEPARTMENT": "safety",
-      "OBSERVATION_TYPE": "incident"
+      "OBSERVATION_TYPE": "near_miss"
     }
   },
   {
@@ -450,7 +426,8 @@
     "observation_date": "2024-12-20T00:00:00",
     "processed_date": "2024-12-23T00:00:00",
     "assignments": {
-      "LOCATION": "staircase"
+      "OBSERVATION_TYPE": "unsafe_act",
+      "DEPARTMENT": "administration"
     }
   }
 ]

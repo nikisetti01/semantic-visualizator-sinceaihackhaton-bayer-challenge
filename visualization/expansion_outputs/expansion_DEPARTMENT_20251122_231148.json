@@ -1,0 +1,232 @@
+{
+  "production": {
+    "name": "production",
+    "description": "In HSE, the production department refers to areas and teams directly involved in manufacturing, processing, or assembling products. Observations here often relate to machine operation, line safety, process hazards, and worker behaviors during active production. Typical events include equipment malfunctions, unsafe work practices, or exposure to hazardous materials.",
+    "synonyms": [
+      "manufacturing",
+      "assembly line",
+      "shop floor",
+      "processing",
+      "fabrication",
+      "operations floor",
+      "plant production",
+      "production line",
+      "manufacturing area",
+      "production team"
+    ],
+    "examples": [
+      "Operator bypassed machine guard during shift.",
+      "Spill of coolant observed near the assembly line.",
+      "Worker not wearing hearing protection in production area.",
+      "Conveyor belt emergency stop was blocked.",
+      "Loose material found on production floor causing trip hazard."
+    ]
+  },
+  "maintenance": {
+    "name": "maintenance",
+    "description": "The maintenance department handles the upkeep, repair, and servicing of equipment and facilities. HSE observations here often involve lockout/tagout compliance, use of tools, working at heights, and exposure to electrical or mechanical hazards during repairs or preventive maintenance.",
+    "synonyms": [
+      "repair crew",
+      "mechanical maintenance",
+      "electrical maintenance",
+      "service team",
+      "maintenance staff",
+      "plant maintenance",
+      "upkeep team",
+      "maintenance workshop",
+      "maintenance operations",
+      "maintenance technicians"
+    ],
+    "examples": [
+      "Technician did not use lockout procedure before servicing pump.",
+      "Oil spill left uncleaned after maintenance work.",
+      "Missing guard on maintenance tool cart.",
+      "Worker used ladder without fall protection during light replacement.",
+      "Improper storage of chemicals in maintenance area."
+    ]
+  },
+  "quality_control": {
+    "name": "quality_control",
+    "description": "Quality control involves inspecting, testing, and verifying products or processes to ensure standards are met. HSE issues in this department may include handling of test samples, use of inspection equipment, ergonomic risks, and safe storage of rejected materials.",
+    "synonyms": [
+      "QC",
+      "quality assurance",
+      "inspection team",
+      "testing department",
+      "QA/QC",
+      "product inspection",
+      "quality lab",
+      "quality team",
+      "quality inspectors",
+      "control lab"
+    ],
+    "examples": [
+      "Inspector not wearing gloves while handling chemical samples.",
+      "Trip hazard from cables in quality lab.",
+      "Rejected parts stored in walkway.",
+      "Sharp edges found on test equipment.",
+      "Spillage of test solution during product inspection."
+    ]
+  },
+  "logistics": {
+    "name": "logistics",
+    "description": "The logistics department manages the movement, storage, and distribution of materials and products. HSE observations here often relate to vehicle safety, loading/unloading practices, manual handling, and traffic management within the facility.",
+    "synonyms": [
+      "transportation",
+      "shipping and receiving",
+      "supply chain",
+      "distribution",
+      "logistics team",
+      "material handling",
+      "freight",
+      "delivery operations",
+      "logistics operations",
+      "warehouse logistics"
+    ],
+    "examples": [
+      "Forklift operated at excessive speed in loading bay.",
+      "Pallets stacked unsafely in shipping area.",
+      "Driver did not use seatbelt in company vehicle.",
+      "Blocked emergency exit in logistics zone.",
+      "Manual lifting of heavy boxes without assistance."
+    ]
+  },
+  "administration": {
+    "name": "administration",
+    "description": "Administration covers office-based staff and activities such as HR, finance, and management. HSE concerns here include office ergonomics, fire safety, slips/trips, and emergency preparedness in administrative areas.",
+    "synonyms": [
+      "office staff",
+      "admin team",
+      "management office",
+      "clerical department",
+      "front office",
+      "administrative support",
+      "HR department",
+      "administrative office",
+      "back office",
+      "office administration"
+    ],
+    "examples": [
+      "Blocked fire exit in admin office.",
+      "Loose electrical cords under desks.",
+      "Employee reported wrist pain from poor workstation setup.",
+      "Spilled coffee not cleaned up in hallway.",
+      "Missing evacuation map in administration area."
+    ]
+  },
+  "safety": {
+    "name": "safety",
+    "description": "The safety department is responsible for developing, implementing, and monitoring health and safety policies and procedures. Observations here may include safety audits, training sessions, incident investigations, and compliance checks.",
+    "synonyms": [
+      "HSE team",
+      "safety office",
+      "EHS department",
+      "safety management",
+      "health and safety",
+      "safety officers",
+      "safety coordinators",
+      "safety unit",
+      "safety staff",
+      "environmental health and safety"
+    ],
+    "examples": [
+      "Safety officer conducted PPE compliance inspection.",
+      "Near miss reported during safety walkthrough.",
+      "Outdated safety signage found in corridor.",
+      "Incomplete incident investigation documentation.",
+      "Safety training session not attended by all staff."
+    ]
+  },
+  "engineering": {
+    "name": "engineering",
+    "description": "Engineering involves the design, modification, and technical support of equipment, processes, and facilities. HSE issues in this department may include risk assessments, design for safety, and safe execution of technical projects or modifications.",
+    "synonyms": [
+      "technical department",
+      "engineering team",
+      "process engineering",
+      "design engineering",
+      "project engineering",
+      "engineering staff",
+      "engineering office",
+      "plant engineering",
+      "engineering support",
+      "engineering services"
+    ],
+    "examples": [
+      "Design change did not include safety review.",
+      "Engineer entered restricted area without permit.",
+      "Temporary modification lacked proper guarding.",
+      "Risk assessment missing for new equipment installation.",
+      "Blueprints did not specify emergency shutoff locations."
+    ]
+  },
+  "warehouse": {
+    "name": "warehouse",
+    "description": "The warehouse department is responsible for storing raw materials, components, and finished goods. HSE observations here often involve storage practices, racking safety, forklift operations, and housekeeping to prevent slips, trips, and falls.",
+    "synonyms": [
+      "storage area",
+      "stockroom",
+      "inventory",
+      "warehouse operations",
+      "warehouse staff",
+      "material storage",
+      "goods storage",
+      "warehouse team",
+      "stock warehouse",
+      "warehouse facility"
+    ],
+    "examples": [
+      "Boxes stacked above safe height in warehouse.",
+      "Spilled oil on warehouse floor not cleaned promptly.",
+      "Damaged racking identified during inspection.",
+      "Pedestrian walkway blocked by pallets.",
+      "Forklift parked in emergency access route."
+    ]
+  },
+  "operations": {
+    "name": "operations",
+    "description": "Operations refers to the overall running of core business activities, often encompassing production, logistics, and support functions. HSE events here may include process upsets, cross-departmental hazards, and general operational risks affecting multiple teams.",
+    "synonyms": [
+      "plant operations",
+      "operations team",
+      "operations department",
+      "operations staff",
+      "site operations",
+      "operational team",
+      "operations management",
+      "operations floor",
+      "operations unit",
+      "operations group"
+    ],
+    "examples": [
+      "Process upset led to unplanned shutdown.",
+      "Operations staff failed to report minor spill.",
+      "Cross-departmental safety drill conducted.",
+      "Unclear handover between shifts caused confusion.",
+      "General housekeeping issues noted in operations area."
+    ]
+  },
+  "facility_management": {
+    "name": "facility_management",
+    "description": "Facility management oversees the maintenance, safety, and functionality of buildings and infrastructure. HSE observations here include building safety checks, fire system maintenance, waste management, and ensuring safe access and egress.",
+    "synonyms": [
+      "facilities",
+      "building management",
+      "facility services",
+      "facilities team",
+      "site management",
+      "facility operations",
+      "property management",
+      "facility staff",
+      "facilities maintenance",
+      "facility support"
+    ],
+    "examples": [
+      "Fire alarm system overdue for inspection.",
+      "Blocked emergency exit in facility corridor.",
+      "Leaking roof reported to facility management.",
+      "Improper storage of cleaning chemicals in janitor closet.",
+      "Lighting failure in stairwell not addressed promptly."
+    ]
+  }
+}

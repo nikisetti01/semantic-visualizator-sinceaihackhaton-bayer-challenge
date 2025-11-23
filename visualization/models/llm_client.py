@@ -22,7 +22,7 @@ class OpenAILLMClient:
         self,
         model_name: str = "gpt-4.1-mini",
         temperature: float = 0.0,
-        max_output_tokens: int = 512,
+        max_output_tokens: int = 1024,
     ) -> None:
         self.model_name = model_name
         self.temperature = temperature

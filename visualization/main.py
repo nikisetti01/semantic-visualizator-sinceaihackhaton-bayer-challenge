@@ -8,6 +8,9 @@ import pandas as pd
 
 from insight_extraction.categorizer.categorize import run_pipeline
 from insight_extraction.semantic_intent.semantic_intent import get_semantic_intent
+from insight_extraction.semantic_intent.expander import (
+    expand_dimension_categories,
+)
 from models.llm_client import OpenAILLMClient
 from insight_extraction.utils.saving_scripts import save_intent_to_file
 from insight_extraction.extraction.extract import define_queries, extract_insights
@@ -39,14 +42,18 @@ def main(user_prompt: str, df: pd.DataFrame, run_id: str) -> None:
     
     # Client OpenAI reale (assume OPENAI_API_KEY nell'ambiente)
     llm_client = OpenAILLMClient(
-        model_name="gpt-4.1",  # o "gpt-4.1", "gpt-4o", ecc.
+        model_name="gpt-4.1",  # o "gpt-4o", ecc.
         temperature=0.0,
         max_output_tokens=2400,
     )
+
     print(">>> User question:\t")
     print(user_prompt)
     print("\n>>> Calling LLM for semantic intent...\n")
 
+    # ------------------------------------------------------------------
+    # 2. Intent extraction
+    # ------------------------------------------------------------------
     print(">>>>>>>>> -------- Intent extraction ------- <<<<<<<<<\n")
     intent = get_semantic_intent(
         user_question=user_prompt,
@@ -54,43 +61,93 @@ def main(user_prompt: str, df: pd.DataFrame, run_id: str) -> None:
     )
 
     print(">>> Parsed intent JSON:")
-    print(json.dumps(intent, indent=2))
+    print(json.dumps(intent, indent=2, ensure_ascii=False))
 
-    INTENT_DIR = os.path.join(OUT_DIR, "intents")
+    INTENT_DIR = OUT_DIR / "intents"
     os.makedirs(INTENT_DIR, exist_ok=True)
 
-    intent_path = os.path.join(INTENT_DIR, f"intent_{run_id}.json")
-    save_intent_to_file(intent, intent_path)
-    
+    intent_path = INTENT_DIR / f"intent_{run_id}.json"
+    save_intent_to_file(intent, str(intent_path))
+
     print(f"\n>>> JSON salvato in: {intent_path}")
 
-    print("\n>>>>>>>>> -------- Categorization ------- <<<<<<<<<\n")
+    # ------------------------------------------------------------------
+    # 3. Categories expansion (per dimension_type nel group_by)
+    # ------------------------------------------------------------------
+    print("\n>>>>>>>>> -------- Categories expansion ------- <<<<<<<<<\n")
 
+    EXPANSIONS_DIR = OUT_DIR / "expansions"
+    os.makedirs(EXPANSIONS_DIR, exist_ok=True)
+
+    all_expansions: dict[str, dict[str, any]] = {}
+
+    for group in intent.get("group_by", []):
+        dim_type = group.get("dimension_type")
+        values = list(dict.fromkeys(group.get("values", [])))  # unique
+
+        if not dim_type or not values:
+            continue
+
+        print(f"--- Expanding dimension: {dim_type} ({len(values)} values)")
+
+        expanded = expand_dimension_categories(
+            dimension_type=dim_type,
+            values=values,
+            llm_client=llm_client,
+            extra_context=(
+                "HSE domain: worker safety observations, near misses, "
+                "hazards, incidents, environmental and quality issues."
+            ),
+        )
+
+        all_expansions[dim_type] = expanded
+
+        exp_path = EXPANSIONS_DIR / f"expansion_{dim_type}_{run_id}.json"
+        with exp_path.open("w", encoding="utf-8") as f:
+            json.dump(expanded, f, indent=2, ensure_ascii=False)
+
+        print(f"Saved expansion for {dim_type} to: {exp_path}\n")
+
+    # file unico con tutte le espansioni (usato dalla pipeline)
+    expansions_all_path = EXPANSIONS_DIR / f"expansions_all_{run_id}.json"
+    with expansions_all_path.open("w", encoding="utf-8") as f:
+        json.dump(all_expansions, f, indent=2, ensure_ascii=False)
+
+    print(f">>> All expansions saved to: {expansions_all_path}\n")
+
+    # ------------------------------------------------------------------
+    # 4. Categorization pipeline
+    # ------------------------------------------------------------------
+    print("\n>>>>>>>>> -------- Categorization ------- <<<<<<<<<\n")
     print("Run categorization pipeline...\n")
 
-    allocation_path = os.path.join(OUT_DIR, f"allocation_{run_id}.json")
+    allocation_path = OUT_DIR / f"allocation_{run_id}.json"
 
     run_pipeline(
         df=df,
         intent_path=intent_path,
         output_path=allocation_path,
         model_name="all-MiniLM-L6-v2",
+        expansions_path=expansions_all_path,
         similarity_threshold=0.2,
         min_support_ratio=0.01,
     )
 
     print(f">>> Saved file with categories allocations to: {allocation_path}\n")
 
+    # ------------------------------------------------------------------
+    # 5. Insights extraction (SQL)
+    # ------------------------------------------------------------------
     print("\n>>>>>>>>> -------- Insights extraction ------- <<<<<<<<<\n")
 
-    DB_DIR = os.path.join(OUT_DIR, "db")
-    os.makedirs(DB_DIR, exist_ok=True)
+    DB_DIR = OUT_DIR / "db"
+    DB_DIR.mkdir(parents=True, exist_ok=True)
 
-    CSV_DIR = os.path.join(OUT_DIR, "csv")
-    os.makedirs(CSV_DIR, exist_ok=True)
+    CSV_DIR = OUT_DIR / "csv"
+    CSV_DIR.mkdir(parents=True, exist_ok=True)
 
-    db_path = os.path.join(DB_DIR, f"raw_insights_{run_id}.db")
-    csv_path = os.path.join(CSV_DIR, f"raw_insights_{run_id}.csv") 
+    db_path = DB_DIR / f"raw_insights_{run_id}.db"
+    csv_path = CSV_DIR / f"raw_insights_{run_id}.csv"
 
     print(">>> Define and run queries to extract insights...\n")
     sql_code = define_queries(
@@ -98,24 +155,27 @@ def main(user_prompt: str, df: pd.DataFrame, run_id: str) -> None:
         allocation_path=allocation_path,
         user_prompt=user_prompt,
         intent=intent,
-        db_path=db_path,
-        csv_path=csv_path,
+        db_path=str(db_path),
+        csv_path=str(csv_path),
     )
 
-    INSIGHTS_DIR = os.path.join(DATA_DIR, "extracted")
-    os.makedirs(INSIGHTS_DIR, exist_ok=True)
+    INSIGHTS_DIR = DATA_DIR / "extracted"
+    INSIGHTS_DIR.mkdir(parents=True, exist_ok=True)
 
     insights_dfs = extract_insights(
-        db_path=db_path,
+        db_path=str(db_path),
         sql_code=sql_code,
-        output_dir=INSIGHTS_DIR,
+        output_dir=str(INSIGHTS_DIR),
     )
 
     print(f">>> {len(insights_dfs)} tables generated\n\n")
     insights_name = list(insights_dfs.keys())
 
+    # ------------------------------------------------------------------
+    # 6. Chart recommendation
+    # ------------------------------------------------------------------
     print(">>>>>>>>>>>> -------- Recommending chart ------- <<<<<<<<<\n")
-    
+
     system_prompt = load_text_file("viz_recommender/prompts/viz_prompt.txt")
 
     api_key = os.getenv("OPENAI_API_KEY")
@@ -127,31 +187,22 @@ def main(user_prompt: str, df: pd.DataFrame, run_id: str) -> None:
     os.makedirs(RECOMMENDATION_DIR, exist_ok=True)
     for df_n, file in enumerate(os.listdir(INSIGHTS_DIR)):
         if file.endswith(".csv"):
-
-            csv_path = os.path.join(INSIGHTS_DIR, file)
+            csv_path = INSIGHTS_DIR / file
 
             print(f">>> Generating data profile with LIDA for {file.split('.')[0]} ...")
-            df = load_dataframe(csv_path)
+            df = load_dataframe(str(csv_path))
             data_profile_str = summarize_dataframe(df, lida_manager, summary_method="detailed")
-
-            # if not run in main user_prompt must be retrieved from run
-            # try:
-            #     usr_prompt_path = os.path.join(USR_PROMPT_DIR, f"prompt_{run_id}.txt")
-            #     user_prompt = load_user_query(Path(usr_prompt_path))
-            # except Exception as e:
-            #     print(f"❌❌❌ Error loading user query: {e}❌❌❌\n")
-            #     return
 
             full_prompt = build_full_prompt(
                 data_profile_str=data_profile_str,
                 user_query=user_prompt,
-                system_prompt=system_prompt
+                system_prompt=system_prompt,
             )
 
             print(f">>> Analyzing {insights_name[df_n]} with LLM...\n")
             recommend_survey = generate_chart_recommendation(llm_client, full_prompt)
 
-            recommendation_path = Path(os.path.join(RECOMMENDATION_DIR, f"{insights_name[df_n]}.txt"))
+            recommendation_path = Path(RECOMMENDATION_DIR) / f"{insights_name[df_n]}.txt"
             save_text_file(recommend_survey, recommendation_path)
         else:
             print(f"⚠️⚠️⚠️ Skipping non-CSV file: {file} ⚠️⚠️⚠️\n")
@@ -170,13 +221,12 @@ def main(user_prompt: str, df: pd.DataFrame, run_id: str) -> None:
 
 
 if __name__ == "__main__":
-
     obs_id = 4
 
-    prompt_path = os.path.join(USR_PROMPT_DIR, f"prompt_{obs_id}.txt")
-    df_path = os.path.join(DATA_DIR, f"data_{obs_id}.xlsx")
-    
-    with open(prompt_path, "r") as f:
+    prompt_path = USR_PROMPT_DIR / f"prompt_{obs_id}.txt"
+    df_path = DATA_DIR / f"data_{obs_id}.xlsx"
+
+    with open(prompt_path, "r", encoding="utf-8") as f:
         user_prompt = f.read()
 
     df = pd.read_excel(df_path, engine="openpyxl")

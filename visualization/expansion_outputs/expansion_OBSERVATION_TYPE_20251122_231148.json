@@ -1,0 +1,209 @@
+{
+  "safety_observation": {
+    "name": "safety_observation",
+    "description": "A safety observation refers to any recorded note or report about workplace behaviors, conditions, or processes that may impact health and safety, whether positive or negative. In HSE, these are often used to identify trends, reinforce safe practices, or highlight areas needing improvement before incidents occur.",
+    "synonyms": [
+      "safety check",
+      "safety note",
+      "safety walkthrough observation",
+      "HSE observation",
+      "workplace safety review",
+      "safety monitoring report",
+      "safe behavior observation",
+      "safety audit finding",
+      "field safety observation",
+      "safety patrol note"
+    ],
+    "examples": [
+      "Observed all workers wearing proper PPE in the welding area.",
+      "Noted that emergency exits were kept clear during shift.",
+      "Identified a missing guard on the conveyor belt during routine check.",
+      "Observed forklift operator following all safety protocols.",
+      "Reported that spill kits were fully stocked and accessible."
+    ]
+  },
+  "near_miss": {
+    "name": "near_miss",
+    "description": "A near miss is an unplanned event that did not result in injury, illness, or damage but had the potential to do so. In HSE, near misses are critical for proactive risk management, as they highlight underlying hazards or unsafe conditions before they cause harm.",
+    "synonyms": [
+      "close call",
+      "narrow escape",
+      "almost accident",
+      "potential incident",
+      "missed accident",
+      "incident avoided",
+      "dangerous occurrence",
+      "near hit",
+      "safety close call",
+      "unrealized incident"
+    ],
+    "examples": [
+      "A falling tool narrowly missed a worker passing below.",
+      "Forklift reversed into a walkway but stopped before hitting anyone.",
+      "Chemical container slipped but was caught before spilling.",
+      "Worker tripped over a hose but regained balance without falling.",
+      "Overhead load swung out of control but did not strike equipment."
+    ]
+  },
+  "incident": {
+    "name": "incident",
+    "description": "An incident is any unplanned event that results in or could have resulted in injury, illness, property damage, or environmental harm. In HSE, incidents are formally reported and investigated to determine root causes and prevent recurrence.",
+    "synonyms": [
+      "accident",
+      "event",
+      "injury report",
+      "safety incident",
+      "HSE event",
+      "workplace accident",
+      "recordable incident",
+      "reportable event",
+      "loss event",
+      "harmful occurrence"
+    ],
+    "examples": [
+      "Worker sustained a laceration while using a box cutter.",
+      "Forklift struck a storage rack causing minor damage.",
+      "Oil spill occurred during transfer, requiring cleanup.",
+      "Employee slipped on wet floor and sprained ankle.",
+      "Fire alarm triggered due to electrical short circuit."
+    ]
+  },
+  "hazard_report": {
+    "name": "hazard_report",
+    "description": "A hazard report documents the identification of a potential source of harm or unsafe condition in the workplace. In HSE, these reports are used to initiate corrective actions and prevent incidents by addressing risks proactively.",
+    "synonyms": [
+      "hazard identification",
+      "risk report",
+      "unsafe condition report",
+      "danger report",
+      "hazard notification",
+      "hazard spotting",
+      "hazard alert",
+      "potential hazard report",
+      "safety risk report",
+      "hazard observation"
+    ],
+    "examples": [
+      "Reported exposed wiring near the loading dock.",
+      "Identified unguarded machinery in the maintenance area.",
+      "Noted chemical storage area lacking proper signage.",
+      "Observed blocked fire extinguisher access.",
+      "Reported slippery floor in the break room."
+    ]
+  },
+  "environmental_observation": {
+    "name": "environmental_observation",
+    "description": "An environmental observation records any condition, event, or behavior that may impact the environment, such as pollution, waste, or resource use. In HSE, these observations help monitor compliance with environmental standards and identify opportunities for improvement.",
+    "synonyms": [
+      "environmental check",
+      "environmental monitoring",
+      "eco observation",
+      "environmental compliance note",
+      "environmental issue report",
+      "environmental audit finding",
+      "environmental concern",
+      "environmental hazard observation",
+      "environmental patrol note",
+      "environmental risk observation"
+    ],
+    "examples": [
+      "Observed oil sheen on surface water near the facility.",
+      "Noted improper disposal of chemical containers.",
+      "Reported excessive dust emissions from the crusher.",
+      "Identified leaking waste drum in storage area.",
+      "Observed wildlife entering restricted waste area."
+    ]
+  },
+  "quality_issue": {
+    "name": "quality_issue",
+    "description": "A quality issue refers to any deviation from established standards or specifications that could affect product integrity, safety, or compliance. In HSE, quality issues are tracked because they may have safety or environmental implications if not addressed.",
+    "synonyms": [
+      "quality defect",
+      "nonconformance",
+      "quality non-compliance",
+      "product issue",
+      "quality deviation",
+      "quality concern",
+      "specification breach",
+      "quality nonconformity",
+      "manufacturing defect",
+      "process deviation"
+    ],
+    "examples": [
+      "Detected welds not meeting inspection criteria.",
+      "Found packaging with incorrect labeling.",
+      "Reported batch of material with off-spec properties.",
+      "Identified missing safety data sheets in shipment.",
+      "Observed product contamination during filling process."
+    ]
+  },
+  "maintenance_request": {
+    "name": "maintenance_request",
+    "description": "A maintenance request is a formal notification to repair, replace, or service equipment, infrastructure, or safety systems. In HSE, timely maintenance is essential to prevent equipment failures that could lead to safety incidents or environmental releases.",
+    "synonyms": [
+      "repair request",
+      "work order",
+      "service request",
+      "maintenance ticket",
+      "fix request",
+      "equipment repair request",
+      "maintenance job",
+      "maintenance notification",
+      "maintenance call",
+      "maintenance report"
+    ],
+    "examples": [
+      "Requested repair of faulty emergency lighting.",
+      "Submitted work order for leaking pipe in pump room.",
+      "Reported malfunctioning fire alarm panel.",
+      "Requested replacement of worn conveyor belt.",
+      "Notified maintenance of broken safety shower."
+    ]
+  },
+  "unsafe_condition": {
+    "name": "unsafe_condition",
+    "description": "An unsafe condition is any physical state or environmental factor in the workplace that increases the risk of injury, illness, or damage. In HSE, identifying and correcting unsafe conditions is a key preventive measure.",
+    "synonyms": [
+      "hazardous condition",
+      "dangerous situation",
+      "unsafe environment",
+      "risk condition",
+      "unsafe state",
+      "unsafe workplace condition",
+      "uncontrolled hazard",
+      "unsafe setup",
+      "unsafe area",
+      "potential hazard"
+    ],
+    "examples": [
+      "Found unguarded rotating equipment in operation.",
+      "Observed water pooling near electrical panels.",
+      "Noted missing handrails on stairway.",
+      "Identified poor lighting in storage area.",
+      "Reported cracked floor tiles in walkway."
+    ]
+  },
+  "unsafe_act": {
+    "name": "unsafe_act",
+    "description": "An unsafe act is any behavior or action by a person that increases the likelihood of an accident or injury. In HSE, these are observed and reported to correct risky behaviors and reinforce safe work practices.",
+    "synonyms": [
+      "unsafe behavior",
+      "at-risk act",
+      "dangerous action",
+      "risky behavior",
+      "unsafe practice",
+      "non-compliant act",
+      "unsafe work practice",
+      "rule violation",
+      "unsafe operation",
+      "unsafe conduct"
+    ],
+    "examples": [
+      "Worker bypassed machine guard during operation.",
+      "Employee climbed shelving to reach items instead of using a ladder.",
+      "Observed worker not wearing required eye protection.",
+      "Operator used mobile phone while driving forklift.",
+      "Employee ignored lockout/tagout procedure during maintenance."
+    ]
+  }
+}

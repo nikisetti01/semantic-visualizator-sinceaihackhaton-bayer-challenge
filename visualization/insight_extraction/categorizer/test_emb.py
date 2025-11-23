@@ -25,7 +25,7 @@ def main():
         excel_path=excel_path,
         intent_path=intent_tmp_path,
         output_path=output_path,
-        sheet_name="Sheet1",
+    
         model_name="all-MiniLM-L6-v2",
         similarity_threshold=0.4,
         min_support_ratio=0.01,

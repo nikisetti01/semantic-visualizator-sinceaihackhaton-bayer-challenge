@@ -1,0 +1,75 @@
+{
+  "month": {
+    "name": "month",
+    "description": "In HSE analytics, 'month' refers to a calendar period of approximately 30 days used for tracking, reporting, and analyzing safety observations, incidents, and trends. Monthly aggregation helps identify recurring issues, monitor compliance, and evaluate the effectiveness of safety interventions over shorter timeframes. Typical events include monthly safety audits, incident counts, and hazard reports summarized for each month.",
+    "synonyms": [
+      "monthly period",
+      "per month",
+      "this month",
+      "last month",
+      "monthly reporting",
+      "monthly summary",
+      "30-day period",
+      "calendar month",
+      "monthly review",
+      "month-to-date",
+      "monthly statistics"
+    ],
+    "examples": [
+      "Five near misses were reported in the month of March.",
+      "Monthly safety inspection completed for April.",
+      "There were two recordable injuries last month.",
+      "Monthly hazard observations increased compared to February.",
+      "PPE compliance was reviewed for the month."
+    ]
+  },
+  "quarter": {
+    "name": "quarter",
+    "description": "In HSE, 'quarter' denotes a three-month period (Q1, Q2, Q3, Q4) used for summarizing and analyzing safety performance, trends, and compliance on a broader scale than monthly reporting. Quarterly reviews help identify patterns, assess progress on safety initiatives, and support regulatory or management reporting requirements. Events include quarterly incident summaries, trend analyses, and safety performance reviews.",
+    "synonyms": [
+      "quarterly period",
+      "per quarter",
+      "this quarter",
+      "last quarter",
+      "quarterly review",
+      "Q1",
+      "Q2",
+      "Q3",
+      "Q4",
+      "three-month period",
+      "quarterly statistics",
+      "quarterly summary"
+    ],
+    "examples": [
+      "Quarterly incident rate decreased in Q2.",
+      "Quarterly safety meeting held to review trends.",
+      "There were eight environmental spills reported last quarter.",
+      "Quarterly audit findings were discussed with the team.",
+      "Quarterly near miss reports showed improvement."
+    ]
+  },
+  "year": {
+    "name": "year",
+    "description": "In HSE, 'year' refers to a 12-month period used for comprehensive analysis and reporting of safety performance, incident rates, and compliance with regulations. Annual data helps organizations evaluate long-term trends, set safety goals, and fulfill legal or corporate reporting obligations. Events include yearly incident summaries, annual safety reviews, and year-over-year comparisons.",
+    "synonyms": [
+      "annual",
+      "per year",
+      "this year",
+      "last year",
+      "yearly",
+      "calendar year",
+      "fiscal year",
+      "year-to-date",
+      "annual review",
+      "yearly summary",
+      "12-month period"
+    ],
+    "examples": [
+      "Annual safety report shows a reduction in lost time injuries.",
+      "There were 15 recordable incidents last year.",
+      "Yearly environmental audit completed in December.",
+      "Year-to-date near miss count is lower than previous years.",
+      "Annual review of hazard observations conducted."
+    ]
+  }
+}
