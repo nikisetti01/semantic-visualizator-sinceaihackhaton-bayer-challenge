@@ -1,0 +1,51 @@
+PART 1: SEMANTIC DECOMPOSITION & MAPPING
+
+1. **Identify Key Terms:**
+   - "all safety observations from 2024"
+   - "average processing time"
+   - "types of observations"
+   - "longer-than-usual processing time"
+   - "trends"
+
+2. **Map to Data Schema:**
+   - User Term "average processing time" -> Column "avg_processing_time_days" (Values: [2.111111111111111])
+   - User Term "types of observations" -> No matching column in Data Profile (no column for observation type)
+   - User Term "2024" -> No date column present in Data Profile (cannot filter by year)
+   - User Term "trends" -> Implies time-based or categorical breakdown, but no such columns exist
+
+3. **Identify Constraints/Filters:**
+   - Intended Filter: Only observations from 2024 (but no date column available)
+   - Intended Breakdown: By "type of observation" (but no such column exists)
+   - Only available metric: "avg_processing_time_days" (single value, no breakdown possible)
+
+4. **Determine Analytical Goal:**
+   - The user seeks both a summary metric (average processing time) and a distribution/trend by observation type and over time. However, the data only supports a single summary metric.
+
+---
+
+PART 2: CHART RECOMMENDATIONS
+
+**Recommendation 1:**
+- **Chart Title:** Average Processing Time for Safety Observations (2024)
+- **Chart Type:** Single Value KPI Card
+- **Visual Mapping (The Blueprint):**
+    - X-Axis: Not applicable (single value)
+    - Y-Axis: "avg_processing_time_days" (displayed as a single metric)
+    - Color/Segment: Use a traffic light color (e.g., green if within target, red if above threshold—threshold not provided)
+- **Reasoning:** Since only the overall average processing time is available, a KPI card is the most direct and clear way to communicate this metric. No breakdowns or trends can be shown due to lack of supporting columns.
+
+**Recommendation 2:**
+- **Chart Title:** [Not Possible] Average Processing Time by Observation Type
+- **Chart Type:** [Not Possible]
+- **Visual Mapping:** Not applicable.
+- **Reasoning:** The user requested a breakdown by "types of observations" and analysis of trends, but the data profile does not contain any columns for observation type or date. Therefore, this analysis cannot be visualized.
+
+---
+
+PART 3: DATA TRANSFORMATION NOTES
+
+- No filtering or grouping is possible due to the absence of date and observation type columns.
+- Simply display the value in "avg_processing_time_days" as the overall average processing time.
+
+**Summary:**  
+Only the overall average processing time can be visualized. No trends or breakdowns by observation type are possible with the current data profile.

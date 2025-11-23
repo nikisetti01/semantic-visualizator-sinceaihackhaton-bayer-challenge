@@ -1,13 +1,21 @@
 import json
+import os
+from typing import Dict
 from from_text_to_streamlit_app.available_streamlit_components import SAFE_STREAMLIT_COMPONENTS
 from from_text_to_streamlit_app.utils import *
 
 
-def get_text_to_json_prompt(datasets):
+def get_text_to_json_prompt(datasets, rec_dir):
 
         dataset_dicts = {name: df.to_dict(orient="records") for name, df in datasets.items()}
         
-        best_visual = extract_best_visualization(RECOMMENDATION_OUTPUT_PATH)
+        txt_dict = {}
+        for file in os.listdir(rec_dir):
+            if file.endswith(".txt"):
+                recommendation_path = os.path.join(rec_dir, file)
+                best_visual = extract_best_visualization(recommendation_path)
+                txt_dict[file.split(".")[0]] = best_visual
+        
 
         print("Building the prompt for the given recommendation ...")
 
@@ -17,7 +25,7 @@ def get_text_to_json_prompt(datasets):
                 {json.dumps(dataset_dicts, indent=2)}
 
                 You are already given the elements that must be shown in the Streamlit dashboard here:
-                {best_visual}
+                {json.dumps(txt_dict, indent=2)}
 
                 You must ONLY output Streamlit UI components listed in {SAFE_STREAMLIT_COMPONENTS}.
 

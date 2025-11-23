@@ -1,11 +1,15 @@
 import pandas as pd
 from typing import Optional
 
-def load_observations_excel(path, title_col="Title", obs_col="Observation",
-                            obs_date_col="Observation_date", proc_date_col="Processed_date",
-                            ) -> pd.DataFrame:
+def load_observations_df(df: pd.DataFrame,
+                         title_col: str = "Title",
+                         obs_col: str = "Observation",
+                         obs_date_col: str = "Observation_date",
+                         proc_date_col: str = "Processed_date",
+                         ) -> pd.DataFrame:
 
-    df = pd.read_excel(path, engine="openpyxl")
+    # facciamo una copia per non toccare il df originale passato in input
+    df = df.copy()
 
     df["text_for_embedding"] = (
         df[title_col].fillna("").astype(str) + " " +

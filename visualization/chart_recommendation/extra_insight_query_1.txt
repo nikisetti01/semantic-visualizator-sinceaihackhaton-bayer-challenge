@@ -1,0 +1,70 @@
+PART 1: SEMANTIC DECOMPOSITION & MAPPING
+
+1. **Identify Key Terms:**
+   - "all safety observations from 2024"
+   - "average processing time"
+   - "trends"
+   - "types of observations"
+   - "longer-than-usual processing time"
+
+2. **Map to Data Schema:**
+   - User Term "safety observations" -> Column "observation_type" (Values: ['quality_issue', 'property_damage', 'unsafe_condition', ...])
+   - User Term "average processing time" -> Column "avg_processing_time_days" (Values: [3.0, 2.23, 1.67, ...])
+   - User Term "types of observations" -> Column "observation_type" (as above)
+   - User Term "longer-than-usual processing time" -> Column "avg_processing_time_days" (requires comparison to overall average)
+
+3. **Identify Constraints/Filters:**
+   - The query specifies "from 2024", but the Data Profile does not include a date or time column. **Constraint:** Cannot filter by year; must use all available data.
+
+4. **Determine Analytical Goal:**
+   - The user seeks to understand the **distribution and comparison** of average processing times across observation types, and to identify if any types stand out as having higher-than-average processing times (i.e., a comparison with a focus on outliers or trends).
+
+---
+
+PART 2: CHART RECOMMENDATIONS
+
+**1. Chart Title:**  
+Average Processing Time by Observation Type
+
+- **Chart Type:** Bar Chart
+- **Visual Mapping (The Blueprint):**
+    - X-Axis: observation_type
+    - Y-Axis: avg_processing_time_days (Average)
+    - Color/Segment: observation_type (distinct color per type, with "traffic light" logic: red for above-average, green for below-average)
+- **Reasoning:**  
+A bar chart allows for clear comparison of average processing times across all observation types. Using color to highlight types with above-average processing times (e.g., red) immediately draws attention to potential problem areas, aligning with HSE best practices for risk visualization.
+
+**2. Chart Title:**  
+Proportion of Observations with Above-Average Processing Time by Type
+
+- **Chart Type:** Donut Chart (if <5 types) or 100% Stacked Bar (if more)
+- **Visual Mapping (The Blueprint):**
+    - Segments: observation_type
+    - Value: Count of observation_type where avg_processing_time_days > overall average
+    - Color/Segment: observation_type (with "traffic light" logic)
+- **Reasoning:**  
+This chart shows the share of each observation type that exceeds the overall average processing time, making it easy to spot which types are most frequently delayed. This supports decision-making by focusing on outliers.
+
+**3. Chart Title:**  
+Distribution of Processing Times Across Observation Types
+
+- **Chart Type:** Box Plot
+- **Visual Mapping (The Blueprint):**
+    - X-Axis: observation_type
+    - Y-Axis: avg_processing_time_days
+    - Color/Segment: observation_type
+- **Reasoning:**  
+A box plot (if sufficient data points per type) would reveal the spread and outliers in processing times for each observation type, helping to identify not just averages but also variability and extreme cases.
+
+---
+
+PART 3: DATA TRANSFORMATION NOTES
+
+- **Cannot filter by year:** No date column is present; all data must be used.
+- **Group by observation_type:** Aggregate avg_processing_time_days by observation_type (mean).
+- **Calculate overall average:** Compute the overall mean of avg_processing_time_days across all types.
+- **Flag above-average types:** Identify observation_types where avg_processing_time_days > overall average for "traffic light" coloring.
+- **For proportion chart:** Count or calculate the percentage of observations per type that are above the overall average processing time.
+- **(Optional for box plot):** Ensure sufficient data points per observation_type to display distribution meaningfully.
+
+**Note:** If the number of unique observation types is 5 or fewer, use a Donut Chart for proportions; otherwise, use a 100% Stacked Bar.

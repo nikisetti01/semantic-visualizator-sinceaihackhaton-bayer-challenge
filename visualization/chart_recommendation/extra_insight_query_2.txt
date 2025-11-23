@@ -1,0 +1,55 @@
+PART 1: SEMANTIC DECOMPOSITION & MAPPING
+
+1. **Identify Key Terms:**
+   - "all safety observations from 2024"
+   - "average processing time"
+   - "trends"
+   - "types of observations"
+   - "longer-than-usual processing time"
+
+2. **Map to Data Schema:**
+   - User Term "all safety observations from 2024" -> No explicit column for year or date; only "event_month" (Values: 1–9, likely months Jan–Sep).
+   - User Term "average processing time" -> Column "avg_processing_time_days" (Values: 1.0, 3.0).
+   - User Term "types of observations" -> **No matching column in data profile** (No column for "type" or "category").
+   - User Term "trends" -> Implies time-based analysis; "event_month" is the only temporal column.
+   - User Term "longer-than-usual processing time" -> Requires comparison of "avg_processing_time_days" across categories, but only "event_month" is available for segmentation.
+
+3. **Identify Constraints/Filters:**
+   - Filter: Only data from 2024 (implied by "event_month" 1–9, assuming these are months in 2024).
+   - Cannot analyze by "types of observations" as no such column exists.
+
+4. **Determine Analytical Goal:**
+   - Trend analysis of "avg_processing_time_days" over time (by month).
+   - Distribution of "avg_processing_time_days" (to see if some months have higher averages).
+   - Unable to do part-to-whole or categorical comparison by "type" due to missing data.
+
+---
+
+PART 2: CHART RECOMMENDATIONS
+
+**1. Chart Title:** Average Processing Time of Safety Observations by Month (2024)  
+- **Chart Type:** Line Chart  
+- **Visual Mapping (The Blueprint):**
+    - X-Axis: event_month
+    - Y-Axis: avg_processing_time_days (Average)
+    - Color/Segment: event_month (to visually distinguish months)
+- **Reasoning:**  
+  This chart directly addresses the trend analysis goal, showing how the average processing time changes month by month. It helps identify if certain months have longer processing times, which could indicate operational bottlenecks or seasonal effects.
+
+**2. Chart Title:** Distribution of Processing Times for Safety Observations (2024)  
+- **Chart Type:** Bar Chart (if discrete values), or Histogram (if more unique values exist)
+- **Visual Mapping (The Blueprint):**
+    - X-Axis: avg_processing_time_days
+    - Y-Axis: Count of Observations
+    - Color/Segment: event_month (to see if certain months have more high/low processing times)
+- **Reasoning:**  
+  This chart helps visualize the spread of processing times and whether there are clusters of longer-than-usual durations. Segmenting by month can reveal if specific months contribute disproportionately to longer processing times.
+
+---
+
+PART 3: DATA TRANSFORMATION NOTES
+
+- Filter data to include only records where event_month is between 1 and 9 (assuming these represent January to September 2024).
+- Group data by event_month to calculate the average of avg_processing_time_days for each month.
+- For the distribution chart, count the number of observations for each unique value of avg_processing_time_days, optionally segmented by event_month.
+- **Note:** It is not possible to analyze by "types of observations" as no such column exists in the data profile.
