@@ -7,7 +7,7 @@ from pathlib import Path
 from insight_extraction.categorizer.categorize import run_pipeline
 from insight_extraction.semantic_intent.semantic_intent import get_semantic_intent
 from models.llm_client import OpenAILLMClient
-from insight_extraction.utils.saving_scripts import save_intent_to_file, load_test_intent, save_sql_results_to_csv
+from insight_extraction.utils.saving_scripts import save_intent_to_file
 from insight_extraction.extraction.sql_generate import SQLQueryGenerator
 from insight_extraction.extraction.extract import define_queries, extract_insights
 
@@ -36,7 +36,7 @@ def main(user_prompt: str, df_path: str, run_id: str) -> None:
     llm_client = OpenAILLMClient(
         model_name="gpt-4.1",  # o "gpt-4.1", "gpt-4o", ecc.
         temperature=0.0,
-        max_output_tokens=512,
+        max_output_tokens=1024,
     )
     print(">>> User question:\t")
     print(user_prompt)
@@ -108,8 +108,7 @@ def main(user_prompt: str, df_path: str, run_id: str) -> None:
         output_dir=INSIGHTS_DIR,
     )
 
-    for df in insights_dfs:
-        print(f"{df}\n")
+    print(f">>> Generated tables\n")
     
 
     
