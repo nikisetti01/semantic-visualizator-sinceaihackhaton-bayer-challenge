@@ -6,4 +6,5 @@ pandas
 openpyxl
 numpy
 streamlit
+streamlit[charts]
 lida
