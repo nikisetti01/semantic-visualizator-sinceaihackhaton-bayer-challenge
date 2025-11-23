@@ -9,6 +9,8 @@ def get_text_to_json_prompt(datasets):
         
         best_visual = extract_best_visualization(RECOMMENDATION_OUTPUT_PATH)
 
+        print("Building the prompt for the given recommendation ...")
+
         text = f"""
                 You are building a Streamlit workflow that shows summary statistics and visualization elements for the given datasets.
                 Use ONLY the datasets provided below. You must NOT invent any new dataset names or variables. Reference datasets exactly as given.

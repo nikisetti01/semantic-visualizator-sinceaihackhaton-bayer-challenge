@@ -31,7 +31,7 @@ RECOMMENDATION_OUTPUT_PATH = "chart_recommendation/recommendation.txt"
 
 EXTRACTED_DATASETS_PATH = "datasets/extracted"
 
-def from_csv_to_dict(datasets_path = ""):
+def from_csv_to_dict(datasets_path = EXTRACTED_DATASETS_PATH):
     datasets_path = Path(datasets_path)
     datasets = {}
 
@@ -80,6 +80,43 @@ def resolve_data(json_component, workflow_state):
             resolved_data.append(d)
     return resolved_data
 
+
+def render_advanced_chart(json_component, workflow_state):
+    comp_type = json_component.get("type")
+    cfg = json_component.get("args", {}).get("config", {})
+
+    # resolve data if needed
+    resolved_data = resolve_data(json_component, workflow_state)
+    if resolved_data is None:
+        return
+
+    if comp_type == "plotly_chart":
+        fig = cfg.get("figure_or_data")  # must be a plotly Figure object
+        if fig is not None:
+            st.plotly_chart(fig, config=cfg.get("config"), width=cfg.get("width"), theme=cfg.get("theme"))
+
+    elif comp_type == "altair_chart":
+        chart = cfg.get("altair_chart")  # must be an Altair Chart object
+        if chart is not None:
+            st.altair_chart(chart, width=cfg.get("width"), height=cfg.get("height"), theme=cfg.get("theme"))
+
+    elif comp_type == "vega_lite_chart":
+        data = cfg.get("data")          # dataframe or list of dicts
+        spec = cfg.get("spec")          # Vega-Lite spec
+        if data is not None or spec is not None:
+            st.vega_lite_chart(data, spec=spec, width=cfg.get("width"), height=cfg.get("height"), theme=cfg.get("theme"))
+
+    elif comp_type == "graphviz_chart":
+        figure_or_dot = cfg.get("figure_or_dot")  # dot string or Graphviz figure
+        if figure_or_dot is not None:
+            st.graphviz_chart(figure_or_dot, width=cfg.get("width"), height=cfg.get("height"))
+
+    elif comp_type == "pydeck_chart":
+        deck = cfg.get("pydeck_obj")  # must be a pydeck.Deck object
+        if deck is not None:
+            st.pydeck_chart(deck, width=cfg.get("width"), height=cfg.get("height"))
+
+
 def render_component(json_component, workflow_state, columns_map=None):
     # resolve layout
     layout = json_component.get("layout")
@@ -93,10 +130,11 @@ def render_component(json_component, workflow_state, columns_map=None):
         current_streamlit_element = columns_map.get(col_idx, current_streamlit_element)
     
     # resolve current visualization element
-    types = json_component.get("type", "").split(".")
+    type = json_component.get("type", "")
+    if type in ["plotly_chart", "altair_chart", "vega_lite_chart", "pydeck_chart", "graphviz_chart"]:
+        render_advanced_chart(type, json_component, workflow_state)
     attribute = current_streamlit_element
-    for type in types:
-        attribute = getattr(attribute, type)
+    attribute = getattr(attribute, type)
 
     # extract and validate data references
     resolved_data = resolve_data(json_component, workflow_state)
@@ -115,7 +153,11 @@ def render_component(json_component, workflow_state, columns_map=None):
 
     def call_attribute():
         try:
-            return attribute(*resolved_data, **resolved_config)
+            if json_component["type"] in ["markdown", "caption"]:
+                # For markdown/caption, only pass the config body
+                return attribute(resolved_config.get("body", ""))
+            else:
+                return attribute(*resolved_data, **resolved_config)
         except TypeError:
             # fallback: try only first positional argument
             if resolved_data:
@@ -153,10 +195,12 @@ def json_to_streamlit(workflow, data_sources: dict[str, pd.DataFrame] = None):
     )
     columns_map = {i: col for i, col in enumerate(st.columns(max_col_idx + 1))} if max_col_idx >= 0 else {}
 
+    print("Choosing the best components to render ...")
     # render each component
     for comp in workflow.get("components", []):
         render_component(comp, workflow_state, columns_map)
 
+    print("Visualization elements JSON successfully created!")
     return workflow_state
 
 
