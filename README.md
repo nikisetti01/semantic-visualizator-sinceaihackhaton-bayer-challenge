@@ -1,71 +1,113 @@
-# hse-mining-frontend
+# 🚀 Bayer Hackathon — Insight Extraction & Auto-Visualization RAG
 
-## Installation for local development
+This project implements a full **Insight Extraction + Visualization Pipeline** designed for the Bayer Hackathon.  
+Given:
+- a **user prompt**, and  
+- a **dataset retrieved by a RAG system**,  
 
-1. (Optional, but highly recommended) Initiate a new virtual env e.g.: `conda create -n hse python=3.13`
+the system automatically produces:
 
-2. Install the project and all dependencies by `pip install -e .`
+- a **semantic intent JSON**
+- enriched **categories** and semantic expansions
+- embedding-based **categorical assignment**
+- **SQL analytics** based on the user's prompt
+- **visualization recommendations**
+- a fully dynamic **Streamlit dashboard**
 
-3. Assume the correct aws role using `aws-sso`.
+Everything runs **end-to-end** with a single pipeline.
 
-4. To run the Streamlit app, use the following command in your terminal:
-`streamlit run hse-mining-frontend/frontend.py` This will start a local server, and you can access
-the frontend by navigating to http://localhost:8501 in your web browser.
+---
 
-## Installation for local developement (docker)
+# 🧩 System Pipeline Overview
 
-The recommended practice is to use the provided scripts:
+![Pipeline Structure](pipeline.png)
 
-1. Run `utils/build.sh`
-2. Run `utils/run.sh`
+The architecture is built around **three core modules**, all cooperating to turn natural language into structured analytics and visual insights.
 
-The scripts will ensure the active aws role (assumed via aws-sso as explained above) will get passed
-properly inside the running container. In addition, see remark in the Environment section about
-handling the `AWS_DEFAULT_REGION` flag properly in context of local Docker runtimes.
+---
 
-## Project structure
+# 1️⃣ Insight Extraction Module  
+**Location:** `insight_extraction/`
 
-The main project can be found under `hse-mining-frontend` and is organized under a set of distinct 
-modules as follows:
+This module interprets the user question and structurally organizes the dataset for downstream analysis.
 
-* `frontend.py` contains the main wireframe for UI and serves as the starting point of the app
-* `components.py` extends the frontend and is home to the largest main UI components and their behavior
-* `awsconnection.py` contains means to communicate with the chosen backend system for the RAG 
-application - in this case, AWS Athena
-* `interactions.py` is intended to store all the functionalities where interaction with LLM API is
-required
-* `transformations.py` contains means for in-place data processing, before/between/after actual calls
-to LLM or the backend
-* `filters.py` contains static metadata which can be used for filtering the initial resultset of
-the RAG
+### ✔ Semantic Intent
+Transforms the natural-language prompt into a structured JSON containing:
+- requested metrics  
+- grouping dimensions  
+- filters  
+- semantic categories  
+- logical operations  
 
-## Environment
+This provides a clean, machine-readable blueprint for analytics generation.
 
-`python-dotenv` is used for environment variable management during local development. Configure
-your `.env` file e.g. as follows:
+### ✔ Semantic Category Expansion
+For each category belonging to a dimension, the system expands it using an LLM:
+- textual description  
+- synonyms  
+- example sentences  
 
-```
-LLM_TOKEN=<Generate a personal or machine CWID token according to MGA documentation>
-QUERY_ASSISTANT_ID=<Redacted from external access>
-ANALYSIS_ASSISTANT_ID=<Redacted from external access>
-DATABASE=<Redacted from external access>
-WORKGROUP=<Redacted from external access>
-S3_OUTPUT=<Redacted from external access>
-DATA_SOURCE=<Redacted from external access>
-AWS_DEFAULT_REGION=<Redacted from external access>
-ATHENA_ACCESS_KEY=<Your access key to Athena> # Optional - intended primarily to use in production deployments
-ATHENA_SECRET_ACCESS_KEY=<Your secret access key to Athena> # Optional - intended primarily to use in production deployments
-```
+These enrichments make semantic matching far more robust.
 
-`AWS_DEFAULT_REGION` is normally parsed automatically from your local AWS runtime, but there's a known
-issue where the region information is not correctly passed to container when running under Docker.
-This can be fixed by explicitly setting this `.env` variable and running the container with the
-provided utility script in `utils/run.sh`, which uses the `--env-file` flag to override the values
-provided at image build time.
+### ✔ Embedding-Based Category Assignment
+We embed:
+- dataset rows  
+- expanded category descriptions  
 
-## LLM Tokens
+Using cosine similarity, each row is assigned to the closest semantic category.
 
-Tokens can be personal tokens, or they can be tied to a Machine CWID. Visit the respective documentation for instructions:
+The result is a **new categorical dataset** ready for analytics.
 
-- <Redacted from external access>
-- <Redacted from external access>
+### ✔ SQL Generator (Labelled SQL Blocks)
+Using the enriched dataset, the module generates SQL queries in a consistent, parser-friendly format
+
+
+Key guarantees:
+- multiple, coherent insight queries  
+- deterministic structure (`-- HEADER` labels)  
+- full compatibility with our SQL executor  
+- ready for visualization  
+
+---
+
+# 2️⃣ Visualization Recommender  
+**Location:** `visualization_recommender/`
+
+Given:
+- SQL-generated analytics DataFrames  
+- the original user prompt  
+
+the module selects the **best possible charts** to communicate insights:
+- trends → line charts  
+- category comparisons → bar charts  
+- distributions → histograms  
+- proportions → pie charts  
+- anomalies → scatter/line hybrid  
+
+It outputs a file:
+
+recs.txt
+
+containing high-level visualization instructions.
+
+---
+
+# 3️⃣ Streamlit Auto-Dashboard  
+**Location:** `app/`
+
+A fully dynamic **Streamlit frontend** turns insights + recommendations into a live dashboard.
+
+The app automatically:
+- loads all analytic DataFrames (DF_1, DF_2, …)
+- reads `recs.txt`
+- renders each recommended chart
+- supports multiple sections and layouts
+- produces a polished analytical UI
+
+Run it with:
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+▶️ Running the Full Pipeline
+

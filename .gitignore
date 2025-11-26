@@ -3,3 +3,7 @@ __pycache__
 .xlsx
 _init__.py
 output/
+datasets/
+chart_recommendations/
+.vscode/
+initial_prompts.txt
