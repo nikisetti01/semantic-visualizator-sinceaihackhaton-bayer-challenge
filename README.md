@@ -2,7 +2,7 @@
 
 This project implements a full **Insight Extraction + Visualization Pipeline** designed for the Bayer Hackathon.  
 Given:
-- a **user prompt**, and  
+- a **user prompt**
 - a **dataset retrieved by a RAG system**,  
 
 the system automatically produces:
