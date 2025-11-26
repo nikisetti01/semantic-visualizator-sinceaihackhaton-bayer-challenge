@@ -24,6 +24,8 @@ SAFE_STREAMLIT_COMPONENTS = {
     "area_chart": ["data", "width", "height", "x", "y", "x_label", "y_label", "color"],
     "scatter_chart": ["data", "width", "height", "x", "y", "x_label", "y_label", "color", "size"],
     "map": ["data", "zoom", "color", "size"],
+
+    # Advanced charts
     "plotly_chart": ["figure_or_data ", "config", "width", "theme"],
     "altair_chart": ["altair_chart", "width", "height", "theme"],
     "vega_lite_chart": ["data", "spec", "width", "height", "theme"],

@@ -81,9 +81,8 @@ if run_button:
         st.subheader("Dataset preview")
         st.dataframe(df.head())
 
-        st.success("Data loaded! Now go to the **Charts** page from the sidebar.")
+        st.success("Data loaded! Wait for data visualization.")
 
-        # TODO: Call your model (replace the function above with your real logic)
         with st.spinner("Generating chart recommendations..."):
             recommendation_text = get_chart_recommendations(user_query, df)
 

@@ -1,6 +1,5 @@
 import json
 import os
-from typing import Dict
 from from_text_to_streamlit_app.available_streamlit_components import SAFE_STREAMLIT_COMPONENTS
 from from_text_to_streamlit_app.utils import *
 
