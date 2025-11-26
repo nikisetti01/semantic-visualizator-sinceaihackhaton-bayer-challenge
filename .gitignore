@@ -1,6 +1,7 @@
 .env
 __pycache__
 .xlsx
+.png
 _init__.py
 output/
 datasets/
