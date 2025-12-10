@@ -1,6 +1,7 @@
-# 🚀 Bayer Hackathon — Insight Extraction & Auto-Visualization RAG
+# 🚀 Insight Extraction & Auto-Visualization RAG Tool
 
-This project implements a full **Insight Extraction + Visualization Pipeline** designed for the Bayer Hackathon.  
+This project implements a full **Insight Extraction + Visualization Pipeline** designed for the Bayer Oy challenge, on the occasion of the SinceAI Hackathon in Turku, Finland.  
+
 Given:
 - a **user prompt**
 - a **dataset retrieved by a RAG system**,  
@@ -71,7 +72,7 @@ Key guarantees:
 ---
 
 # 2️⃣ Visualization Recommender  
-**Location:** `visualization_recommender/`
+**Location:** `viz_recommender/`
 
 Given:
 - SQL-generated analytics DataFrames  
@@ -93,17 +94,26 @@ containing high-level visualization instructions.
 ---
 
 # 3️⃣ Streamlit Auto-Dashboard  
-**Location:** `app/`
+**Location:** `from_text_to_streamlit_app/`
 
 A fully dynamic **Streamlit frontend** turns insights + recommendations into a live dashboard.
+Instead of writing Streamlit code manually, the UI is created dynamically from an LLM-generated JSON workflow.
+The JSON produced by the LLM specifies:
+- UI layout (main, sidebar, columns, expanders)
+- components (markdown, bar_chart, line_chart, caption, etc.)
+- data inputs (referencing DataFrames)
+- configuration (x/y encoding, labels, width/height, colors)
+- dependencies and output chaining
+The Streamlit renderer interprets each JSON block and dynamically calls the correct Streamlit element.
 
-The app automatically:
+With a single command, the system:
 - loads all analytic DataFrames (DF_1, DF_2, …)
 - reads `recs.txt`
 - renders each recommended chart
 - supports multiple sections and layouts
 - produces a polished analytical UI
 
+# Final App
 Run it with:
 
 ```bash
