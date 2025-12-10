@@ -119,5 +119,10 @@ Run it with:
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
-▶️ Running the Full Pipeline
+```
 
+# Team Members
+- [Martina Fabiani](https://www.linkedin.com/in/martina-fabiani/) | fabiani.martina@icloud.com
+- [Alessio Franchini](https://www.linkedin.com/in/alessio-franchini/) | alefranchini01@gmail.com
+- [Christian Petruzzella](https://www.linkedin.com/in/christian-petruzzella) | christian.petruzzella@outlook.com
+- [Niccolò Settimelli](https://www.linkedin.com/in/niccolo-settimelli/) | niccolosettimelli@gmail.com
