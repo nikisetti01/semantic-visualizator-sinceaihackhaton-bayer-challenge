@@ -113,15 +113,24 @@ With a single command, the system:
 - supports multiple sections and layouts
 - produces a polished analytical UI
 
-# Final App
-Run it with:
+# 🚀 Final App
+
+Install the required dependencies and run the Streamlit application:
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
+▶️ Running the Full Pipeline
 ```
 
-# Team Members
+# 🔑 API Key Required
+
+This project uses the **OpenAI GPT API.** <br>
+Before running the app, make sure that the environment variable OPENAI_API_KEY is properly set on your system.
+
+⚠️ The application will not work without a valid API key. Do not share your key or commit it to version control.
+
+# 👥 Team Members
 - [Martina Fabiani](https://www.linkedin.com/in/martina-fabiani/) | fabiani.martina@icloud.com
 - [Alessio Franchini](https://www.linkedin.com/in/alessio-franchini/) | alefranchini01@gmail.com
 - [Christian Petruzzella](https://www.linkedin.com/in/christian-petruzzella) | christian.petruzzella@outlook.com
