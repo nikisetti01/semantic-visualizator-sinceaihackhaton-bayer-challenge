@@ -128,7 +128,6 @@ Install the required dependencies and run the Streamlit application:
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
-▶️ Running the Full Pipeline
 ```
 
 # 🔑 API Key Required
