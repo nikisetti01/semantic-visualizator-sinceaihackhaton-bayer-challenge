@@ -17,6 +17,14 @@ the system automatically produces:
 
 Everything runs **end-to-end** with a single pipeline.
 
+--- 
+
+# 🎥 Demo Video
+
+Click below to watch the demo:
+
+[▶️ Watch the video](./video_demo.mp4)
+
 ---
 
 # 🧩 System Pipeline Overview
