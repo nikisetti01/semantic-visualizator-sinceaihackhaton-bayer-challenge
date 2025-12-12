@@ -79,7 +79,7 @@ Key guarantees:
 
 ---
 
-# 2️⃣ Visualization Recommender  
+# 2️⃣ Generate Chart Recommendations  
 **Location:** `viz_recommender/`
 
 Given:
